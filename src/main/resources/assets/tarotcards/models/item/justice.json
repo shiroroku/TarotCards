@@ -1,0 +1,6 @@
+{
+    "parent": "tarotcards:item/tarot",
+    "textures": {
+        "layer0": "tarotcards:items/cards/justice"
+    }
+}
