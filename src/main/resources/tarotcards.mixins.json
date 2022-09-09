@@ -1,10 +1,12 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "shiroroku.tarotcards.mixin",
+  "package": "shiroroku.tarotcards.Mixin",
   "compatibilityLevel": "JAVA_8",
   "refmap": "tarotcards.refmap.json",
   "mixins": [
+    "FoodDataMixin",
+    "ItemStackMixin"
   ],
   "client": [
   ],
