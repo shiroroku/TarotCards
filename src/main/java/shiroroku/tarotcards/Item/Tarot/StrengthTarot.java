@@ -10,6 +10,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.fml.LogicalSide;
+import shiroroku.tarotcards.Configuration;
 import shiroroku.tarotcards.Registry.ItemRegistry;
 
 import javax.annotation.Nullable;
@@ -17,12 +18,11 @@ import java.util.List;
 
 public class StrengthTarot extends TarotItem {
 
-	private static final int amplifier = 1;
 
 	public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
 		if (event.player.tickCount % 20 == 0 && event.side == LogicalSide.SERVER) {
 			if (hasTarot(event.player, ItemRegistry.strength.get())) {
-				event.player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 20, amplifier, true, false));
+				event.player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 20, Configuration.strength_amplifier.get(), true, false));
 			}
 		}
 
@@ -30,6 +30,6 @@ public class StrengthTarot extends TarotItem {
 
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-		tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".desc", amplifier + 1).withStyle(ChatFormatting.BLUE));
+		tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".desc", Configuration.strength_amplifier.get() + 1).withStyle(ChatFormatting.BLUE));
 	}
 }

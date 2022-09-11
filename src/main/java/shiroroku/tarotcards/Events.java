@@ -30,7 +30,7 @@ public class Events {
 
 	@SubscribeEvent
 	public static void onPlayerPickupXpEvent(PlayerXpEvent.PickupXp event) {
-		HierophantTarot.handleOnPlayerPickupXp(event);
+		TheHierophantTarot.handleOnPlayerPickupXp(event);
 	}
 
 }

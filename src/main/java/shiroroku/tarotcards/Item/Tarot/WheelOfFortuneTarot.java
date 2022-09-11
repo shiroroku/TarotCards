@@ -10,6 +10,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.fml.LogicalSide;
+import shiroroku.tarotcards.Configuration;
 import shiroroku.tarotcards.Registry.ItemRegistry;
 
 import javax.annotation.Nullable;
@@ -18,8 +19,7 @@ import java.util.UUID;
 
 public class WheelOfFortuneTarot extends TarotItem {
 
-	private static final float boost = 3f;
-	private static final AttributeModifier luckBoost = new AttributeModifier(UUID.nameUUIDFromBytes("TarotWheelOfFortune".getBytes()).toString(), boost, AttributeModifier.Operation.ADDITION);
+	private static final AttributeModifier luckBoost = new AttributeModifier(UUID.nameUUIDFromBytes("TarotWheelOfFortune".getBytes()).toString(), Configuration.wheel_of_fortune_luckbonus.get(), AttributeModifier.Operation.ADDITION);
 
 	public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
 		if (event.player.tickCount % 20 == 0 && event.side == LogicalSide.SERVER) {
@@ -29,6 +29,6 @@ public class WheelOfFortuneTarot extends TarotItem {
 
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-		tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".desc", boost).withStyle(ChatFormatting.BLUE));
+		tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".desc", Configuration.wheel_of_fortune_luckbonus.get()).withStyle(ChatFormatting.BLUE));
 	}
 }

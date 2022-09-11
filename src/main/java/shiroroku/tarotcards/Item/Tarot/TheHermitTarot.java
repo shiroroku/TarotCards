@@ -15,8 +15,9 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.fml.LogicalSide;
-import shiroroku.tarotcards.TarotCards;
+import shiroroku.tarotcards.Configuration;
 import shiroroku.tarotcards.Registry.ItemRegistry;
+import shiroroku.tarotcards.TarotCards;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -24,9 +25,7 @@ import java.util.UUID;
 
 public class TheHermitTarot extends TarotItem {
 
-	public static final float armor = 10f;
-	public static final float range = 10f;
-	private static final AttributeModifier armorBoost = new AttributeModifier(UUID.nameUUIDFromBytes("TarotHermit".getBytes()).toString(), armor, AttributeModifier.Operation.ADDITION);
+	private static final AttributeModifier armorBoost = new AttributeModifier(UUID.nameUUIDFromBytes("TarotHermit".getBytes()).toString(), Configuration.the_hermit_armorbonus.get(), AttributeModifier.Operation.ADDITION);
 
 	public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
 		if (event.player.tickCount % 20 == 0 && event.side == LogicalSide.SERVER) {
@@ -50,7 +49,7 @@ public class TheHermitTarot extends TarotItem {
 	}
 
 	private static boolean hasNearbyAllies(Player player) {
-		List<LivingEntity> entities = player.level.getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, player, player.getBoundingBox().inflate(TheHermitTarot.range));
+		List<LivingEntity> entities = player.level.getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, player, player.getBoundingBox().inflate(Configuration.the_hermit_allyrange.get()));
 		for (LivingEntity e : entities) {
 			if (e.isAlliedTo(player)) {
 				return true;
@@ -61,7 +60,7 @@ public class TheHermitTarot extends TarotItem {
 
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-		tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".desc", armor).withStyle(ChatFormatting.BLUE));
+		tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".desc", Configuration.the_hermit_armorbonus.get()).withStyle(ChatFormatting.BLUE));
 	}
 
 }
