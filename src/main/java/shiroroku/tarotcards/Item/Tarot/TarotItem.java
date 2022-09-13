@@ -37,41 +37,40 @@ public class TarotItem extends Item {
 		if (player == null) {
 			return false;
 		}
+
+		ItemStack deck = null;
+		if (ModList.get().isLoaded("curios")) {
+			deck = CuriosCompat.getTarotDeckCurio(player);
+		}
+
 		Inventory pInv = player.getInventory();
-		if (pInv.contains(new ItemStack(ItemRegistry.tarot_deck.get()))) {
-			ItemStack deck = null;
+		if (deck == null && pInv.contains(new ItemStack(ItemRegistry.tarot_deck.get()))) {
 			final List<NonNullList<ItemStack>> compartments = ImmutableList.of(pInv.items, pInv.armor, pInv.offhand);
 
-			if (ModList.get().isLoaded("curios")) {
-				deck = CuriosCompat.getTarotDeckCurio(player);
-			}
-
-			if (deck == null) {
-				foundDeck:
-				for (List<ItemStack> list : compartments) {
-					for (ItemStack itemstack : list) {
-						if (itemstack.getItem() == ItemRegistry.tarot_deck.get()) {
-							deck = itemstack;
-							break foundDeck;
-						}
+			foundDeck:
+			for (List<ItemStack> list : compartments) {
+				for (ItemStack itemstack : list) {
+					if (itemstack.getItem() == ItemRegistry.tarot_deck.get()) {
+						deck = itemstack;
+						break foundDeck;
 					}
 				}
 			}
+		}
 
-			if (deck != null) {
-				AtomicBoolean foundindeck = new AtomicBoolean(false);
-				deck.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
-					for (int i = 0; i < handler.getSlots(); i++) {
-						if (handler.getStackInSlot(i).is(tarot)) {
-							foundindeck.set(true);
-							break;
-						}
+		if (deck != null) {
+			AtomicBoolean foundindeck = new AtomicBoolean(false);
+			deck.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
+				for (int i = 0; i < handler.getSlots(); i++) {
+					if (handler.getStackInSlot(i).is(tarot)) {
+						foundindeck.set(true);
+						break;
 					}
-				});
-
-				if (foundindeck.get()) {
-					return true;
 				}
+			});
+
+			if (foundindeck.get()) {
+				return true;
 			}
 		}
 		return (pInv.contains(new ItemStack(tarot)));
