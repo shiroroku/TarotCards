@@ -14,9 +14,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.items.CapabilityItemHandler;
-import shiroroku.tarotcards.TarotCards;
+import shiroroku.tarotcards.CuriosCompat;
 import shiroroku.tarotcards.Registry.ItemRegistry;
+import shiroroku.tarotcards.TarotCards;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -32,7 +34,7 @@ public class TarotItem extends Item {
 	}
 
 	public static boolean hasTarot(Player player, Item tarot) {
-		if(player == null){
+		if (player == null) {
 			return false;
 		}
 		Inventory pInv = player.getInventory();
@@ -40,12 +42,18 @@ public class TarotItem extends Item {
 			ItemStack deck = null;
 			final List<NonNullList<ItemStack>> compartments = ImmutableList.of(pInv.items, pInv.armor, pInv.offhand);
 
-			foundDeck:
-			for (List<ItemStack> list : compartments) {
-				for (ItemStack itemstack : list) {
-					if (itemstack.getItem() == ItemRegistry.tarot_deck.get()) {
-						deck = itemstack;
-						break foundDeck;
+			if (ModList.get().isLoaded("curios")) {
+				deck = CuriosCompat.getTarotDeckCurio(player);
+			}
+
+			if (deck == null) {
+				foundDeck:
+				for (List<ItemStack> list : compartments) {
+					for (ItemStack itemstack : list) {
+						if (itemstack.getItem() == ItemRegistry.tarot_deck.get()) {
+							deck = itemstack;
+							break foundDeck;
+						}
 					}
 				}
 			}
@@ -60,6 +68,7 @@ public class TarotItem extends Item {
 						}
 					}
 				});
+
 				if (foundindeck.get()) {
 					return true;
 				}

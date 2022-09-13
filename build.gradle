@@ -107,6 +107,9 @@ repositories {
     maven {
         url = "https://maven.blamejared.com"
     }
+    maven {
+        url = "https://maven.theillusivec4.top/"
+    }
 }
 
 dependencies {
@@ -114,6 +117,9 @@ dependencies {
 
     compileOnly fg.deobf("mezz.jei:jei-1.18.2:9.5.5.+:api")
     runtimeOnly fg.deobf("mezz.jei:jei-1.18.2:9.5.5.+")
+
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18.2-5.0.7.1")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18.2-5.0.7.1:api")
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
