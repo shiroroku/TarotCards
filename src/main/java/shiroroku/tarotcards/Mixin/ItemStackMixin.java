@@ -16,14 +16,16 @@ import java.util.function.Consumer;
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin {
 
-	@Shadow public abstract Item getItem();
+	@Shadow
+	public abstract Item getItem();
 
-	@Shadow public abstract ItemStack copy();
+	@Shadow
+	public abstract ItemStack copy();
 
 	@Inject(at = @At("HEAD"), method = "hurtAndBreak", cancellable = true)
 	public <T extends LivingEntity> void hurtAndBreak(int amount, T entity, Consumer<T> consumer, CallbackInfo ci) {
-		if (!entity.level.isClientSide && (!(entity instanceof Player) || !((Player)entity).getAbilities().instabuild)) {
-			if(TheMagicianTarot.handleItemDamage(this.copy(), ((Player)entity))){
+		if (!entity.level.isClientSide && entity instanceof Player player) {
+			if (TheMagicianTarot.handleItemDamage(this.copy(), player)) {
 				ci.cancel();
 			}
 		}
