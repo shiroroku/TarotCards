@@ -1,4 +1,4 @@
-package shiroroku.tarotcards.Item.Tarot;
+package shiroroku.tarotcards.Item;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.ChatFormatting;
