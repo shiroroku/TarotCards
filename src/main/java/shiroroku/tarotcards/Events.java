@@ -25,6 +25,7 @@ public class Events {
 		StrengthTarot.handleOnPlayerTick(event);
 		TheEmperorTarot.handleOnPlayerTick(event);
 		TheHermitTarot.handleOnPlayerTick(event);
+		TheHighPriestessTarot.handleOnPlayerTick(event);
 		TheLoversTarot.handleOnPlayerTick(event);
 		TheStarTarot.handleOnPlayerTick(event);
 	}
