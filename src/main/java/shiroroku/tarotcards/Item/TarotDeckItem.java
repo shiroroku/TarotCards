@@ -39,7 +39,7 @@ public class TarotDeckItem extends Item implements MenuProvider {
 	private static final TagKey<Item> tarot = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(TarotCards.MODID, "tarot_cards"));
 
 	public TarotDeckItem() {
-		super(new Item.Properties().tab(TarotCards.CREATIVETAB).stacksTo(1).rarity(Rarity.UNCOMMON));
+		super(new Item.Properties().tab(TarotCards.CREATIVETAB).stacksTo(1).rarity(Rarity.UNCOMMON).fireResistant());
 	}
 
 	@Override
