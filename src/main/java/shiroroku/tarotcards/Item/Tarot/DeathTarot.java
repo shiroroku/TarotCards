@@ -36,4 +36,5 @@ public class DeathTarot extends TarotItem {
 	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
 		tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".desc", Configuration.death_damagebonus.get() * 100).withStyle(ChatFormatting.BLUE));
 	}
+
 }

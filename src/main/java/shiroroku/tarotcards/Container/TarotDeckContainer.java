@@ -13,6 +13,7 @@ import shiroroku.tarotcards.Registry.ContainerRegistry;
 import shiroroku.tarotcards.Registry.ItemRegistry;
 
 public class TarotDeckContainer extends AbstractContainerMenu {
+
 	ItemStack deck;
 
 	public TarotDeckContainer(int id, Inventory playerInventory, Player player) {
@@ -31,7 +32,6 @@ public class TarotDeckContainer extends AbstractContainerMenu {
 						slotIndex++;
 					}
 				}
-
 			});
 		}
 
@@ -74,7 +74,6 @@ public class TarotDeckContainer extends AbstractContainerMenu {
 				slot.setChanged();
 			}
 		}
-
 		return itemstack;
 	}
 
@@ -82,4 +81,5 @@ public class TarotDeckContainer extends AbstractContainerMenu {
 	public boolean stillValid(Player player) {
 		return !player.isRemoved() && (player.getMainHandItem() == deck || player.getOffhandItem() == deck);
 	}
+
 }

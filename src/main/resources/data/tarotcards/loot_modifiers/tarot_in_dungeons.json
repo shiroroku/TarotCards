@@ -13,6 +13,7 @@
 		"tarotcards:strength",
 		"tarotcards:temperance",
 		"tarotcards:the_chariot",
+		"tarotcards:the_devil",
 		"tarotcards:the_emperor",
 		"tarotcards:the_empress",
 		"tarotcards:the_fool",
@@ -27,7 +28,6 @@
 		"tarotcards:the_sun",
 		"tarotcards:the_tower",
 		"tarotcards:the_world",
-		"tarotcards:wheel_of_fortune",
-		"tarotcards:the_devil"
+		"tarotcards:wheel_of_fortune"
 	]
 }

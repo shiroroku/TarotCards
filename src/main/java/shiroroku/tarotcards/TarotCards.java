@@ -23,7 +23,6 @@ public class TarotCards {
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Configuration.config);
 		ItemRegistry.ITEMS.register(bus);
 		ContainerRegistry.CONTAINERS.register(bus);
-
 	}
 
 	public static final CreativeModeTab CREATIVETAB = new CreativeModeTab(MODID) {

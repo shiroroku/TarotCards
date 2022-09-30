@@ -9,6 +9,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import shiroroku.tarotcards.Configuration;
 import shiroroku.tarotcards.Registry.ItemRegistry;
+import shiroroku.tarotcards.TarotCards;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -18,6 +19,9 @@ public class TemperanceTarot extends TarotItem {
 
 	public static float handleExhaustionAmount(float amount, Player player) {
 		if (hasTarot(player, ItemRegistry.temperance.get()) && amount != 0) {
+			TarotCards.LOGGER.debug("TAROT PASSIVE: {} - Reducing hunger", ItemRegistry.temperance.get());
+			TarotCards.LOGGER.debug("From : {} for [{}]", amount, player);
+			TarotCards.LOGGER.debug("To : {}", (float) (amount * (1f - Configuration.temperance_reduction.get())));
 			return (float) (amount * (1f - Configuration.temperance_reduction.get()));
 		}
 		return amount;

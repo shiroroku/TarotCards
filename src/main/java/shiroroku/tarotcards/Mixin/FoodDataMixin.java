@@ -30,4 +30,5 @@ public abstract class FoodDataMixin {
 	public void tick(Player player, CallbackInfo ci) {
 		this.player = player;
 	}
+
 }

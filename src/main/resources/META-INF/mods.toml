@@ -5,8 +5,9 @@ license = "MIT"
 [[mods]]
 modId = "tarotcards"
 version = "${file.jarVersion}"
-displayName = "Tarotcards"
+displayName = "Tarot Cards"
 authors = "shiroroku"
+displayURL = "https://www.curseforge.com/minecraft/mc-mods/tarot-cards"
 description = '''
 Adds the 22 Major Arcana Tarot Cards with unique passive bonuses
 '''

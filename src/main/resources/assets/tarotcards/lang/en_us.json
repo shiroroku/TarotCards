@@ -1,7 +1,5 @@
 {
     "itemGroup.tarotcards": "Tarot Cards",
-    "item.tarotcards.tarot_deck": "Tarot Deck",
-    "item.tarotcards.tarot_deck.desc": "Keeps your precious cards safe!",
     "item.tarotcards.death": "Tarot : Death",
     "item.tarotcards.death.desc": "Deal +%d%% more damage to living mobs.",
     "item.tarotcards.judgement": "Tarot : Judgement",
@@ -9,6 +7,8 @@
     "item.tarotcards.justice.desc": "Damage taken is dealt to the attacker in full.",
     "item.tarotcards.strength": "Tarot : Strength",
     "item.tarotcards.strength.desc": "Strength %d.",
+    "item.tarotcards.tarot_deck": "Tarot Deck",
+    "item.tarotcards.tarot_deck.desc": "Keeps your precious cards safe!",
     "item.tarotcards.temperance": "Tarot : Temperance",
     "item.tarotcards.temperance.desc": "%d%% Hunger reduction.",
     "item.tarotcards.the_chariot": "Tarot : The Chariot",
