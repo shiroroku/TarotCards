@@ -1,5 +1,6 @@
 package shiroroku.tarotcards;
 
+import com.mojang.blaze3d.audio.OggAudioStream;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 public class Configuration {
@@ -19,6 +20,7 @@ public class Configuration {
 	public static ForgeConfigSpec.IntValue the_lovers_regenamplifier;
 	public static ForgeConfigSpec.DoubleValue the_lovers_range;
 	public static ForgeConfigSpec.DoubleValue the_chariot_speedboost;
+	public static ForgeConfigSpec.DoubleValue the_star_reachboost;
 
 	static {
 		ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
@@ -37,6 +39,7 @@ public class Configuration {
 		the_lovers_regenamplifier = builder.comment("Amplifier for effect (1 = II)").defineInRange("the_lovers_regenamplifier", 2, 0, 20);
 		the_lovers_range = builder.comment("How close allies need to be to apply regeneration").defineInRange("the_lovers_range", 5D, 0.0D, 256D);
 		the_chariot_speedboost = builder.comment("Percentage increase of base speed (0.5 = +50%)").defineInRange("the_chariot_speedboost", 0.5D, 0.0D, 100D);
+		the_star_reachboost = builder.comment("Percentage increase of reach distance (0.5 = +50%)").defineInRange("the_star_reachboost", 0.5D, 0.0D, 100D);
 
 		builder.pop();
 

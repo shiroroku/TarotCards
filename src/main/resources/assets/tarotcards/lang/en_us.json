@@ -32,6 +32,7 @@
     "item.tarotcards.the_moon": "Tarot : The Moon",
     "item.tarotcards.the_moon.desc": "Night Vision.",
     "item.tarotcards.the_star": "Tarot : The Star",
+    "item.tarotcards.the_star.desc": "+%d%% Base reach distance.",
     "item.tarotcards.the_sun": "Tarot : The Sun",
     "item.tarotcards.the_sun.desc": "+%d%% Base health.",
     "item.tarotcards.the_tower": "Tarot : The Tower",

@@ -31,7 +31,7 @@ public class ItemRegistry {
 	public static final RegistryObject<Item> the_lovers = ITEMS.register("the_lovers", TheLoversTarot::new);
 	public static final RegistryObject<Item> the_magician = ITEMS.register("the_magician", TheMagicianTarot::new);
 	public static final RegistryObject<Item> the_moon = ITEMS.register("the_moon", TheMoonTarot::new);
-	public static final RegistryObject<Item> the_star = ITEMS.register("the_star", TarotItem::new);
+	public static final RegistryObject<Item> the_star = ITEMS.register("the_star", TheStarTarot::new);
 	public static final RegistryObject<Item> the_sun = ITEMS.register("the_sun", TheSunTarot::new);
 	public static final RegistryObject<Item> the_tower = ITEMS.register("the_tower", TheTowerTarot::new);
 	public static final RegistryObject<Item> the_world = ITEMS.register("the_world", TheWorldTarot::new);
