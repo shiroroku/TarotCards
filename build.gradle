@@ -15,7 +15,7 @@ plugins {
 apply plugin: 'org.spongepowered.mixin'
 
 group = 'shiroroku'
-version = '0.75'
+version = '0.8'
 
 java {
     archivesBaseName = 'tarotcards'
