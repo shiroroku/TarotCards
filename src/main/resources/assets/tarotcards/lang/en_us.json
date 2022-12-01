@@ -3,6 +3,7 @@
     "item.tarotcards.death": "Tarot : Death",
     "item.tarotcards.death.desc": "Deal +%d%% more damage to living mobs.",
     "item.tarotcards.judgement": "Tarot : Judgement",
+    "item.tarotcards.judgement.desc": "%d%% Chance to deal double damage.",
     "item.tarotcards.justice": "Tarot : Justice",
     "item.tarotcards.justice.desc": "Damage taken is dealt to the attacker in full.",
     "item.tarotcards.strength": "Tarot : Strength",

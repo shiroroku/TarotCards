@@ -1,6 +1,7 @@
 package shiroroku.tarotcards;
 
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerXpEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -14,6 +15,11 @@ public class Events {
 		TheDevilTarot.handleOnHurt(event);
 		DeathTarot.handleOnHurt(event);
 		TheTowerTarot.handleOnHurt(event);
+	}
+
+	@SubscribeEvent
+	public static void onLivingDamage(LivingDamageEvent event){
+		JudgementTarot.handleOnDamage(event);
 	}
 
 	@SubscribeEvent

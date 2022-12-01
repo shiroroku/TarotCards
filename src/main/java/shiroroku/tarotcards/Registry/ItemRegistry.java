@@ -16,7 +16,7 @@ public class ItemRegistry {
 	public static final RegistryObject<Item> tarot_deck = ITEMS.register("tarot_deck", TarotDeckItem::new);
 
 	public static final RegistryObject<Item> death = ITEMS.register("death", DeathTarot::new);
-	public static final RegistryObject<Item> judgement = ITEMS.register("judgement", TarotItem::new);
+	public static final RegistryObject<Item> judgement = ITEMS.register("judgement", JudgementTarot::new);
 	public static final RegistryObject<Item> justice = ITEMS.register("justice", JusticeTarot::new);
 	public static final RegistryObject<Item> strength = ITEMS.register("strength", StrengthTarot::new);
 	public static final RegistryObject<Item> temperance = ITEMS.register("temperance", TemperanceTarot::new);
