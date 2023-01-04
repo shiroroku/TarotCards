@@ -2,7 +2,6 @@ package shiroroku.tarotcards.Item.Tarot;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -26,10 +25,13 @@ import java.util.UUID;
 
 public class TheHermitTarot extends TarotItem {
 
-	private static final AttributeModifier armorBoost = new AttributeModifier(UUID.nameUUIDFromBytes("TarotHermit".getBytes()).toString(), Configuration.the_hermit_armorbonus.get(), AttributeModifier.Operation.ADDITION);
+	private static AttributeModifier armorBoost = null;
 
 	public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
 		if (event.player.tickCount % 20 == 0 && event.side == LogicalSide.SERVER) {
+			if (armorBoost == null) {
+				armorBoost = new AttributeModifier(UUID.nameUUIDFromBytes("TarotHermit".getBytes()).toString(), Configuration.the_hermit_armorbonus.get(), AttributeModifier.Operation.ADDITION);
+			}
 			handleAttribute(event.player, Attributes.ARMOR, armorBoost, ItemRegistry.the_hermit.get());
 		}
 	}
@@ -61,7 +63,7 @@ public class TheHermitTarot extends TarotItem {
 
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-		tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".desc", Configuration.the_hermit_armorbonus.get()).withStyle(ChatFormatting.BLUE));
+		tooltip.add(Component.translatable(this.getDescriptionId() + ".desc", Configuration.the_hermit_armorbonus.get()).withStyle(ChatFormatting.BLUE));
 	}
 
 }

@@ -2,7 +2,6 @@ package shiroroku.tarotcards.Item.Tarot;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
@@ -20,16 +19,20 @@ import java.util.UUID;
 
 public class TheChariotTarot extends TarotItem {
 
-	private static final AttributeModifier speedBoost = new AttributeModifier(UUID.nameUUIDFromBytes("TarotChariot".getBytes()).toString(), Configuration.the_chariot_speedboost.get(), AttributeModifier.Operation.MULTIPLY_BASE);
+	private static final String uuid = UUID.nameUUIDFromBytes("TarotChariot".getBytes()).toString();
+	private static AttributeModifier speedBoost = null;
 
 	public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
 		if (event.player.tickCount % 20 == 0 && event.side == LogicalSide.SERVER) {
+			if (speedBoost == null) {
+				speedBoost = new AttributeModifier(uuid, Configuration.the_chariot_speedboost.get(), AttributeModifier.Operation.MULTIPLY_BASE);
+			}
 			handleAttribute(event.player, Attributes.MOVEMENT_SPEED, speedBoost, ItemRegistry.the_chariot.get());
 		}
 	}
 
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-		tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".desc", Configuration.the_chariot_speedboost.get() * 100).withStyle(ChatFormatting.BLUE));
+		tooltip.add(Component.translatable(this.getDescriptionId() + ".desc", Configuration.the_chariot_speedboost.get() * 100).withStyle(ChatFormatting.BLUE));
 	}
 }

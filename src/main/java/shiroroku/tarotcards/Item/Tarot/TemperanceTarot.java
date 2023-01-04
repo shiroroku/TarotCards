@@ -2,7 +2,6 @@ package shiroroku.tarotcards.Item.Tarot;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -30,7 +29,7 @@ public class TemperanceTarot extends TarotItem {
 
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-		tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".desc", Configuration.temperance_reduction.get() * 100 + "").withStyle(ChatFormatting.BLUE));
+		tooltip.add(Component.translatable(this.getDescriptionId() + ".desc", Configuration.temperance_reduction.get() * 100 + "").withStyle(ChatFormatting.BLUE));
 	}
 
 }

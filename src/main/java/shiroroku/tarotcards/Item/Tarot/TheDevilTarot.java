@@ -16,8 +16,8 @@ public class TheDevilTarot extends TarotItem {
 			if (hasTarot(player, ItemRegistry.the_devil.get())) {
 				TarotCards.LOGGER.debug("TAROT PASSIVE: {} - Inflict weakness", ItemRegistry.the_devil.get());
 				TarotCards.LOGGER.debug("From : {}", player);
-				TarotCards.LOGGER.debug("To : {}", event.getEntityLiving());
-				event.getEntityLiving().addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 60, Configuration.the_devil_weaknessamplifier.get()));
+				TarotCards.LOGGER.debug("To : {}", event.getEntity());
+				event.getEntity().addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 60, Configuration.the_devil_weaknessamplifier.get()));
 			}
 		}
 	}

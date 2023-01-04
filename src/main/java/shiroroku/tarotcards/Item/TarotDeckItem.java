@@ -5,7 +5,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
@@ -21,10 +20,10 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.network.NetworkHooks;
@@ -45,7 +44,7 @@ public class TarotDeckItem extends Item implements MenuProvider {
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
 		if (player instanceof ServerPlayer serverPlayer) {
-			NetworkHooks.openGui(serverPlayer, this);
+			NetworkHooks.openScreen(serverPlayer, this);
 
 		}
 		return super.use(world, player, hand);
@@ -64,7 +63,7 @@ public class TarotDeckItem extends Item implements MenuProvider {
 			@Nonnull
 			@Override
 			public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-				return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.orEmpty(cap, handler);
+				return ForgeCapabilities.ITEM_HANDLER.orEmpty(cap, handler);
 			}
 
 			@Override
@@ -111,6 +110,6 @@ public class TarotDeckItem extends Item implements MenuProvider {
 
 	@Override
 	public void appendHoverText(ItemStack stack, @javax.annotation.Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-		tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".desc").withStyle(ChatFormatting.GRAY));
+		tooltip.add(Component.translatable(this.getDescriptionId() + ".desc").withStyle(ChatFormatting.GRAY));
 	}
 }

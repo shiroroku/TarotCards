@@ -10,6 +10,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import shiroroku.tarotcards.Registry.ContainerRegistry;
+import shiroroku.tarotcards.Registry.GlobalLootModifierRegistry;
 import shiroroku.tarotcards.Registry.ItemRegistry;
 
 @Mod(TarotCards.MODID)
@@ -23,6 +24,7 @@ public class TarotCards {
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Configuration.config);
 		ItemRegistry.ITEMS.register(bus);
 		ContainerRegistry.CONTAINERS.register(bus);
+		GlobalLootModifierRegistry.MODIFIERS.register(bus);
 	}
 
 	public static final CreativeModeTab CREATIVETAB = new CreativeModeTab(MODID) {

@@ -2,7 +2,6 @@ package shiroroku.tarotcards.Item.Tarot;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
@@ -20,16 +19,20 @@ import java.util.UUID;
 
 public class TheSunTarot extends TarotItem {
 
-	private static final AttributeModifier healthBoost = new AttributeModifier(UUID.nameUUIDFromBytes("TarotSun".getBytes()).toString(), Configuration.the_sun_healthboost.get(), AttributeModifier.Operation.MULTIPLY_BASE);
+	private static final String uuid = UUID.nameUUIDFromBytes("TarotSun".getBytes()).toString();
+	private static AttributeModifier healthBoost = null;
 
 	public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
 		if (event.player.tickCount % 20 == 0 && event.side == LogicalSide.SERVER) {
+			if(healthBoost == null){
+				healthBoost = new AttributeModifier(uuid, Configuration.the_sun_healthboost.get(), AttributeModifier.Operation.MULTIPLY_BASE);
+			}
 			handleAttribute(event.player, Attributes.MAX_HEALTH, healthBoost, ItemRegistry.the_sun.get());
 		}
 	}
 
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-		tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".desc", Configuration.the_sun_healthboost.get() * 100).withStyle(ChatFormatting.BLUE));
+		tooltip.add(Component.translatable(this.getDescriptionId() + ".desc", Configuration.the_sun_healthboost.get() * 100).withStyle(ChatFormatting.BLUE));
 	}
 }

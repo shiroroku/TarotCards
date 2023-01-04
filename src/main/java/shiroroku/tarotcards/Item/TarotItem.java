@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Inventory;
@@ -14,8 +13,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.items.CapabilityItemHandler;
 import shiroroku.tarotcards.CuriosCompat;
 import shiroroku.tarotcards.Registry.ItemRegistry;
 import shiroroku.tarotcards.TarotCards;
@@ -63,7 +62,7 @@ public class TarotItem extends Item {
 
 		if (deck != null) {
 			AtomicBoolean foundindeck = new AtomicBoolean(false);
-			deck.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
+			deck.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
 				for (int i = 0; i < handler.getSlots(); i++) {
 					if (handler.getStackInSlot(i).is(tarot)) {
 						foundindeck.set(true);
@@ -99,7 +98,7 @@ public class TarotItem extends Item {
 
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-		tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".desc").withStyle(ChatFormatting.BLUE));
+		tooltip.add(Component.translatable(this.getDescriptionId() + ".desc").withStyle(ChatFormatting.BLUE));
 	}
 
 }

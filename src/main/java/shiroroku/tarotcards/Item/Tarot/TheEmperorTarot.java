@@ -2,7 +2,6 @@ package shiroroku.tarotcards.Item.Tarot;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.ItemStack;
@@ -30,7 +29,7 @@ public class TheEmperorTarot extends TarotItem {
 
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-		tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".desc", Configuration.the_emperpor_heroofvillagebonus.get() + 1).withStyle(ChatFormatting.BLUE));
+		tooltip.add(Component.translatable(this.getDescriptionId() + ".desc", Configuration.the_emperpor_heroofvillagebonus.get() + 1).withStyle(ChatFormatting.BLUE));
 	}
 }
 

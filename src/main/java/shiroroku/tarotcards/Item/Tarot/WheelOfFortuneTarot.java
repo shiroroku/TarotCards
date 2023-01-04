@@ -2,7 +2,6 @@ package shiroroku.tarotcards.Item.Tarot;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
@@ -20,16 +19,20 @@ import java.util.UUID;
 
 public class WheelOfFortuneTarot extends TarotItem {
 
-	private static final AttributeModifier luckBoost = new AttributeModifier(UUID.nameUUIDFromBytes("TarotWheelOfFortune".getBytes()).toString(), Configuration.wheel_of_fortune_luckbonus.get(), AttributeModifier.Operation.ADDITION);
+	private static final String uuid = UUID.nameUUIDFromBytes("TarotWheelOfFortune".getBytes()).toString();
+	private static AttributeModifier luckBoost = null;
 
 	public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
 		if (event.player.tickCount % 20 == 0 && event.side == LogicalSide.SERVER) {
+			if (luckBoost == null) {
+				luckBoost = new AttributeModifier(uuid, Configuration.wheel_of_fortune_luckbonus.get(), AttributeModifier.Operation.ADDITION);
+			}
 			handleAttribute(event.player, Attributes.ARMOR, luckBoost, ItemRegistry.wheel_of_fortune.get());
 		}
 	}
 
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-		tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".desc", Configuration.wheel_of_fortune_luckbonus.get()).withStyle(ChatFormatting.BLUE));
+		tooltip.add(Component.translatable(this.getDescriptionId() + ".desc", Configuration.wheel_of_fortune_luckbonus.get()).withStyle(ChatFormatting.BLUE));
 	}
 }

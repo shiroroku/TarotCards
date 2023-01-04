@@ -27,7 +27,7 @@ java {
 }
 
 minecraft {
-    mappings channel: 'parchment', version: '1.18.2-2022.09.04-1.18.2'
+    mappings channel: 'parchment', version: '1.19.2-2022.11.27-1.19.2'
 
     runs {
         client {
@@ -117,13 +117,13 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.18.2-40.1.76'
+    minecraft 'net.minecraftforge:forge:1.19.2-43.2.0'
 
-    compileOnly fg.deobf("mezz.jei:jei-1.18.2:9.5.5.+:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-1.18.2:9.5.5.+")
+    compileOnly fg.deobf("mezz.jei:jei-1.19.2-common-api:11.5.0.+")
+    runtimeOnly fg.deobf("mezz.jei:jei-1.19.2-forge-api:11.5.0.+")
 
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18.2-5.0.7.1")
-    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18.2-5.0.7.1:api")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.2-5.1.1.0")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.2-5.1.1.0:api")
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
