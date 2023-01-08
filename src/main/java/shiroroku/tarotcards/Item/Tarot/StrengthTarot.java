@@ -8,7 +8,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.fml.LogicalSide;
 import shiroroku.tarotcards.Configuration;
 import shiroroku.tarotcards.Item.TarotItem;
 import shiroroku.tarotcards.Registry.ItemRegistry;
@@ -19,12 +18,9 @@ import java.util.List;
 public class StrengthTarot extends TarotItem {
 
 	public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
-		if (event.player.tickCount % 20 == 0 && event.side == LogicalSide.SERVER) {
-			if (hasTarot(event.player, ItemRegistry.strength.get())) {
-				event.player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 20, Configuration.strength_amplifier.get(), true, false));
-			}
+		if (hasTarot(event.player, ItemRegistry.strength.get())) {
+			event.player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, Configuration.tick_rate.get(), Configuration.strength_amplifier.get(), true, false));
 		}
-
 	}
 
 	@Override

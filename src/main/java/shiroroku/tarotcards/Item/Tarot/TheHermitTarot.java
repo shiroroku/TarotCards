@@ -13,7 +13,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.fml.LogicalSide;
 import shiroroku.tarotcards.Configuration;
 import shiroroku.tarotcards.Item.TarotItem;
 import shiroroku.tarotcards.Registry.ItemRegistry;
@@ -28,12 +27,10 @@ public class TheHermitTarot extends TarotItem {
 	private static AttributeModifier armorBoost = null;
 
 	public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
-		if (event.player.tickCount % 20 == 0 && event.side == LogicalSide.SERVER) {
-			if (armorBoost == null) {
-				armorBoost = new AttributeModifier(UUID.nameUUIDFromBytes("TarotHermit".getBytes()).toString(), Configuration.the_hermit_armorbonus.get(), AttributeModifier.Operation.ADDITION);
-			}
-			handleAttribute(event.player, Attributes.ARMOR, armorBoost, ItemRegistry.the_hermit.get());
+		if (armorBoost == null) {
+			armorBoost = new AttributeModifier(UUID.nameUUIDFromBytes("TarotHermit".getBytes()).toString(), Configuration.the_hermit_armorbonus.get(), AttributeModifier.Operation.ADDITION);
 		}
+		handleAttribute(event.player, Attributes.ARMOR, armorBoost, ItemRegistry.the_hermit.get());
 	}
 
 	public static void handleAttribute(Player player, Attribute a, AttributeModifier mod, Item tarot) {

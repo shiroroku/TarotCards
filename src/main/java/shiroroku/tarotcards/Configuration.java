@@ -25,6 +25,7 @@ public class Configuration {
 	public static ForgeConfigSpec.IntValue the_lovers_regenamplifier;
 	public static ForgeConfigSpec.BooleanValue do_loot_generation;
 	public static ForgeConfigSpec.IntValue the_fool_jumpboost;
+	public static ForgeConfigSpec.IntValue tick_rate;
 
 	static {
 		ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
@@ -46,9 +47,10 @@ public class Configuration {
 		the_star_reachboost = builder.comment("Percentage increase of reach distance (0.5 = +50%)").defineInRange("the_star_reachboost", 0.5D, 0.0D, 100D);
 		the_sun_healthboost = builder.comment("Percentage increase of base health (0.5 = +50%)").defineInRange("the_sun_healthboost", 0.5D, 0.0D, 100D);
 		the_fool_jumpboost = builder.comment("Amplifier for effect (2 = III)").defineInRange("the_fool_jumpboost", 2, 0, 100);
-
 		wheel_of_fortune_luckbonus = builder.comment("How much luck (not fortune) is added to the player").defineInRange("wheel_of_fortune_luckbonus", 3D, 0.0D, 100D);
+
 		do_loot_generation = builder.comment("If Tarot Cards should be added to the default loot tables specified in data").define("do_loot_generation", true);
+		tick_rate = builder.comment("How many ticks it takes to check if a player has a tarot or not, more = more performace but longer time to activate/deactivate effects").defineInRange("tick_rate", 20, 0, 1200);
 
 		builder.pop();
 		config = builder.build();

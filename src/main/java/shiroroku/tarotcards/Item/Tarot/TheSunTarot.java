@@ -8,7 +8,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.fml.LogicalSide;
 import shiroroku.tarotcards.Configuration;
 import shiroroku.tarotcards.Item.TarotItem;
 import shiroroku.tarotcards.Registry.ItemRegistry;
@@ -23,12 +22,10 @@ public class TheSunTarot extends TarotItem {
 	private static AttributeModifier healthBoost = null;
 
 	public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
-		if (event.player.tickCount % 20 == 0 && event.side == LogicalSide.SERVER) {
-			if(healthBoost == null){
-				healthBoost = new AttributeModifier(uuid, Configuration.the_sun_healthboost.get(), AttributeModifier.Operation.MULTIPLY_BASE);
-			}
-			handleAttribute(event.player, Attributes.MAX_HEALTH, healthBoost, ItemRegistry.the_sun.get());
+		if (healthBoost == null) {
+			healthBoost = new AttributeModifier(uuid, Configuration.the_sun_healthboost.get(), AttributeModifier.Operation.MULTIPLY_BASE);
 		}
+		handleAttribute(event.player, Attributes.MAX_HEALTH, healthBoost, ItemRegistry.the_sun.get());
 	}
 
 	@Override

@@ -8,7 +8,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.fml.LogicalSide;
 import shiroroku.tarotcards.Configuration;
 import shiroroku.tarotcards.Item.TarotItem;
 import shiroroku.tarotcards.Registry.ItemRegistry;
@@ -23,12 +22,10 @@ public class TheStarTarot extends TarotItem {
 	private static AttributeModifier reachBoost = null;
 
 	public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
-		if (event.player.tickCount % 20 == 0 && event.side == LogicalSide.SERVER) {
-			if (reachBoost == null) {
-				reachBoost = new AttributeModifier(uuid, Configuration.the_star_reachboost.get(), AttributeModifier.Operation.MULTIPLY_BASE);
-			}
-			handleAttribute(event.player, ForgeMod.REACH_DISTANCE.get(), reachBoost, ItemRegistry.the_star.get());
+		if (reachBoost == null) {
+			reachBoost = new AttributeModifier(uuid, Configuration.the_star_reachboost.get(), AttributeModifier.Operation.MULTIPLY_BASE);
 		}
+		handleAttribute(event.player, ForgeMod.REACH_DISTANCE.get(), reachBoost, ItemRegistry.the_star.get());
 	}
 
 	@Override

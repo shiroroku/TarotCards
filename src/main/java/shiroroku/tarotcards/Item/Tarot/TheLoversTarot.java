@@ -11,7 +11,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.fml.LogicalSide;
 import shiroroku.tarotcards.Configuration;
 import shiroroku.tarotcards.Item.TarotItem;
 import shiroroku.tarotcards.Registry.ItemRegistry;
@@ -23,15 +22,13 @@ public class TheLoversTarot extends TarotItem {
 
 	public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
 		Player player = event.player;
-		if (player.tickCount % 20 == 0 && event.side == LogicalSide.SERVER) {
-			if (hasTarot(player, ItemRegistry.the_lovers.get())) {
-				MobEffectInstance regen = new MobEffectInstance(MobEffects.REGENERATION, 40, Configuration.the_lovers_regenamplifier.get(), true, false);
-				player.addEffect(regen);
-				List<LivingEntity> entities = player.level.getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, player, player.getBoundingBox().inflate(Configuration.the_lovers_range.get()));
-				for (LivingEntity e : entities) {
-					if (e.isAlliedTo(player)) {
-						e.addEffect(regen);
-					}
+		if (hasTarot(player, ItemRegistry.the_lovers.get())) {
+			MobEffectInstance regen = new MobEffectInstance(MobEffects.REGENERATION, Configuration.tick_rate.get(), Configuration.the_lovers_regenamplifier.get(), true, false);
+			player.addEffect(regen);
+			List<LivingEntity> entities = player.level.getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, player, player.getBoundingBox().inflate(Configuration.the_lovers_range.get()));
+			for (LivingEntity e : entities) {
+				if (e.isAlliedTo(player)) {
+					e.addEffect(regen);
 				}
 			}
 		}
