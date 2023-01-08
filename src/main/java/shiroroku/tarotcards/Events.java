@@ -34,6 +34,7 @@ public class Events {
 		TheHighPriestessTarot.handleOnPlayerTick(event);
 		TheLoversTarot.handleOnPlayerTick(event);
 		TheStarTarot.handleOnPlayerTick(event);
+		TheFoolTarot.handleOnPlayerTick(event);
 	}
 
 	@SubscribeEvent
