@@ -25,7 +25,7 @@ public class WheelOfFortuneTarot extends TarotItem {
 		if (luckBoost == null) {
 			luckBoost = new AttributeModifier(uuid, Configuration.wheel_of_fortune_luckbonus.get(), AttributeModifier.Operation.ADDITION);
 		}
-		handleAttribute(event.player, Attributes.ARMOR, luckBoost, ItemRegistry.wheel_of_fortune.get());
+		handleAttribute(event.player, Attributes.LUCK, luckBoost, ItemRegistry.wheel_of_fortune.get());
 	}
 
 	@Override
