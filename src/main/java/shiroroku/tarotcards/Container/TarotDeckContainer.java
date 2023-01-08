@@ -9,15 +9,15 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
-import shiroroku.tarotcards.Registry.ContainerRegistry;
 import shiroroku.tarotcards.Registry.ItemRegistry;
+import shiroroku.tarotcards.TarotCards;
 
 public class TarotDeckContainer extends AbstractContainerMenu {
 
 	ItemStack deck;
 
 	public TarotDeckContainer(int id, Inventory playerInventory, Player player) {
-		super(ContainerRegistry.tarot_deck.get(), id);
+		super(TarotCards.tarot_deck.get(), id);
 		IItemHandler playerInventory1 = new InvWrapper(playerInventory);
 		deck = player.getMainHandItem().is(ItemRegistry.tarot_deck.get()) ? player.getMainHandItem() : player.getOffhandItem();
 

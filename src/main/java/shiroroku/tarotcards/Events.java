@@ -12,9 +12,9 @@ public class Events {
 
 	@SubscribeEvent
 	public static void onLivingHurt(LivingHurtEvent event) {
+		DeathTarot.handleOnHurt(event);
 		JusticeTarot.handleOnHurt(event);
 		TheDevilTarot.handleOnHurt(event);
-		DeathTarot.handleOnHurt(event);
 		TheTowerTarot.handleOnHurt(event);
 	}
 
@@ -26,17 +26,17 @@ public class Events {
 	@SubscribeEvent
 	public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
 		if (event.player.tickCount % Configuration.tick_rate.get() == 0 && event.side == LogicalSide.SERVER) {
-			TheFoolTarot.handleOnPlayerTick(event);
-			TheChariotTarot.handleOnPlayerTick(event);
-			TheSunTarot.handleOnPlayerTick(event);
-			WheelOfFortuneTarot.handleOnPlayerTick(event);
-			TheMoonTarot.handleOnPlayerTick(event);
-			TheStarTarot.handleOnPlayerTick(event);
 			StrengthTarot.handleOnPlayerTick(event);
+			TheChariotTarot.handleOnPlayerTick(event);
 			TheEmperorTarot.handleOnPlayerTick(event);
+			TheFoolTarot.handleOnPlayerTick(event);
 			TheHermitTarot.handleOnPlayerTick(event);
 			TheHighPriestessTarot.handleOnPlayerTick(event);
 			TheLoversTarot.handleOnPlayerTick(event);
+			TheMoonTarot.handleOnPlayerTick(event);
+			TheStarTarot.handleOnPlayerTick(event);
+			TheSunTarot.handleOnPlayerTick(event);
+			WheelOfFortuneTarot.handleOnPlayerTick(event);
 		}
 	}
 
