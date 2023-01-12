@@ -5,9 +5,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -43,19 +41,22 @@ public class TarotItem extends Item {
 		}
 
 		ItemStack deck = null;
+
+		//Check curios for tarot deck
 		if (ModList.get().isLoaded("curios")) {
 			deck = CuriosCompat.getTarotDeckCurio(player);
 		}
 
+		//Check player for tarot deck
 		Inventory pInv = player.getInventory();
 		if (deck == null && pInv.contains(new ItemStack(ItemRegistry.tarot_deck.get()))) {
-			final List<NonNullList<ItemStack>> compartments = ImmutableList.of(pInv.items, pInv.armor, pInv.offhand);
+			final List<NonNullList<ItemStack>> fullInv = ImmutableList.of(pInv.items, pInv.armor, pInv.offhand);
 
 			foundDeck:
-			for (List<ItemStack> list : compartments) {
-				for (ItemStack itemstack : list) {
-					if (itemstack.getItem() == ItemRegistry.tarot_deck.get()) {
-						deck = itemstack;
+			for (List<ItemStack> compartment : fullInv) {
+				for (ItemStack stack : compartment) {
+					if (stack.getItem() == ItemRegistry.tarot_deck.get()) {
+						deck = stack;
 						break foundDeck;
 					}
 				}

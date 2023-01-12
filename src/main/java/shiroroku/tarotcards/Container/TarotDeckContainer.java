@@ -18,9 +18,10 @@ public class TarotDeckContainer extends AbstractContainerMenu {
 
 	public TarotDeckContainer(int id, Inventory playerInventory, Player player) {
 		super(TarotCards.tarot_deck.get(), id);
-		IItemHandler playerInventory1 = new InvWrapper(playerInventory);
+		IItemHandler playerSlots = new InvWrapper(playerInventory);
 		deck = player.getMainHandItem().is(ItemRegistry.tarot_deck.get()) ? player.getMainHandItem() : player.getOffhandItem();
 
+		//Add deck slots
 		if (deck != null) {
 			deck.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
 				int slotIndex = 0;
@@ -35,17 +36,18 @@ public class TarotDeckContainer extends AbstractContainerMenu {
 			});
 		}
 
+		//Add player slots
 		int slotIndex = 0;
 		int invX = 8;
 		int invY = 142;
 		for (int x = 0; x < 9; x++) {
-			addSlot(new SlotItemHandler(playerInventory1, slotIndex, invX + 18 * x, invY));
+			addSlot(new SlotItemHandler(playerSlots, slotIndex, invX + 18 * x, invY));
 			slotIndex++;
 		}
 		invY -= 58;
 		for (int y = 0; y < 3; y++) {
 			for (int x = 0; x < 9; x++) {
-				addSlot(new SlotItemHandler(playerInventory1, slotIndex, invX + 18 * x, invY + 18 * y));
+				addSlot(new SlotItemHandler(playerSlots, slotIndex, invX + 18 * x, invY + 18 * y));
 				slotIndex++;
 			}
 
@@ -57,18 +59,18 @@ public class TarotDeckContainer extends AbstractContainerMenu {
 		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = this.slots.get(index);
 		if (slot != null && slot.hasItem()) {
-			ItemStack itemstack1 = slot.getItem();
-			itemstack = itemstack1.copy();
+			ItemStack slotItem = slot.getItem();
+			itemstack = slotItem.copy();
 			if (index < 22) {
-				if (!this.moveItemStackTo(itemstack1, 22, this.slots.size(), true)) {
+				if (!this.moveItemStackTo(slotItem, 22, this.slots.size(), true)) {
 					return ItemStack.EMPTY;
 				}
 			} else {
-				if (!this.moveItemStackTo(itemstack1, 0, 22, false)) {
+				if (!this.moveItemStackTo(slotItem, 0, 22, false)) {
 					return ItemStack.EMPTY;
 				}
 			}
-			if (itemstack1.isEmpty()) {
+			if (slotItem.isEmpty()) {
 				slot.set(ItemStack.EMPTY);
 			} else {
 				slot.setChanged();
