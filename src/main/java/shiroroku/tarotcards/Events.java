@@ -26,6 +26,7 @@ public class Events {
 	@SubscribeEvent
 	public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
 		if (event.player.tickCount % Configuration.tick_rate.get() == 0 && event.side == LogicalSide.SERVER) {
+			event.player.level.getProfiler().push("TarotCards");
 			StrengthTarot.handleOnPlayerTick(event);
 			TheChariotTarot.handleOnPlayerTick(event);
 			TheEmperorTarot.handleOnPlayerTick(event);
@@ -38,6 +39,7 @@ public class Events {
 			TheSunTarot.handleOnPlayerTick(event);
 			WheelOfFortuneTarot.handleOnPlayerTick(event);
 			TheWorldTarot.handleOnPlayerTick(event);
+			event.player.level.getProfiler().pop();
 		}
 	}
 
