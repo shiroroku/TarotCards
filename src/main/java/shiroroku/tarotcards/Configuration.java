@@ -18,6 +18,7 @@ public class Configuration {
 	public static ForgeConfigSpec.DoubleValue the_lovers_range;
 	public static ForgeConfigSpec.DoubleValue the_star_reachboost;
 	public static ForgeConfigSpec.DoubleValue the_sun_healthboost;
+	public static ForgeConfigSpec.DoubleValue the_world_range;
 	public static ForgeConfigSpec.DoubleValue wheel_of_fortune_luckbonus;
 	public static ForgeConfigSpec.IntValue strength_amplifier;
 	public static ForgeConfigSpec.IntValue the_devil_weaknessamplifier;
@@ -25,6 +26,7 @@ public class Configuration {
 	public static ForgeConfigSpec.IntValue the_fool_jumpboost;
 	public static ForgeConfigSpec.IntValue the_highpriestess_upgradecost;
 	public static ForgeConfigSpec.IntValue the_lovers_regenamplifier;
+	public static ForgeConfigSpec.IntValue the_world_slownessamplifier;
 	public static ForgeConfigSpec.IntValue tick_rate;
 
 	static {
@@ -32,7 +34,7 @@ public class Configuration {
 		builder.push("Tarot Cards");
 		tick_rate = builder.comment("How many ticks it takes to check if a player has a tarot or not, more = more performace but longer time to activate/deactivate effects").defineInRange("tick_rate", 20, 0, 1200);
 		builder.push("Loot");
-		default_loot_chance = builder.comment("Chance a tarot card appears in default loot (0.75 = 75%)(1.0 = there will always be a single tarot card in chests)").defineInRange("default_loot_chance", 0D, 0.75D, 1D);
+		default_loot_chance = builder.comment("Chance a tarot card appears in default loot (0.75 = 75%)(1.0 = there will always be a single tarot card in chests)").defineInRange("default_loot_chance", 0.75D, 0D, 1D);
 		do_loot_generation = builder.comment("If Tarot Cards should be added to the default loot tables specified in data").define("do_loot_generation", true);
 		builder.pop();
 		builder.push("Cards");
@@ -52,6 +54,8 @@ public class Configuration {
 		the_lovers_regenamplifier = builder.comment("Amplifier for effect (1 = II)").defineInRange("the_lovers_regenamplifier", 2, 0, 20);
 		the_star_reachboost = builder.comment("Percentage increase of reach distance (0.5 = +50%)").defineInRange("the_star_reachboost", 0.5D, 0.0D, 100D);
 		the_sun_healthboost = builder.comment("Percentage increase of base health (0.5 = +50%)").defineInRange("the_sun_healthboost", 0.5D, 0.0D, 100D);
+		the_world_range = builder.comment("How close non-allies need to be to apply slowness").defineInRange("the_world_range", 3D, 0.0D, 256D);
+		the_world_slownessamplifier = builder.comment("Amplifier for effect (9 = X)").defineInRange("the_world_slownessamplifier", 9, 0, 20);
 		wheel_of_fortune_luckbonus = builder.comment("How much luck (not fortune) is added to the player").defineInRange("wheel_of_fortune_luckbonus", 3D, 0.0D, 100D);
 		builder.pop();
 		builder.pop();

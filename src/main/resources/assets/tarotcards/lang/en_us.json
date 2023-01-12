@@ -41,6 +41,7 @@
     "item.tarotcards.the_tower": "Tarot : The Tower",
     "item.tarotcards.the_tower.desc": "Immunity to Fall Damage.",
     "item.tarotcards.the_world": "Tarot : The World",
+    "item.tarotcards.the_world.desc": "Slowness %d to nearby mobs.",
     "item.tarotcards.wheel_of_fortune": "Tarot : Wheel of Fortune",
     "item.tarotcards.wheel_of_fortune.desc": "+%d Luck."
 }
