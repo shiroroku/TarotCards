@@ -37,8 +37,8 @@ public class Events {
 			TheMoonTarot.handleOnPlayerTick(event);
 			TheStarTarot.handleOnPlayerTick(event);
 			TheSunTarot.handleOnPlayerTick(event);
-			WheelOfFortuneTarot.handleOnPlayerTick(event);
 			TheWorldTarot.handleOnPlayerTick(event);
+			WheelOfFortuneTarot.handleOnPlayerTick(event);
 			event.player.level.getProfiler().pop();
 		}
 	}
