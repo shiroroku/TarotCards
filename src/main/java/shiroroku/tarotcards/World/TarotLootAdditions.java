@@ -29,7 +29,7 @@ public class TarotLootAdditions extends LootModifier {
 
 	@Override
 	protected @NotNull ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
-		if (Configuration.do_loot_generation.get() && context.getRandom().nextFloat() < 0.75) {
+		if (Configuration.do_loot_generation.get() && context.getRandom().nextFloat() < Configuration.default_loot_chance.get()) {
 			generatedLoot.add(new ItemStack(items.get(context.getRandom().nextInt(items.size()))));
 		}
 		return generatedLoot;

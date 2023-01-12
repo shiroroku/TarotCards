@@ -1,13 +1,13 @@
 package shiroroku.tarotcards;
 
 import net.minecraftforge.common.ForgeConfigSpec;
-import org.openjdk.nashorn.api.linker.NashornLinkerExporter;
 
 public class Configuration {
 
 	public static ForgeConfigSpec config;
 
 	public static ForgeConfigSpec.BooleanValue do_loot_generation;
+	public static ForgeConfigSpec.DoubleValue default_loot_chance;
 	public static ForgeConfigSpec.DoubleValue death_damagebonus;
 	public static ForgeConfigSpec.DoubleValue judgement_damagechance;
 	public static ForgeConfigSpec.DoubleValue temperance_reduction;
@@ -50,7 +50,7 @@ public class Configuration {
 		the_sun_healthboost = builder.comment("Percentage increase of base health (0.5 = +50%)").defineInRange("the_sun_healthboost", 0.5D, 0.0D, 100D);
 		tick_rate = builder.comment("How many ticks it takes to check if a player has a tarot or not, more = more performace but longer time to activate/deactivate effects").defineInRange("tick_rate", 20, 0, 1200);
 		wheel_of_fortune_luckbonus = builder.comment("How much luck (not fortune) is added to the player").defineInRange("wheel_of_fortune_luckbonus", 3D, 0.0D, 100D);
-
+		default_loot_chance = builder.comment("Chance a tarot card appears in default loot (0.75 = 75%)(1.0 = there will always be a single tarot card in chests)").defineInRange("default_loot_chance", 0D, 0.75D, 1D);
 		builder.pop();
 		config = builder.build();
 	}
