@@ -12,6 +12,7 @@ public class Configuration {
 	public static ForgeConfigSpec.DoubleValue judgement_damagechance;
 	public static ForgeConfigSpec.DoubleValue temperance_reduction;
 	public static ForgeConfigSpec.DoubleValue the_chariot_speedboost;
+	public static ForgeConfigSpec.DoubleValue the_hanged_man_xpratio;
 	public static ForgeConfigSpec.DoubleValue the_hermit_allyrange;
 	public static ForgeConfigSpec.DoubleValue the_hermit_armorbonus;
 	public static ForgeConfigSpec.DoubleValue the_hierophant_xpboost;
@@ -46,6 +47,7 @@ public class Configuration {
 		the_devil_weaknessamplifier = builder.comment("Amplifier for effect (1 = II)").defineInRange("the_devil_weaknessamplifier", 2, 0, 20);
 		the_emperpor_heroofvillagebonus = builder.comment("Amplifier for effect (1 = II)").defineInRange("the_emperpor_heroofvillagebonus", 2, 0, 20);
 		the_fool_jumpboost = builder.comment("Amplifier for effect (2 = III)").defineInRange("the_fool_jumpboost", 2, 0, 100);
+		the_hanged_man_xpratio = builder.comment("How much of the damage is converted to experience").defineInRange("the_hanged_man_xpratio", 0.5D, 0.0D, 1D);
 		the_hermit_allyrange = builder.comment("How far away the player must be from allies to activate").defineInRange("the_hermit_allyrange", 10D, 0.0D, 256D);
 		the_hermit_armorbonus = builder.comment("How much armor is added when away from allies").defineInRange("the_hermit_armorbonus", 10D, 0.0D, 100D);
 		the_hierophant_xpboost = builder.comment("Percentage increase of experience (2 = +200%)").defineInRange("the_hierophant_xpboost", 2D, 1D, 100D);

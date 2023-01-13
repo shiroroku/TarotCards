@@ -22,6 +22,7 @@
     "item.tarotcards.the_fool": "Tarot : The Fool",
     "item.tarotcards.the_fool.desc": "Jump Boost %d.",
     "item.tarotcards.the_hanged_man": "Tarot : The Hanged Man",
+    "item.tarotcards.the_hanged_man.desc": "%d%% of damage taken is gained as experience",
     "item.tarotcards.the_hermit": "Tarot : The Hermit",
     "item.tarotcards.the_hermit.desc": "+%d Armor when away from allies.",
     "item.tarotcards.the_hierophant": "Tarot : The Hierophant",

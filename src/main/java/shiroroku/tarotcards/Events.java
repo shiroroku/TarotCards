@@ -15,6 +15,7 @@ public class Events {
 		DeathTarot.handleOnHurt(event);
 		JusticeTarot.handleOnHurt(event);
 		TheDevilTarot.handleOnHurt(event);
+		TheHangedManTarot.handleOnHurt(event);
 		TheTowerTarot.handleOnHurt(event);
 	}
 
