@@ -4,6 +4,8 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Inventory;
@@ -21,7 +23,7 @@ import shiroroku.tarotcards.TarotCards;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class TarotItem extends Item {
 	public TarotItem() {
@@ -29,7 +31,24 @@ public class TarotItem extends Item {
 	}
 
 	public boolean isFoil(ItemStack stack) {
-		return true;
+		return isActivated(stack);
+	}
+
+	/**
+	 * If the Tarot Card is active (Using toggles Tarot Card)
+	 */
+	public static boolean isActivated(ItemStack tarot) {
+		return !tarot.getOrCreateTag().getBoolean("deactivated");
+	}
+
+	public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
+		if (pPlayer.getItemInHand(pUsedHand).getItem() instanceof TarotItem) {
+			ItemStack tarot = pPlayer.getItemInHand(pUsedHand);
+			boolean deactivated = tarot.getOrCreateTag().getBoolean("deactivated");
+			tarot.getOrCreateTag().putBoolean("deactivated", !deactivated);
+		}
+
+		return super.use(pLevel, pPlayer, pUsedHand);
 	}
 
 	/**
@@ -42,16 +61,25 @@ public class TarotItem extends Item {
 
 		ItemStack deck = null;
 
+		Inventory pInv = player.getInventory();
+		final List<NonNullList<ItemStack>> fullInv = ImmutableList.of(pInv.items, pInv.armor, pInv.offhand);
+
 		//Check curios for tarot deck
 		if (ModList.get().isLoaded("curios")) {
 			deck = CuriosCompat.getTarotDeckCurio(player);
 		}
 
-		//Check player for tarot deck
-		Inventory pInv = player.getInventory();
-		if (deck == null && pInv.contains(new ItemStack(ItemRegistry.tarot_deck.get()))) {
-			final List<NonNullList<ItemStack>> fullInv = ImmutableList.of(pInv.items, pInv.armor, pInv.offhand);
+		//Check player for card
+		for (List<ItemStack> compartment : fullInv) {
+			for (ItemStack stack : compartment) {
+				if (stack.is(tarot)) {
+					return isActivated(stack);
+				}
+			}
+		}
 
+		//Check player for tarot deck
+		if (deck == null && pInv.contains(new ItemStack(ItemRegistry.tarot_deck.get()))) {
 			foundDeck:
 			for (List<ItemStack> compartment : fullInv) {
 				for (ItemStack stack : compartment) {
@@ -63,22 +91,22 @@ public class TarotItem extends Item {
 			}
 		}
 
+		//Check deck for card
 		if (deck != null) {
-			AtomicBoolean foundindeck = new AtomicBoolean(false);
+			AtomicReference<ItemStack> finalCard = new AtomicReference<>(null);
 			deck.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
 				for (int i = 0; i < handler.getSlots(); i++) {
 					if (handler.getStackInSlot(i).is(tarot)) {
-						foundindeck.set(true);
+						finalCard.set(handler.getStackInSlot(i).copy());
 						break;
 					}
 				}
 			});
 
-			if (foundindeck.get()) {
-				return true;
-			}
+			return finalCard.get() != null && isActivated(finalCard.get());
 		}
-		return (pInv.contains(new ItemStack(tarot)));
+
+		return false;
 	}
 
 	/**
