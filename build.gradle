@@ -19,7 +19,7 @@ apply plugin: 'org.parchmentmc.librarian.forgegradle'
 apply plugin: 'net.minecraftforge.gradle'
 
 group = 'shiroroku'
-version = '0.9'
+version = '0.95'
 
 java {
     archivesBaseName = 'tarotcards'
