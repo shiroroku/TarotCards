@@ -24,7 +24,7 @@ public class WheelOfFortuneTarot extends TarotItem {
 
 	public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
 		if (event.player.tickCount % 20 == 0 && event.side == LogicalSide.SERVER) {
-			handleAttribute(event.player, Attributes.ARMOR, luckBoost, ItemRegistry.wheel_of_fortune.get());
+			handleAttribute(event.player, Attributes.LUCK, luckBoost, ItemRegistry.wheel_of_fortune.get());
 		}
 	}
 
