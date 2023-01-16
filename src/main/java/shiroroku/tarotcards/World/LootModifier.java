@@ -12,6 +12,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
+import shiroroku.tarotcards.Configuration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,7 @@ public class LootModifier extends net.minecraftforge.common.loot.LootModifier {
 	@NotNull
 	@Override
 	public List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
-		if (context.getRandom().nextFloat() < 0.75) {
+		if (Configuration.do_loot_generation.get() && context.getRandom().nextFloat() < Configuration.default_loot_chance.get()) {
 			generatedLoot.add(new ItemStack(items.get(context.getRandom().nextInt(items.size()))));
 		}
 		return generatedLoot;
