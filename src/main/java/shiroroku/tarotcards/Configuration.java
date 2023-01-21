@@ -12,6 +12,7 @@ public class Configuration {
 	public static ForgeConfigSpec.DoubleValue judgement_damagechance;
 	public static ForgeConfigSpec.DoubleValue temperance_reduction;
 	public static ForgeConfigSpec.DoubleValue the_chariot_speedboost;
+	public static ForgeConfigSpec.DoubleValue the_empress_range;
 	public static ForgeConfigSpec.DoubleValue the_hanged_man_xpratio;
 	public static ForgeConfigSpec.DoubleValue the_hermit_allyrange;
 	public static ForgeConfigSpec.DoubleValue the_hermit_armorbonus;
@@ -46,6 +47,7 @@ public class Configuration {
 		the_chariot_speedboost = builder.comment("Percentage increase of base speed (0.5 = +50%)").defineInRange("the_chariot_speedboost", 0.5D, 0.0D, 100D);
 		the_devil_weaknessamplifier = builder.comment("Amplifier for effect (1 = II)").defineInRange("the_devil_weaknessamplifier", 2, 0, 20);
 		the_emperpor_heroofvillagebonus = builder.comment("Amplifier for effect (1 = II)").defineInRange("the_emperpor_heroofvillagebonus", 2, 0, 20);
+		the_empress_range = builder.comment("How close animals need to be to breed").defineInRange("the_empress_range", 5D, 0.0D, 256D);
 		the_fool_jumpboost = builder.comment("Amplifier for effect (2 = III)").defineInRange("the_fool_jumpboost", 2, 0, 100);
 		the_hanged_man_xpratio = builder.comment("How much of the damage is converted to experience").defineInRange("the_hanged_man_xpratio", 0.5D, 0.0D, 1D);
 		the_hermit_allyrange = builder.comment("How far away the player must be from allies to activate").defineInRange("the_hermit_allyrange", 10D, 0.0D, 256D);

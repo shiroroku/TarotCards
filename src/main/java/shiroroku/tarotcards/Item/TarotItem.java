@@ -26,7 +26,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class TarotItem extends Item {
+public abstract class TarotItem extends Item {
 	public TarotItem() {
 		super(new Properties().tab(TarotCards.CREATIVETAB).rarity(Rarity.UNCOMMON).stacksTo(1));
 	}

@@ -6,7 +6,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import shiroroku.tarotcards.Item.Tarot.*;
 import shiroroku.tarotcards.Item.TarotDeckItem;
-import shiroroku.tarotcards.Item.TarotItem;
 import shiroroku.tarotcards.TarotCards;
 
 public class ItemRegistry {
@@ -23,7 +22,7 @@ public class ItemRegistry {
 	public static final RegistryObject<Item> the_chariot = ITEMS.register("the_chariot", TheChariotTarot::new);
 	public static final RegistryObject<Item> the_devil = ITEMS.register("the_devil", TheDevilTarot::new);
 	public static final RegistryObject<Item> the_emperor = ITEMS.register("the_emperor", TheEmperorTarot::new);
-	public static final RegistryObject<Item> the_empress = ITEMS.register("the_empress", TarotItem::new);
+	public static final RegistryObject<Item> the_empress = ITEMS.register("the_empress", TheEmpressTarot::new);
 	public static final RegistryObject<Item> the_fool = ITEMS.register("the_fool", TheFoolTarot::new);
 	public static final RegistryObject<Item> the_hanged_man = ITEMS.register("the_hanged_man", TheHangedManTarot::new);
 	public static final RegistryObject<Item> the_hermit = ITEMS.register("the_hermit", TheHermitTarot::new);
