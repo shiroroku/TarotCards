@@ -7,6 +7,7 @@ public class Configuration {
 	public static ForgeConfigSpec config;
 
 	public static ForgeConfigSpec.BooleanValue do_loot_generation;
+	public static ForgeConfigSpec.BooleanValue the_highpriestess_capenchants;
 	public static ForgeConfigSpec.DoubleValue death_damagebonus;
 	public static ForgeConfigSpec.DoubleValue default_loot_chance;
 	public static ForgeConfigSpec.DoubleValue judgement_damagechance;
@@ -53,6 +54,7 @@ public class Configuration {
 		the_hermit_allyrange = builder.comment("How far away the player must be from allies to activate").defineInRange("the_hermit_allyrange", 10D, 0.0D, 256D);
 		the_hermit_armorbonus = builder.comment("How much armor is added when away from allies").defineInRange("the_hermit_armorbonus", 10D, 0.0D, 100D);
 		the_hierophant_xpboost = builder.comment("Percentage increase of experience (2 = +200%)").defineInRange("the_hierophant_xpboost", 2D, 1D, 100D);
+		the_highpriestess_capenchants = builder.comment("Stops upgrading enchantment books when they are at max level").define("the_highpriestess_capenchants", true);
 		the_highpriestess_upgradecost = builder.comment("How much each level of enchantment costs to upgrade (cost = enchantment_level * this_config)").defineInRange("the_highpriestess_upgrademultiplier", 3, 1, 100);
 		the_lovers_range = builder.comment("How close allies need to be to apply regeneration").defineInRange("the_lovers_range", 5D, 0.0D, 256D);
 		the_lovers_regenamplifier = builder.comment("Amplifier for effect (1 = II)").defineInRange("the_lovers_regenamplifier", 2, 0, 20);
