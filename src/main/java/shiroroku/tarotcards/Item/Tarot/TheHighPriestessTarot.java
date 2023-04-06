@@ -9,7 +9,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.fml.LogicalSide;
 import shiroroku.tarotcards.Configuration;
 import shiroroku.tarotcards.Item.TarotItem;
 import shiroroku.tarotcards.Registry.ItemRegistry;
@@ -23,7 +22,7 @@ public class TheHighPriestessTarot extends TarotItem {
 
     public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
         Player p = event.player;
-        if (p.tickCount % 20 == 0 && event.side == LogicalSide.SERVER && hasTarot(p, ItemRegistry.the_high_priestess.get())) {
+        if (hasTarot(p, ItemRegistry.the_high_priestess.get())) {
 
             ItemStack upgradable = p.getMainHandItem().is(upgradable_enchantment) ? p.getMainHandItem() : (p.getOffhandItem().is(upgradable_enchantment) ? p.getOffhandItem() : null);
 
@@ -46,7 +45,6 @@ public class TheHighPriestessTarot extends TarotItem {
                             break;
                         }
                     }
-
 
                 }
                 if (upgraded) {

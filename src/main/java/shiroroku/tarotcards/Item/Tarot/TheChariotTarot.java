@@ -9,7 +9,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.fml.LogicalSide;
 import shiroroku.tarotcards.Configuration;
 import shiroroku.tarotcards.Item.TarotItem;
 import shiroroku.tarotcards.Registry.ItemRegistry;
@@ -20,16 +19,18 @@ import java.util.UUID;
 
 public class TheChariotTarot extends TarotItem {
 
-	private static final AttributeModifier speedBoost = new AttributeModifier(UUID.nameUUIDFromBytes("TarotChariot".getBytes()).toString(), Configuration.the_chariot_speedboost.get(), AttributeModifier.Operation.MULTIPLY_BASE);
+    private static final String uuid = UUID.nameUUIDFromBytes("TarotChariot".getBytes()).toString();
+    private static AttributeModifier speedBoost = null;
 
-	public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
-		if (event.player.tickCount % 20 == 0 && event.side == LogicalSide.SERVER) {
-			handleAttribute(event.player, Attributes.MOVEMENT_SPEED, speedBoost, ItemRegistry.the_chariot.get());
-		}
-	}
+    public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
+        if (speedBoost == null) {
+            speedBoost = new AttributeModifier(uuid, Configuration.the_chariot_speedboost.get(), AttributeModifier.Operation.MULTIPLY_BASE);
+        }
+        handleAttribute(event.player, Attributes.MOVEMENT_SPEED, speedBoost, ItemRegistry.the_chariot.get());
+    }
 
-	@Override
-	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-		tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".desc", Configuration.the_chariot_speedboost.get() * 100).withStyle(ChatFormatting.BLUE));
-	}
+    @Override
+    public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
+        tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".desc", Configuration.the_chariot_speedboost.get() * 100).withStyle(ChatFormatting.BLUE));
+    }
 }

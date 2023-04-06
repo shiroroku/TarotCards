@@ -9,7 +9,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.fml.LogicalSide;
 import shiroroku.tarotcards.Configuration;
 import shiroroku.tarotcards.Item.TarotItem;
 import shiroroku.tarotcards.Registry.ItemRegistry;
@@ -19,17 +18,15 @@ import java.util.List;
 import java.util.UUID;
 
 public class TheStarTarot extends TarotItem {
-	private static final AttributeModifier reachBoost = new AttributeModifier(UUID.nameUUIDFromBytes("TarotStar".getBytes()).toString(), Configuration.the_star_reachboost.get(), AttributeModifier.Operation.MULTIPLY_BASE);
+    private static final AttributeModifier reachBoost = new AttributeModifier(UUID.nameUUIDFromBytes("TarotStar".getBytes()).toString(), Configuration.the_star_reachboost.get(), AttributeModifier.Operation.MULTIPLY_BASE);
 
-	public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
-		if (event.player.tickCount % 20 == 0 && event.side == LogicalSide.SERVER) {
-			handleAttribute(event.player, ForgeMod.REACH_DISTANCE.get(), reachBoost, ItemRegistry.the_star.get());
-		}
-	}
+    public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
+        handleAttribute(event.player, ForgeMod.REACH_DISTANCE.get(), reachBoost, ItemRegistry.the_star.get());
+    }
 
-	@Override
-	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-		tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".desc", Configuration.the_star_reachboost.get() * 100).withStyle(ChatFormatting.BLUE));
-	}
+    @Override
+    public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
+        tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".desc", Configuration.the_star_reachboost.get() * 100).withStyle(ChatFormatting.BLUE));
+    }
 
 }

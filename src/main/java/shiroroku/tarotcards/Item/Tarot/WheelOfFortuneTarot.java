@@ -9,7 +9,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.fml.LogicalSide;
 import shiroroku.tarotcards.Configuration;
 import shiroroku.tarotcards.Item.TarotItem;
 import shiroroku.tarotcards.Registry.ItemRegistry;
@@ -20,16 +19,18 @@ import java.util.UUID;
 
 public class WheelOfFortuneTarot extends TarotItem {
 
-	private static final AttributeModifier luckBoost = new AttributeModifier(UUID.nameUUIDFromBytes("TarotWheelOfFortune".getBytes()).toString(), Configuration.wheel_of_fortune_luckbonus.get(), AttributeModifier.Operation.ADDITION);
+    private static final String uuid = UUID.nameUUIDFromBytes("TarotWheelOfFortune".getBytes()).toString();
+    private static AttributeModifier luckBoost = null;
 
-	public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
-		if (event.player.tickCount % 20 == 0 && event.side == LogicalSide.SERVER) {
-			handleAttribute(event.player, Attributes.LUCK, luckBoost, ItemRegistry.wheel_of_fortune.get());
-		}
-	}
+    public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
+        if (luckBoost == null) {
+            luckBoost = new AttributeModifier(uuid, Configuration.wheel_of_fortune_luckbonus.get(), AttributeModifier.Operation.ADDITION);
+        }
+        handleAttribute(event.player, Attributes.LUCK, luckBoost, ItemRegistry.wheel_of_fortune.get());
+    }
 
-	@Override
-	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-		tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".desc", Configuration.wheel_of_fortune_luckbonus.get()).withStyle(ChatFormatting.BLUE));
-	}
+    @Override
+    public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
+        tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".desc", Configuration.wheel_of_fortune_luckbonus.get()).withStyle(ChatFormatting.BLUE));
+    }
 }
