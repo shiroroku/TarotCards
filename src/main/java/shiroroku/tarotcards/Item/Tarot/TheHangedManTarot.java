@@ -25,8 +25,8 @@ public class TheHangedManTarot extends TarotItem {
 				TarotCards.LOGGER.debug("TAROT PASSIVE: {} - Damage to xp orb", ItemRegistry.the_hanged_man.get());
 				TarotCards.LOGGER.debug("To : {}", player);
 				TarotCards.LOGGER.debug("Amount : {}", xpamount);
-				ExperienceOrb orb = new ExperienceOrb(player.level, player.getX(), player.getY(), player.getZ(), xpamount);
-				player.level.addFreshEntity(orb);
+				ExperienceOrb orb = new ExperienceOrb(player.level(), player.getX(), player.getY(), player.getZ(), xpamount);
+				player.level().addFreshEntity(orb);
 			}
 		}
 	}

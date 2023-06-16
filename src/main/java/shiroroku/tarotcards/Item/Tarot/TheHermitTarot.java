@@ -49,7 +49,7 @@ public class TheHermitTarot extends TarotItem {
 	}
 
 	private static boolean hasNearbyAllies(Player player) {
-		List<LivingEntity> entities = player.level.getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, player, player.getBoundingBox().inflate(Configuration.the_hermit_allyrange.get()));
+		List<LivingEntity> entities = player.level().getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, player, player.getBoundingBox().inflate(Configuration.the_hermit_allyrange.get()));
 		for (LivingEntity e : entities) {
 			if (e.isAlliedTo(player)) {
 				return true;

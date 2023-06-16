@@ -1,6 +1,11 @@
 package shiroroku.tarotcards.Item.Tarot;
 
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageSources;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -10,11 +15,13 @@ import shiroroku.tarotcards.TarotCards;
 
 public class JusticeTarot extends TarotItem {
 
-    private static final DamageSource justice = new DamageSource("justice").bypassArmor();
+    public static ResourceKey<DamageType> JUSTICE = ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(TarotCards.MODID,"justice"));
 
     public static void handleOnHurt(LivingHurtEvent event) {
         if (event.getSource().getEntity() != null && event.getSource().getEntity() instanceof LivingEntity attacker && event.getEntity() instanceof Player player) {
-            if (!event.getSource().getMsgId().equals(justice.getMsgId()) && hasTarot(player, ItemRegistry.justice.get())) {
+
+            DamageSource justice = event.getEntity().damageSources().source(JUSTICE);
+            if (!event.getSource().is(JUSTICE) && hasTarot(player, ItemRegistry.justice.get())) {
                 attacker.hurt(justice, event.getAmount());
                 TarotCards.LOGGER.debug("TAROT PASSIVE: {} - Returning damage", ItemRegistry.justice.get());
                 TarotCards.LOGGER.debug("From : {} [{}]", attacker, attacker.getHealth());

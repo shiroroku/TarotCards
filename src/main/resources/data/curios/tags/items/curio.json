@@ -1,6 +1,6 @@
 {
-	"replace": "false",
-	"values": [
-		"tarotcards:tarot_deck"
-	]
+  "replace": "false",
+  "values": [
+    "tarotcards:tarot_deck"
+  ]
 }

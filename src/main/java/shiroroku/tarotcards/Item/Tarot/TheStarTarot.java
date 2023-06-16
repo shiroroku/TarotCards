@@ -25,7 +25,7 @@ public class TheStarTarot extends TarotItem {
 		if (reachBoost == null) {
 			reachBoost = new AttributeModifier(uuid, Configuration.the_star_reachboost.get(), AttributeModifier.Operation.MULTIPLY_BASE);
 		}
-		handleAttribute(event.player, ForgeMod.REACH_DISTANCE.get(), reachBoost, ItemRegistry.the_star.get());
+		handleAttribute(event.player, ForgeMod.BLOCK_REACH.get(), reachBoost, ItemRegistry.the_star.get());
 	}
 
 	@Override

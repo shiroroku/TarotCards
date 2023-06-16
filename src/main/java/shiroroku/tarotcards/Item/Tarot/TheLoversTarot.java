@@ -25,7 +25,7 @@ public class TheLoversTarot extends TarotItem {
 		if (hasTarot(player, ItemRegistry.the_lovers.get())) {
 			MobEffectInstance regen = new MobEffectInstance(MobEffects.REGENERATION, Configuration.tick_rate.get(), Configuration.the_lovers_regenamplifier.get(), true, false);
 			player.addEffect(regen);
-			List<LivingEntity> entities = player.level.getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, player, player.getBoundingBox().inflate(Configuration.the_lovers_range.get()));
+			List<LivingEntity> entities = player.level().getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, player, player.getBoundingBox().inflate(Configuration.the_lovers_range.get()));
 			for (LivingEntity e : entities) {
 				if (e.isAlliedTo(player)) {
 					e.addEffect(regen);

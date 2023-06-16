@@ -24,7 +24,7 @@ public abstract class ItemStackMixin {
 
 	@Inject(at = @At("HEAD"), method = "hurtAndBreak", cancellable = true)
 	public <T extends LivingEntity> void hurtAndBreak(int amount, T entity, Consumer<T> consumer, CallbackInfo ci) {
-		if (!entity.level.isClientSide && entity instanceof Player player) {
+		if (!entity.level().isClientSide && entity instanceof Player player) {
 			if (TheMagicianTarot.handleItemDamage(this.copy(), player)) {
 				ci.cancel();
 			}

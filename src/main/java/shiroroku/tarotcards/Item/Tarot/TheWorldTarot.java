@@ -23,7 +23,7 @@ public class TheWorldTarot extends TarotItem {
 	public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
 		Player player = event.player;
 		if (hasTarot(player, ItemRegistry.the_world.get())) {
-			List<LivingEntity> entities = player.level.getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, player, player.getBoundingBox().inflate(Configuration.the_world_range.get()));
+			List<LivingEntity> entities = player.level().getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, player, player.getBoundingBox().inflate(Configuration.the_world_range.get()));
 			MobEffectInstance slow = new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60 + Configuration.tick_rate.get(), Configuration.the_world_slownessamplifier.get(), true, false, false);
 			for (LivingEntity e : entities) {
 				if (!e.isAlliedTo(player)) {

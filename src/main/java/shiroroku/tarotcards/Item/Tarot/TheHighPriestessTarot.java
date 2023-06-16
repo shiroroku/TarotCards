@@ -9,6 +9,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 import shiroroku.tarotcards.Configuration;
 import shiroroku.tarotcards.Item.TarotItem;
 import shiroroku.tarotcards.Registry.ItemRegistry;
@@ -18,7 +19,7 @@ import java.util.Map;
 
 public class TheHighPriestessTarot extends TarotItem {
 
-    private static final TagKey<Item> upgradable_enchantment = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(TarotCards.MODID, "upgradable_enchantment"));
+    private static final TagKey<Item> upgradable_enchantment = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(TarotCards.MODID, "upgradable_enchantment"));
 
     public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
         Player p = event.player;

@@ -2,7 +2,6 @@ package shiroroku.tarotcards.Item;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -27,6 +26,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.network.NetworkHooks;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 import shiroroku.tarotcards.Container.TarotDeckContainer;
 import shiroroku.tarotcards.TarotCards;
@@ -35,81 +35,82 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public class TarotDeckItem extends Item implements MenuProvider {
-	private static final TagKey<Item> tarot = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(TarotCards.MODID, "tarot_cards"));
+    private static final TagKey<Item> tarot = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(TarotCards.MODID, "tarot_cards"));
 
-	public TarotDeckItem() {
-		super(new Item.Properties().tab(TarotCards.CREATIVETAB).stacksTo(1).rarity(Rarity.UNCOMMON).fireResistant());
-	}
 
-	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
-		if (player instanceof ServerPlayer serverPlayer) {
-			NetworkHooks.openScreen(serverPlayer, this);
+    public TarotDeckItem() {
+        super(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON).fireResistant());
+    }
 
-		}
-		return super.use(world, player, hand);
-	}
+    @Override
+    public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
+        if (player instanceof ServerPlayer serverPlayer) {
+            NetworkHooks.openScreen(serverPlayer, this);
 
-	@Override
-	public Component getDisplayName() {
-		return this.getDescription();
-	}
+        }
+        return super.use(world, player, hand);
+    }
 
-	public ICapabilityProvider initCapabilities(ItemStack stack, @javax.annotation.Nullable CompoundTag nbt) {
-		return new ICapabilitySerializable<CompoundTag>() {
-			private final ItemStackHandler itemHandler = createHandler();
-			private final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
+    @Override
+    public Component getDisplayName() {
+        return this.getDescription();
+    }
 
-			@Nonnull
-			@Override
-			public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-				return ForgeCapabilities.ITEM_HANDLER.orEmpty(cap, handler);
-			}
+    public ICapabilityProvider initCapabilities(ItemStack stack, @javax.annotation.Nullable CompoundTag nbt) {
+        return new ICapabilitySerializable<CompoundTag>() {
+            private final ItemStackHandler itemHandler = createHandler();
+            private final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
 
-			@Override
-			public CompoundTag serializeNBT() {
-				return itemHandler.serializeNBT();
-			}
+            @Nonnull
+            @Override
+            public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
+                return ForgeCapabilities.ITEM_HANDLER.orEmpty(cap, handler);
+            }
 
-			@Override
-			public void deserializeNBT(CompoundTag nbt) {
+            @Override
+            public CompoundTag serializeNBT() {
+                return itemHandler.serializeNBT();
+            }
 
-				this.itemHandler.deserializeNBT(nbt);
-			}
-		};
-	}
+            @Override
+            public void deserializeNBT(CompoundTag nbt) {
 
-	private ItemStackHandler createHandler() {
-		return new ItemStackHandler(22) {
+                this.itemHandler.deserializeNBT(nbt);
+            }
+        };
+    }
 
-			@Override
-			public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
-				return canPut(stack);
-			}
+    private ItemStackHandler createHandler() {
+        return new ItemStackHandler(22) {
 
-			private boolean canPut(ItemStack stack) {
-				return stack.getTags().anyMatch(t -> (t == tarot)) && this.stacks.stream().noneMatch(s -> (s.is(stack.getItem())));
-			}
+            @Override
+            public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
+                return canPut(stack);
+            }
 
-			@Nonnull
-			@Override
-			public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-				if (!canPut(stack)) {
-					return stack;
-				}
-				return super.insertItem(slot, stack, simulate);
-			}
-		};
-	}
+            private boolean canPut(ItemStack stack) {
+                return stack.getTags().anyMatch(t -> (t == tarot)) && this.stacks.stream().noneMatch(s -> (s.is(stack.getItem())));
+            }
 
-	@Nullable
-	@Override
-	public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
-		return new TarotDeckContainer(id, playerInventory, player);
-	}
+            @Nonnull
+            @Override
+            public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
+                if (!canPut(stack)) {
+                    return stack;
+                }
+                return super.insertItem(slot, stack, simulate);
+            }
+        };
+    }
 
-	@Override
-	public void appendHoverText(ItemStack stack, @javax.annotation.Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-		tooltip.add(Component.translatable(this.getDescriptionId() + ".desc").withStyle(ChatFormatting.GRAY));
-	}
+    @Nullable
+    @Override
+    public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
+        return new TarotDeckContainer(id, playerInventory, player);
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, @javax.annotation.Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
+        tooltip.add(Component.translatable(this.getDescriptionId() + ".desc").withStyle(ChatFormatting.GRAY));
+    }
 }

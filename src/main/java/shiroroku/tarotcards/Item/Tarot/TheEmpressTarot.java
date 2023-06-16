@@ -16,7 +16,7 @@ public class TheEmpressTarot extends TarotItem {
 	public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
 		Player player = event.player;
 		if (hasTarot(player, ItemRegistry.the_empress.get())) {
-			List<Animal> entities = player.level.getNearbyEntities(Animal.class, TargetingConditions.DEFAULT, player, player.getBoundingBox().inflate(Configuration.the_empress_range.get()));
+			List<Animal> entities = player.level().getNearbyEntities(Animal.class, TargetingConditions.DEFAULT, player, player.getBoundingBox().inflate(Configuration.the_empress_range.get()));
 			for (Animal e : entities) {
 				if(e.canFallInLove() && e.getAge() == 0) {
 					e.setInLove(player);

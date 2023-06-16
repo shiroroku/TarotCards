@@ -27,7 +27,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public abstract class TarotItem extends Item {
 	public TarotItem() {
-		super(new Properties().tab(TarotCards.CREATIVETAB).rarity(Rarity.UNCOMMON).stacksTo(1));
+		super(new Properties().rarity(Rarity.UNCOMMON).stacksTo(1));
 	}
 
 	public boolean isFoil(ItemStack stack) {

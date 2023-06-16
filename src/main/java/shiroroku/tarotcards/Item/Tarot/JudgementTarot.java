@@ -27,7 +27,7 @@ public class JudgementTarot extends TarotItem {
 					TarotCards.LOGGER.debug("From : {}", player);
 					TarotCards.LOGGER.debug("To : {}", event.getEntity());
 					TarotCards.LOGGER.debug("Amount : {} to {}", event.getAmount(), event.getAmount() * 2);
-					player.level.playSound(null, player.blockPosition(), SoundEvents.SMALL_AMETHYST_BUD_BREAK, SoundSource.PLAYERS, 1f, player.getRandom().nextFloat() * 0.2f + 0.5f);
+					player.level().playSound(null, player.blockPosition(), SoundEvents.SMALL_AMETHYST_BUD_BREAK, SoundSource.PLAYERS, 1f, player.getRandom().nextFloat() * 0.2f + 0.5f);
 					event.setAmount(event.getAmount() * 2);
 				}
 			}
