@@ -6,6 +6,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -26,7 +27,6 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.network.NetworkHooks;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 import shiroroku.tarotcards.Container.TarotDeckContainer;
 import shiroroku.tarotcards.TarotCards;
@@ -35,8 +35,8 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public class TarotDeckItem extends Item implements MenuProvider {
-    private static final TagKey<Item> tarot = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(TarotCards.MODID, "tarot_cards"));
 
+    private static final TagKey<Item> tarot = ItemTags.create(new ResourceLocation(TarotCards.MODID, "tarot_cards"));
 
     public TarotDeckItem() {
         super(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON).fireResistant());
