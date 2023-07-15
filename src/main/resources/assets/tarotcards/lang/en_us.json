@@ -5,7 +5,7 @@
   "item.tarotcards.judgement": "Tarot : Judgement",
   "item.tarotcards.judgement.desc": "%d%% Chance to deal double damage.",
   "item.tarotcards.justice": "Tarot : Justice",
-  "item.tarotcards.justice.desc": "Damage taken is dealt to the attacker in full.",
+  "item.tarotcards.justice.desc": "%d%% of Damage taken is dealt to the attacker in full.",
   "item.tarotcards.strength": "Tarot : Strength",
   "item.tarotcards.strength.desc": "Strength %d.",
   "item.tarotcards.tarot_deck": "Tarot Deck",
