@@ -11,6 +11,7 @@ public class Configuration {
 	public static ForgeConfigSpec.DoubleValue death_damagebonus;
 	public static ForgeConfigSpec.DoubleValue default_loot_chance;
 	public static ForgeConfigSpec.DoubleValue judgement_damagechance;
+	public static ForgeConfigSpec.DoubleValue justice_damagemultiplier;
 	public static ForgeConfigSpec.DoubleValue temperance_reduction;
 	public static ForgeConfigSpec.DoubleValue the_chariot_speedboost;
 	public static ForgeConfigSpec.DoubleValue the_empress_range;
@@ -43,6 +44,7 @@ public class Configuration {
 		builder.push("Cards");
 		death_damagebonus = builder.comment("Percentage of damage increase to living (0.5 = +50%)").defineInRange("death_damagebonus", 0.5D, 0D, 100D);
 		judgement_damagechance = builder.comment("Percentage chance of dealing double damage (0.5 = 50%)").defineInRange("judgement_damagechance", 0.5D, 0D, 1D);
+		justice_damagemultiplier = builder.comment("Percentage of damage returned to the attacker (1.0 = 100%)").defineInRange("justice_damagemultiplier", 1D, 0D, 100D);
 		strength_amplifier = builder.comment("Amplifier for effect (1 = II)").defineInRange("strength_amplifier", 1, 0, 20);
 		temperance_reduction = builder.comment("Multiplier for hunger gained (0.5 = -50%, 0 = no change)").defineInRange("temperance_reduction", 0.5D, 0.0D, 1D);
 		the_chariot_speedboost = builder.comment("Percentage increase of base speed (0.5 = +50%)").defineInRange("the_chariot_speedboost", 0.5D, 0.0D, 100D);
