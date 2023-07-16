@@ -3,7 +3,6 @@ package shiroroku.tarotcards.DataGen;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -45,9 +44,9 @@ public class ItemModelGen extends ItemModelProvider {
         tarotModel(ItemRegistry.wheel_of_fortune.get());
     }
 
-    public ItemModelBuilder tarotModel(Item item) {
+    public void tarotModel(Item item) {
         ResourceLocation location = Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item));
-        return getBuilder(item.toString())
+        getBuilder(item.toString())
                 .parent(getExistingFile(modLoc("item/tarot")))
                 .texture("layer0", new ResourceLocation(location.getNamespace(), "item/card/" + location.getPath()));
     }

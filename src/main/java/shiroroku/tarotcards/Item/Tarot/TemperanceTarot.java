@@ -29,7 +29,7 @@ public class TemperanceTarot extends TarotItem {
 
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-		tooltip.add(Component.translatable(this.getDescriptionId() + ".desc", Configuration.temperance_reduction.get() * 100 + "").withStyle(ChatFormatting.BLUE));
+		tooltip.add(Component.translatable(this.getDescriptionId() + ".desc", String.valueOf(Configuration.temperance_reduction.get() * 100)).withStyle(ChatFormatting.BLUE));
 	}
 
 }

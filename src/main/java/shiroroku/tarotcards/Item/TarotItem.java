@@ -31,6 +31,7 @@ public abstract class TarotItem extends Item {
         super(new Properties().rarity(Rarity.UNCOMMON).stacksTo(1));
     }
 
+    @Override
     public boolean isFoil(ItemStack stack) {
         return isActivated(stack);
     }
@@ -42,13 +43,11 @@ public abstract class TarotItem extends Item {
         return !tarot.getOrCreateTag().getBoolean("deactivated");
     }
 
+    @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
-        if (pPlayer.getItemInHand(pUsedHand).getItem() instanceof TarotItem) {
-            ItemStack tarot = pPlayer.getItemInHand(pUsedHand);
-            boolean deactivated = tarot.getOrCreateTag().getBoolean("deactivated");
-            tarot.getOrCreateTag().putBoolean("deactivated", !deactivated);
-        }
-
+        ItemStack tarot = pPlayer.getItemInHand(pUsedHand);
+        //Toggles activation
+        tarot.getOrCreateTag().putBoolean("deactivated", !tarot.getOrCreateTag().getBoolean("deactivated"));
         return super.use(pLevel, pPlayer, pUsedHand);
     }
 
@@ -70,45 +69,37 @@ public abstract class TarotItem extends Item {
             deck = CuriosCompat.getTarotDeckCurio(player);
         }
 
-        //Check player for card
+        //Check player for card and deck
         for (List<ItemStack> compartment : fullInv) {
             for (ItemStack stack : compartment) {
+                //If we find the card, return it
+                //if we find the deck, remember it
                 if (stack.is(tarot)) {
                     return isActivated(stack);
                 }
+                if (stack.getItem() == ItemRegistry.tarot_deck.get()) {
+                    deck = stack;
+                }
             }
         }
 
-        //Check player for tarot deck
-
-        if (deck == null) {
-            foundDeck:
-            for (List<ItemStack> compartment : fullInv) {
-                for (ItemStack stack : compartment) {
-                    if (stack.getItem() == ItemRegistry.tarot_deck.get()) {
-                        deck = stack;
-                        break foundDeck;
-                    }
-                }
-            }
+        //If we didnt find the deck either, return false
+        if(deck == null){
+            return false;
         }
 
         //Check deck for card
-        if (deck != null) {
-            AtomicReference<ItemStack> finalCard = new AtomicReference<>(null);
-            deck.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
-                for (int i = 0; i < handler.getSlots(); i++) {
-                    if (handler.getStackInSlot(i).is(tarot)) {
-                        finalCard.set(handler.getStackInSlot(i).copy());
-                        break;
-                    }
+        AtomicReference<ItemStack> finalCard = new AtomicReference<>(null);
+        deck.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
+            for (int i = 0; i < handler.getSlots(); i++) {
+                if (handler.getStackInSlot(i).is(tarot)) {
+                    finalCard.set(handler.getStackInSlot(i).copy());
+                    break;
                 }
-            });
+            }
+        });
 
-            return finalCard.get() != null && isActivated(finalCard.get());
-        }
-
-        return false;
+        return finalCard.get() != null && isActivated(finalCard.get());
     }
 
     /**

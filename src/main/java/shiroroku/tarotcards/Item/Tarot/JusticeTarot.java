@@ -5,7 +5,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -26,15 +25,21 @@ public class JusticeTarot extends TarotItem {
     public static ResourceKey<DamageType> JUSTICE = ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(TarotCards.MODID, "justice"));
 
     public static void handleOnHurt(LivingHurtEvent event) {
-        if (event.getSource().getEntity() != null && event.getSource().getEntity() instanceof LivingEntity attacker && event.getEntity() instanceof Player player) {
+        //Make sure it is a living entity hurting a player
+        if (event.getSource().getEntity() instanceof LivingEntity attacker && event.getEntity() instanceof Player player) {
 
-            DamageSource justice = event.getEntity().damageSources().source(JUSTICE);
-            if (!event.getSource().is(JUSTICE) && hasTarot(player, ItemRegistry.justice.get())) {
+            //Damage taken from justice shouldnt be returned
+            if (event.getSource().is(JUSTICE)) {
+                return;
+            }
+
+            if (hasTarot(player, ItemRegistry.justice.get())) {
                 float amount = (float) (event.getAmount() * Configuration.justice_damagemultiplier.get());
-                attacker.hurt(justice, amount);
+                attacker.hurt(event.getEntity().damageSources().source(JUSTICE), amount);
+
                 TarotCards.LOGGER.debug("TAROT PASSIVE: {} - Returning damage", ItemRegistry.justice.get());
-                TarotCards.LOGGER.debug("From : {} [{}]", attacker, attacker.getHealth());
-                TarotCards.LOGGER.debug("To : {}", player);
+                TarotCards.LOGGER.debug("From : {}", player);
+                TarotCards.LOGGER.debug("To : {} [{}]", attacker, attacker.getHealth());
                 TarotCards.LOGGER.debug("Amount : {}", amount);
             }
         }
