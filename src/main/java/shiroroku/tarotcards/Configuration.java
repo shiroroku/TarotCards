@@ -22,6 +22,7 @@ public class Configuration {
 	public static ForgeConfigSpec.DoubleValue the_lovers_range;
 	public static ForgeConfigSpec.DoubleValue the_star_reachboost;
 	public static ForgeConfigSpec.DoubleValue the_sun_healthboost;
+	public static ForgeConfigSpec.DoubleValue the_tower_damagenegation;
 	public static ForgeConfigSpec.DoubleValue the_world_range;
 	public static ForgeConfigSpec.DoubleValue wheel_of_fortune_luckbonus;
 	public static ForgeConfigSpec.IntValue strength_amplifier;
@@ -44,6 +45,7 @@ public class Configuration {
 		builder.push("Cards");
 		death_damagebonus = builder.comment("Percentage of damage increase to living (0.5 = +50%)").defineInRange("death_damagebonus", 0.5D, 0D, 100D);
 		judgement_damagechance = builder.comment("Percentage chance of dealing double damage (0.5 = 50%)").defineInRange("judgement_damagechance", 0.5D, 0D, 1D);
+		the_tower_damagenegation = builder.comment("Percentage of fall damage negated (0.5 = 50%)").defineInRange("the_tower_damagenegation", 1D, 0D, 1D);
 		justice_damagemultiplier = builder.comment("Percentage of damage returned to the attacker (1.0 = 100%)").defineInRange("justice_damagemultiplier", 1D, 0D, 100D);
 		strength_amplifier = builder.comment("Amplifier for effect (1 = II)").defineInRange("strength_amplifier", 1, 0, 20);
 		temperance_reduction = builder.comment("Multiplier for hunger gained (0.5 = -50%, 0 = no change)").defineInRange("temperance_reduction", 0.5D, 0.0D, 1D);
