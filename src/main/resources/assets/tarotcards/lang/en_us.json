@@ -41,7 +41,7 @@
   "item.tarotcards.the_sun": "Tarot : The Sun",
   "item.tarotcards.the_sun.desc": "+%d%% Base health.",
   "item.tarotcards.the_tower": "Tarot : The Tower",
-  "item.tarotcards.the_tower.desc": "Immunity to Fall Damage.",
+  "item.tarotcards.the_tower.desc": "%d%% Fall damage negation.",
   "item.tarotcards.the_world": "Tarot : The World",
   "item.tarotcards.the_world.desc": "Slowness %d to nearby mobs.",
   "item.tarotcards.wheel_of_fortune": "Tarot : Wheel of Fortune",
