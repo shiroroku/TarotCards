@@ -70,7 +70,7 @@ dependencies {
 	// Curios
 	implementation fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
 	// JEI
-	runtimeOnly fg.deobf("mezz.jei:jei-1.20-forge:${jei_version}")
+	runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
 
 	// Mixin
 	annotationProcessor 'org.spongepowered:mixin:0.8.4:processor'
