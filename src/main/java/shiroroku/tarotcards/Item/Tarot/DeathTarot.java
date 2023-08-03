@@ -18,30 +18,30 @@ import java.util.List;
 
 public class DeathTarot extends TarotItem {
 
-    public static void handleOnHurt(LivingHurtEvent event) {
-        if (event.getSource().getEntity() instanceof Player player) {
-            if (hasTarot(player, ItemRegistry.death.get())) {
+	public static void handleOnHurt(LivingHurtEvent event) {
+		if (event.getSource().getEntity() instanceof Player player) {
+			if (hasTarot(player, ItemRegistry.death.get())) {
 
-                //Only want living mobs
-                if (event.getEntity().getMobType() == MobType.UNDEAD) {
-                    return;
-                }
+				//Only want living mobs
+				if (event.getEntity().getMobType() == MobType.UNDEAD) {
+					return;
+				}
 
-                float new_damage = (float) (event.getAmount() * (1 + Configuration.death_damagebonus.get()));
+				float new_damage = (float) (event.getAmount() * (1 + Configuration.death_damagebonus.get()));
 
-                TarotCards.LOGGER.debug("TAROT PASSIVE: {} - 50% more damage to non-undead", ItemRegistry.death.get());
-                TarotCards.LOGGER.debug("From : {}", player);
-                TarotCards.LOGGER.debug("To : {}", event.getEntity());
-                TarotCards.LOGGER.debug("Amount : {} to {}", event.getAmount(), new_damage);
+				TarotCards.LOGGER.debug("TAROT PASSIVE: {} - 50% more damage to non-undead", ItemRegistry.death.get());
+				TarotCards.LOGGER.debug("From : {}", player);
+				TarotCards.LOGGER.debug("To : {}", event.getEntity());
+				TarotCards.LOGGER.debug("Amount : {} to {}", event.getAmount(), new_damage);
 
-                event.setAmount(new_damage);
-            }
-        }
-    }
+				event.setAmount(new_damage);
+			}
+		}
+	}
 
-    @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable(this.getDescriptionId() + ".desc", Configuration.death_damagebonus.get() * 100).withStyle(ChatFormatting.BLUE));
-    }
+	@Override
+	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
+		tooltip.add(Component.translatable(this.getDescriptionId() + ".desc", Configuration.death_damagebonus.get() * 100).withStyle(ChatFormatting.BLUE));
+	}
 
 }

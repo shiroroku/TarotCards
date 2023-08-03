@@ -22,31 +22,31 @@ import java.util.List;
 
 public class JusticeTarot extends TarotItem {
 
-    public static ResourceKey<DamageType> JUSTICE = ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(TarotCards.MODID, "justice"));
+	public static ResourceKey<DamageType> JUSTICE = ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(TarotCards.MODID, "justice"));
 
-    public static void handleOnHurt(LivingHurtEvent event) {
-        //Make sure it is a living entity hurting a player
-        if (event.getSource().getEntity() instanceof LivingEntity attacker && event.getEntity() instanceof Player player) {
+	public static void handleOnHurt(LivingHurtEvent event) {
+		//Make sure it is a living entity hurting a player
+		if (event.getSource().getEntity() instanceof LivingEntity attacker && event.getEntity() instanceof Player player) {
 
-            //Damage taken from justice shouldnt be returned
-            if (event.getSource().is(JUSTICE)) {
-                return;
-            }
+			//Damage taken from justice shouldnt be returned
+			if (event.getSource().is(JUSTICE)) {
+				return;
+			}
 
-            if (hasTarot(player, ItemRegistry.justice.get())) {
-                float amount = (float) (event.getAmount() * Configuration.justice_damagemultiplier.get());
-                attacker.hurt(event.getEntity().damageSources().source(JUSTICE), amount);
+			if (hasTarot(player, ItemRegistry.justice.get())) {
+				float amount = (float) (event.getAmount() * Configuration.justice_damagemultiplier.get());
+				attacker.hurt(event.getEntity().damageSources().source(JUSTICE), amount);
 
-                TarotCards.LOGGER.debug("TAROT PASSIVE: {} - Returning damage", ItemRegistry.justice.get());
-                TarotCards.LOGGER.debug("From : {}", player);
-                TarotCards.LOGGER.debug("To : {} [{}]", attacker, attacker.getHealth());
-                TarotCards.LOGGER.debug("Amount : {}", amount);
-            }
-        }
-    }
+				TarotCards.LOGGER.debug("TAROT PASSIVE: {} - Returning damage", ItemRegistry.justice.get());
+				TarotCards.LOGGER.debug("From : {}", player);
+				TarotCards.LOGGER.debug("To : {} [{}]", attacker, attacker.getHealth());
+				TarotCards.LOGGER.debug("Amount : {}", amount);
+			}
+		}
+	}
 
-    @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable(this.getDescriptionId() + ".desc", String.valueOf(Configuration.justice_damagemultiplier.get() * 100)).withStyle(ChatFormatting.BLUE));
-    }
+	@Override
+	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
+		tooltip.add(Component.translatable(this.getDescriptionId() + ".desc", String.valueOf(Configuration.justice_damagemultiplier.get() * 100)).withStyle(ChatFormatting.BLUE));
+	}
 }

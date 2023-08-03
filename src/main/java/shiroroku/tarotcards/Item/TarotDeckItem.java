@@ -36,81 +36,81 @@ import java.util.List;
 
 public class TarotDeckItem extends Item implements MenuProvider {
 
-    private static final TagKey<Item> tarot = ItemTags.create(new ResourceLocation(TarotCards.MODID, "tarot_cards"));
+	private static final TagKey<Item> tarot = ItemTags.create(new ResourceLocation(TarotCards.MODID, "tarot_cards"));
 
-    public TarotDeckItem() {
-        super(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON).fireResistant());
-    }
+	public TarotDeckItem() {
+		super(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON).fireResistant());
+	}
 
-    @Override
-    public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
-        if (player instanceof ServerPlayer serverPlayer) {
-            NetworkHooks.openScreen(serverPlayer, this);
+	@Override
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
+		if (player instanceof ServerPlayer serverPlayer) {
+			NetworkHooks.openScreen(serverPlayer, this);
 
-        }
-        return super.use(world, player, hand);
-    }
+		}
+		return super.use(world, player, hand);
+	}
 
-    @Override
-    public Component getDisplayName() {
-        return this.getDescription();
-    }
+	@Override
+	public Component getDisplayName() {
+		return this.getDescription();
+	}
 
-    public ICapabilityProvider initCapabilities(ItemStack stack, @javax.annotation.Nullable CompoundTag nbt) {
-        return new ICapabilitySerializable<CompoundTag>() {
-            private final ItemStackHandler itemHandler = createHandler();
-            private final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
+	public ICapabilityProvider initCapabilities(ItemStack stack, @javax.annotation.Nullable CompoundTag nbt) {
+		return new ICapabilitySerializable<CompoundTag>() {
+			private final ItemStackHandler itemHandler = createHandler();
+			private final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
 
-            @Nonnull
-            @Override
-            public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-                return ForgeCapabilities.ITEM_HANDLER.orEmpty(cap, handler);
-            }
+			@Nonnull
+			@Override
+			public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
+				return ForgeCapabilities.ITEM_HANDLER.orEmpty(cap, handler);
+			}
 
-            @Override
-            public CompoundTag serializeNBT() {
-                return itemHandler.serializeNBT();
-            }
+			@Override
+			public CompoundTag serializeNBT() {
+				return itemHandler.serializeNBT();
+			}
 
-            @Override
-            public void deserializeNBT(CompoundTag nbt) {
+			@Override
+			public void deserializeNBT(CompoundTag nbt) {
 
-                this.itemHandler.deserializeNBT(nbt);
-            }
-        };
-    }
+				this.itemHandler.deserializeNBT(nbt);
+			}
+		};
+	}
 
-    private ItemStackHandler createHandler() {
-        return new ItemStackHandler(22) {
+	private ItemStackHandler createHandler() {
+		return new ItemStackHandler(22) {
 
-            @Override
-            public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
-                return canPut(stack);
-            }
+			@Override
+			public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
+				return canPut(stack);
+			}
 
-            private boolean canPut(ItemStack stack) {
-                return stack.getTags().anyMatch(t -> (t == tarot)) && this.stacks.stream().noneMatch(s -> (s.is(stack.getItem())));
-            }
+			private boolean canPut(ItemStack stack) {
+				return stack.getTags().anyMatch(t -> (t == tarot)) && this.stacks.stream().noneMatch(s -> (s.is(stack.getItem())));
+			}
 
-            @Nonnull
-            @Override
-            public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-                if (!canPut(stack)) {
-                    return stack;
-                }
-                return super.insertItem(slot, stack, simulate);
-            }
-        };
-    }
+			@Nonnull
+			@Override
+			public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
+				if (!canPut(stack)) {
+					return stack;
+				}
+				return super.insertItem(slot, stack, simulate);
+			}
+		};
+	}
 
-    @Nullable
-    @Override
-    public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
-        return new TarotDeckContainer(id, playerInventory, player);
-    }
+	@Nullable
+	@Override
+	public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
+		return new TarotDeckContainer(id, playerInventory, player);
+	}
 
-    @Override
-    public void appendHoverText(ItemStack stack, @javax.annotation.Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable(this.getDescriptionId() + ".desc").withStyle(ChatFormatting.GRAY));
-    }
+	@Override
+	public void appendHoverText(ItemStack stack, @javax.annotation.Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
+		tooltip.add(Component.translatable(this.getDescriptionId() + ".desc").withStyle(ChatFormatting.GRAY));
+	}
 }

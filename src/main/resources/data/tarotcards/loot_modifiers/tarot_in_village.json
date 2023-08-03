@@ -1,33 +1,33 @@
 {
-  "type": "tarotcards:loot_additions",
-  "conditions": [
-    {
-      "condition": "forge:loot_table_id",
-      "loot_table_id": "minecraft:chests/village/village_temple"
-    }
-  ],
-  "items": [
-    "tarotcards:death",
-    "tarotcards:judgement",
-    "tarotcards:justice",
-    "tarotcards:strength",
-    "tarotcards:temperance",
-    "tarotcards:the_chariot",
-    "tarotcards:the_devil",
-    "tarotcards:the_emperor",
-    "tarotcards:the_empress",
-    "tarotcards:the_fool",
-    "tarotcards:the_hanged_man",
-    "tarotcards:the_hermit",
-    "tarotcards:the_hierophant",
-    "tarotcards:the_high_priestess",
-    "tarotcards:the_lovers",
-    "tarotcards:the_magician",
-    "tarotcards:the_moon",
-    "tarotcards:the_star",
-    "tarotcards:the_sun",
-    "tarotcards:the_tower",
-    "tarotcards:the_world",
-    "tarotcards:wheel_of_fortune"
-  ]
+	"type": "tarotcards:loot_additions",
+	"conditions": [
+		{
+			"condition": "forge:loot_table_id",
+			"loot_table_id": "minecraft:chests/village/village_temple"
+		}
+	],
+	"items": [
+		"tarotcards:death",
+		"tarotcards:judgement",
+		"tarotcards:justice",
+		"tarotcards:strength",
+		"tarotcards:temperance",
+		"tarotcards:the_chariot",
+		"tarotcards:the_devil",
+		"tarotcards:the_emperor",
+		"tarotcards:the_empress",
+		"tarotcards:the_fool",
+		"tarotcards:the_hanged_man",
+		"tarotcards:the_hermit",
+		"tarotcards:the_hierophant",
+		"tarotcards:the_high_priestess",
+		"tarotcards:the_lovers",
+		"tarotcards:the_magician",
+		"tarotcards:the_moon",
+		"tarotcards:the_star",
+		"tarotcards:the_sun",
+		"tarotcards:the_tower",
+		"tarotcards:the_world",
+		"tarotcards:wheel_of_fortune"
+	]
 }

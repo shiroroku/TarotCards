@@ -1,22 +1,22 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "XZX",
-    "ZOZ",
-    "XZX"
-  ],
-  "key": {
-    "X": {
-      "item": "minecraft:gold_nugget"
-    },
-    "Z": {
-      "item": "minecraft:paper"
-    },
-    "O": {
-      "item": "minecraft:chest"
-    }
-  },
-  "result": {
-    "item": "tarotcards:tarot_deck"
-  }
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"XZX",
+		"ZOZ",
+		"XZX"
+	],
+	"key": {
+		"X": {
+			"item": "minecraft:gold_nugget"
+		},
+		"Z": {
+			"item": "minecraft:paper"
+		},
+		"O": {
+			"item": "minecraft:chest"
+		}
+	},
+	"result": {
+		"item": "tarotcards:tarot_deck"
+	}
 }

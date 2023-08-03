@@ -1,6 +1,6 @@
 {
-  "parent": "tarotcards:item/tarot",
-  "textures": {
-    "layer0": "tarotcards:item/card/temperance"
-  }
+	"parent": "tarotcards:item/tarot",
+	"textures": {
+		"layer0": "tarotcards:item/card/temperance"
+	}
 }

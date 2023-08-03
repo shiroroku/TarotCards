@@ -18,20 +18,20 @@ import java.util.List;
 
 public class TheTowerTarot extends TarotItem {
 
-    public static void handleOnHurt(LivingHurtEvent event) {
-        if (event.getSource().is(DamageTypes.FALL) && event.getEntity() instanceof Player player) {
-            if (hasTarot(player, ItemRegistry.the_tower.get())) {
-                float negation = (float) (event.getAmount() * (1 - Configuration.the_tower_damagenegation.get()));
-                TarotCards.LOGGER.debug("TAROT PASSIVE: {} - Fall negation", ItemRegistry.the_tower.get());
-                TarotCards.LOGGER.debug("Amount : {}", negation);
-                TarotCards.LOGGER.debug("To : {}", player);
-                event.setAmount(negation);
-            }
-        }
-    }
+	public static void handleOnHurt(LivingHurtEvent event) {
+		if (event.getSource().is(DamageTypes.FALL) && event.getEntity() instanceof Player player) {
+			if (hasTarot(player, ItemRegistry.the_tower.get())) {
+				float negation = (float) (event.getAmount() * (1 - Configuration.the_tower_damagenegation.get()));
+				TarotCards.LOGGER.debug("TAROT PASSIVE: {} - Fall negation", ItemRegistry.the_tower.get());
+				TarotCards.LOGGER.debug("Amount : {}", negation);
+				TarotCards.LOGGER.debug("To : {}", player);
+				event.setAmount(negation);
+			}
+		}
+	}
 
-    @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable(this.getDescriptionId() + ".desc", String.valueOf(Configuration.the_tower_damagenegation.get() * 100)).withStyle(ChatFormatting.BLUE));
-    }
+	@Override
+	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
+		tooltip.add(Component.translatable(this.getDescriptionId() + ".desc", String.valueOf(Configuration.the_tower_damagenegation.get() * 100)).withStyle(ChatFormatting.BLUE));
+	}
 }
