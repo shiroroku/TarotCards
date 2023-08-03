@@ -56,6 +56,7 @@ public class TarotDeckItem extends Item implements MenuProvider {
 		return this.getDescription();
 	}
 
+	@Override
 	public ICapabilityProvider initCapabilities(ItemStack stack, @javax.annotation.Nullable CompoundTag nbt) {
 		return new ICapabilitySerializable<CompoundTag>() {
 			private final ItemStackHandler itemHandler = createHandler();
@@ -74,7 +75,6 @@ public class TarotDeckItem extends Item implements MenuProvider {
 
 			@Override
 			public void deserializeNBT(CompoundTag nbt) {
-
 				this.itemHandler.deserializeNBT(nbt);
 			}
 		};

@@ -19,7 +19,7 @@ import java.util.List;
 
 public class LootModifier extends net.minecraftforge.common.loot.LootModifier {
 
-	private List<Item> items;
+	private final List<Item> items;
 
 	public LootModifier(LootItemCondition[] conditionsIn, List<Item> items) {
 		super(conditionsIn);

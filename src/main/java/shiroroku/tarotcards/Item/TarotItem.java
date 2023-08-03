@@ -31,6 +31,7 @@ public abstract class TarotItem extends Item {
 		super(new Properties().tab(TarotCards.CREATIVETAB).rarity(Rarity.UNCOMMON).stacksTo(1));
 	}
 
+	@Override
 	public boolean isFoil(ItemStack stack) {
 		return isActivated(stack);
 	}
@@ -42,6 +43,7 @@ public abstract class TarotItem extends Item {
 		return !tarot.getOrCreateTag().getBoolean("deactivated");
 	}
 
+	@Override
 	public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
 		if (pPlayer.getItemInHand(pUsedHand).getItem() instanceof TarotItem) {
 			ItemStack tarot = pPlayer.getItemInHand(pUsedHand);

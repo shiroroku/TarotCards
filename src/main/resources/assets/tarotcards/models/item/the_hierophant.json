@@ -1,6 +1,6 @@
 {
-    "parent": "tarotcards:item/tarot",
-    "textures": {
-        "layer0": "tarotcards:items/cards/the_hierophant"
-    }
+	"parent": "tarotcards:item/tarot",
+	"textures": {
+		"layer0": "tarotcards:items/cards/the_hierophant"
+	}
 }

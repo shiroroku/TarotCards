@@ -34,7 +34,7 @@ public class TheHighPriestessTarot extends TarotItem {
 
                     if (!Configuration.the_highpriestess_capenchants.get() || enchant.getValue() < enchant.getKey().getMaxLevel()) {
 
-                        int cost = (int) (Configuration.the_highpriestess_upgradecost.get() * enchant.getValue());
+                        int cost = Configuration.the_highpriestess_upgradecost.get() * enchant.getValue();
 
                         if (p.experienceLevel > cost) {
                             TarotCards.LOGGER.debug("TAROT PASSIVE: {} - Enchantment upgrade", ItemRegistry.the_high_priestess.get());

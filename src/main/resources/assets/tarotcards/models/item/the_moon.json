@@ -1,6 +1,6 @@
 {
-    "parent": "tarotcards:item/tarot",
-    "textures": {
-        "layer0": "tarotcards:items/cards/the_moon"
-    }
+	"parent": "tarotcards:item/tarot",
+	"textures": {
+		"layer0": "tarotcards:items/cards/the_moon"
+	}
 }

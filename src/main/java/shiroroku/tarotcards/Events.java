@@ -6,8 +6,10 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerXpEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.common.Mod;
 import shiroroku.tarotcards.Item.Tarot.*;
 
+@Mod.EventBusSubscriber(modid = TarotCards.MODID)
 public class Events {
 
 	@SubscribeEvent
