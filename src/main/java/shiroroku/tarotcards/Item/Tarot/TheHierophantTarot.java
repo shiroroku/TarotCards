@@ -18,14 +18,15 @@ public class TheHierophantTarot extends TarotItem {
 
 	public static void handleOnPlayerPickupXp(PlayerXpEvent.PickupXp event) {
 		if (hasTarot(event.getEntity(), ItemRegistry.the_hierophant.get())) {
+			int new_value = (int) Math.round(event.getOrb().value * Configuration.the_hierophant_xpboost.get());
 			TarotCards.LOGGER.debug("TAROT PASSIVE: {} - XP Boost", ItemRegistry.the_hierophant.get());
-			TarotCards.LOGGER.debug("From: {} To: {}", event.getOrb().value, event.getOrb().value * Configuration.the_hierophant_xpboost.get());
-			event.getOrb().value = (int) (event.getOrb().value * Configuration.the_hierophant_xpboost.get());
+			TarotCards.LOGGER.debug("From: {} To: {}", event.getOrb().value, new_value);
+			event.getOrb().value = new_value;
 		}
 	}
 
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-		tooltip.add(Component.translatable(this.getDescriptionId() + ".desc", Configuration.the_hierophant_xpboost.get() * 100 + "").withStyle(ChatFormatting.BLUE));
+		tooltip.add(Component.translatable(this.getDescriptionId() + ".desc", String.valueOf(Configuration.the_hierophant_xpboost.get() * 100)).withStyle(ChatFormatting.BLUE));
 	}
 }
