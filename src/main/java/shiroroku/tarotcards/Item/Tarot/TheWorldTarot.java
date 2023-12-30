@@ -20,19 +20,28 @@ import java.util.List;
 
 public class TheWorldTarot extends TarotItem {
 
-	public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
-		Player player = event.player;
-		if (hasTarot(player, ItemRegistry.the_world.get())) {
-			MobEffectInstance slow_effect = new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60 + Configuration.tick_rate.get(), Configuration.the_world_slownessamplifier.get(), true, false, false);
-			player.level().getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, player, player.getBoundingBox().inflate(Configuration.the_world_range.get())).stream()
-					.filter(e -> !e.isAlliedTo(player))
-					.forEach(e -> e.addEffect(slow_effect));
-		}
-	}
+    public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
+        Player player = event.player;
+        if (hasTarot(player, ItemRegistry.the_world.get())) {
+            MobEffectInstance slow_effect = new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60 + Configuration.tick_rate.get(), Configuration.the_world_slownessamplifier.get(), true, false, false);
+            player.level().getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, player, player.getBoundingBox().inflate(Configuration.the_world_range.get())).stream()
+                    .filter(e -> !e.isAlliedTo(player))
+                    .filter(e -> {
+                        // If we cant hurt the player, then filter out
+                        if (e instanceof Player ePlayer && !player.canHarmPlayer(ePlayer)) {
+                            return false;
+                        } else {
+                            // If its not a player then continue
+                            return true;
+                        }
+                    })
+                    .forEach(e -> e.addEffect(slow_effect));
+        }
+    }
 
-	@Override
-	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-		tooltip.add(Component.translatable(this.getDescriptionId() + ".desc", Configuration.the_world_slownessamplifier.get() + 1).withStyle(ChatFormatting.BLUE));
-	}
+    @Override
+    public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
+        tooltip.add(Component.translatable(this.getDescriptionId() + ".desc", Configuration.the_world_slownessamplifier.get() + 1).withStyle(ChatFormatting.BLUE));
+    }
 
 }
