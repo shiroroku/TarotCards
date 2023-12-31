@@ -24,12 +24,19 @@ public class TheWorldTarot extends TarotItem {
 		Player player = event.player;
 		if (hasTarot(player, ItemRegistry.the_world.get())) {
 			List<LivingEntity> entities = player.level.getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, player, player.getBoundingBox().inflate(Configuration.the_world_range.get()));
-			MobEffectInstance slow = new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60 + Configuration.tick_rate.get(), Configuration.the_world_slownessamplifier.get(), true, false, false);
-			for (LivingEntity e : entities) {
-				if (!e.isAlliedTo(player)) {
-					e.addEffect(slow);
-				}
-			}
+            MobEffectInstance slow_effect = new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60 + Configuration.tick_rate.get(), Configuration.the_world_slownessamplifier.get(), true, false, false);
+            player.level.getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, player, player.getBoundingBox().inflate(Configuration.the_world_range.get())).stream()
+                    .filter(e -> !e.isAlliedTo(player))
+                    .filter(e -> {
+                        // If we cant hurt the player, then filter out
+                        if (e instanceof Player ePlayer && !player.canHarmPlayer(ePlayer)) {
+                            return false;
+                        } else {
+                            // If its not a player then continue
+                            return true;
+                        }
+                    })
+                    .forEach(e -> e.addEffect(slow_effect));
 		}
 	}
 
