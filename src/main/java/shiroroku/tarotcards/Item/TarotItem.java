@@ -24,6 +24,7 @@ import shiroroku.tarotcards.TarotCards;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Supplier;
 
 public abstract class TarotItem extends Item {
 
@@ -102,23 +103,27 @@ public abstract class TarotItem extends Item {
 		return finalCard.get() != null && isActivated(finalCard.get());
 	}
 
-	/**
-	 * Will add or remove attribute modifiers if the player has the tarot.
-	 */
-	public static void handleAttribute(Player player, Attribute a, AttributeModifier mod, Item tarot) {
-		boolean hasCard = hasTarot(player, tarot);
-		if (player.getAttribute(a).hasModifier(mod)) {
-			if (!hasCard) {
-				TarotCards.LOGGER.debug("Removing Tarot Modifier : {} - {}", tarot, mod);
-				player.getAttribute(a).removeModifier(mod);
-			}
-		} else {
-			if (hasCard) {
-				TarotCards.LOGGER.debug("Adding Tarot Modifier : {} - {}", tarot, mod);
-				player.getAttribute(a).addTransientModifier(mod);
-			}
-		}
-	}
+    /**
+     * Will add or remove attribute modifiers if the player has the tarot.
+     */
+    public static void handleAttribute(Player player, Attribute a, AttributeModifier mod, Item tarot) {
+        handleAttribute(player, a, mod, tarot, () -> true);
+    }
+
+    public static void handleAttribute(Player player, Attribute a, AttributeModifier mod, Item tarot, Supplier<Boolean> additionalRequirements) {
+        boolean hasCard = hasTarot(player, tarot) && additionalRequirements.get();
+        if (player.getAttribute(a).hasModifier(mod)) {
+            if (!hasCard) {
+                TarotCards.LOGGER.debug("Removing Tarot Modifier : {} - {}", tarot, mod);
+                player.getAttribute(a).removeModifier(mod);
+            }
+        } else {
+            if (hasCard) {
+                TarotCards.LOGGER.debug("Adding Tarot Modifier : {} - {}", tarot, mod);
+                player.getAttribute(a).addTransientModifier(mod);
+            }
+        }
+    }
 
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {

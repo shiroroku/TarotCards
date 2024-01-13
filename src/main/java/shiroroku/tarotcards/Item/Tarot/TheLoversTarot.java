@@ -17,19 +17,20 @@ import shiroroku.tarotcards.Registry.ItemRegistry;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.function.Supplier;
 
 public class TheLoversTarot extends TarotItem {
 
     private static final TargetingConditions targeting = TargetingConditions.forNonCombat().ignoreLineOfSight().ignoreInvisibilityTesting();
+    private static final Supplier<MobEffectInstance> effect = () -> new MobEffectInstance(MobEffects.REGENERATION, Configuration.tick_rate.get() + 20, Configuration.the_lovers_regenamplifier.get(), true, false, false);
 
     public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
         Player player = event.player;
         if (hasTarot(player, ItemRegistry.the_lovers.get())) {
-            MobEffectInstance regen = new MobEffectInstance(MobEffects.REGENERATION, Configuration.tick_rate.get(), Configuration.the_lovers_regenamplifier.get(), true, false, false);
-            player.addEffect(regen);
+            player.addEffect(effect.get());
             player.level().getNearbyEntities(LivingEntity.class, targeting, player, player.getBoundingBox().inflate(Configuration.the_lovers_range.get())).stream()
                     .filter(e -> e.isAlliedTo(player))
-                    .forEach(e -> e.addEffect(regen));
+                    .forEach(e -> e.addEffect(effect.get()));
         }
     }
 

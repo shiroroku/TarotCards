@@ -14,15 +14,15 @@ public class TheMagicianTarot extends TarotItem {
 
 	private static final TagKey<Item> goldenItem = ItemTags.create(new ResourceLocation(TarotCards.MODID, "golden"));
 
-	public static boolean handleItemDamage(ItemStack item, Player player) {
-		if (hasTarot(player, ItemRegistry.the_magician.get())) {
-			if (item.isDamageableItem() && item.getTags().anyMatch(t -> (t.equals(goldenItem)))) {
-				TarotCards.LOGGER.debug("TAROT PASSIVE: {} - Gold items wont take damage", ItemRegistry.the_magician.get());
-				TarotCards.LOGGER.debug("To : {}", player);
-				return true;
-			}
-		}
-		return false;
-	}
+    public static boolean handleItemDamage(ItemStack item, Player player) {
+        if (hasTarot(player, ItemRegistry.the_magician.get())) {
+            if (item.isDamageableItem() && item.getTags().anyMatch(t -> (t.equals(goldenItem)))) {
+                TarotCards.LOGGER.debug("TAROT PASSIVE: {} - Gold items wont take damage", ItemRegistry.the_magician.get());
+                TarotCards.LOGGER.debug("To : {}", player);
+                return true;
+            }
+        }
+        return false;
+    }
 
 }
