@@ -14,17 +14,20 @@ import shiroroku.tarotcards.Registry.ItemRegistry;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.function.Supplier;
 
 public class TheFoolTarot extends TarotItem {
 
-	public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
-		if (hasTarot(event.player, ItemRegistry.the_fool.get())) {
-			event.player.addEffect(new MobEffectInstance(MobEffects.JUMP, Configuration.tick_rate.get(), Configuration.the_fool_jumpboost.get(), true, false, false));
-		}
-	}
+    public static final Supplier<MobEffectInstance> effect = () -> new MobEffectInstance(MobEffects.JUMP, Configuration.tick_rate.get() + 20, Configuration.the_fool_jumpboost.get(), true, false, false);
 
-	@Override
-	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-		tooltip.add(Component.translatable(this.getDescriptionId() + ".desc", Configuration.the_fool_jumpboost.get() + 1).withStyle(ChatFormatting.BLUE));
-	}
+    public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
+        if (hasTarot(event.player, ItemRegistry.the_fool.get())) {
+            event.player.addEffect(effect.get());
+        }
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
+        tooltip.add(Component.translatable(this.getDescriptionId() + ".desc", Configuration.the_fool_jumpboost.get() + 1).withStyle(ChatFormatting.BLUE));
+    }
 }

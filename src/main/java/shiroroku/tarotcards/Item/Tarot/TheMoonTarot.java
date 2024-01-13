@@ -7,11 +7,15 @@ import shiroroku.tarotcards.Configuration;
 import shiroroku.tarotcards.Item.TarotItem;
 import shiroroku.tarotcards.Registry.ItemRegistry;
 
+import java.util.function.Supplier;
+
 public class TheMoonTarot extends TarotItem {
 
-	public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
-		if (hasTarot(event.player, ItemRegistry.the_moon.get())) {
-			event.player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 220 + Configuration.tick_rate.get(), 0, true, false));
-		}
-	}
+    private static final Supplier<MobEffectInstance> night_vision = () -> new MobEffectInstance(MobEffects.NIGHT_VISION, 240 + Configuration.tick_rate.get(), 0, true, false);
+
+    public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
+        if (hasTarot(event.player, ItemRegistry.the_moon.get())) {
+            event.player.addEffect(night_vision.get());
+        }
+    }
 }
