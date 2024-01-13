@@ -16,16 +16,14 @@ import shiroroku.tarotcards.Registry.ItemRegistry;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Supplier;
 
 public class TheSunTarot extends TarotItem {
 
-	private static AttributeModifier healthBoost = null;
+	private static final Supplier<AttributeModifier> healthBoost = ()-> new AttributeModifier(UUID.nameUUIDFromBytes("TarotSun".getBytes()), "Tarot Card", Configuration.the_sun_healthboost.get(), AttributeModifier.Operation.MULTIPLY_BASE);
 
 	public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
-		if (healthBoost == null) {
-			healthBoost = new AttributeModifier(UUID.nameUUIDFromBytes("TarotSun".getBytes()).toString(), Configuration.the_sun_healthboost.get(), AttributeModifier.Operation.MULTIPLY_BASE);
-		}
-		handleAttribute(event.player, Attributes.MAX_HEALTH, healthBoost, ItemRegistry.the_sun.get());
+		handleAttribute(event.player, Attributes.MAX_HEALTH, healthBoost.get(), ItemRegistry.the_sun.get());
 	}
 
     @Override
