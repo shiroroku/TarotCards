@@ -11,7 +11,7 @@ import java.util.function.Supplier;
 
 public class TheMoonTarot extends TarotItem {
 
-    private static final Supplier<MobEffectInstance> night_vision = () -> new MobEffectInstance(MobEffects.NIGHT_VISION, 240 + Configuration.tick_rate.get(), 0, true, false);
+    private static final Supplier<MobEffectInstance> night_vision = () -> new MobEffectInstance(MobEffects.NIGHT_VISION, 311 + Configuration.tick_rate.get(), 0, true, false);
 
     public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
         if (hasTarot(event.player, ItemRegistry.the_moon.get())) {
