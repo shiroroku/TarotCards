@@ -18,24 +18,19 @@ import shiroroku.tarotcards.Registry.ItemRegistry;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.function.Supplier;
 
 public class TheWorldTarot extends TarotItem {
+
+    public static final Supplier<MobEffectInstance> effect = () -> new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60 + Configuration.tick_rate.get(), Configuration.the_world_slownessamplifier.get(), true, false, false);
+
     public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
         Player player = event.player;
         if (hasTarot(player, ItemRegistry.the_world.get())) {
-            MobEffectInstance slow_effect = new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60 + Configuration.tick_rate.get(), Configuration.the_world_slownessamplifier.get(), true, false, false);
             player.level.getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, player, player.getBoundingBox().inflate(Configuration.the_world_range.get())).stream()
                     .filter(e -> !e.isAlliedTo(player))
-                    .filter(e -> {
-                        // If we cant hurt the player, then filter out
-                        if (e instanceof Player ePlayer && !player.canHarmPlayer(ePlayer)) {
-                            return false;
-                        } else {
-                            // If its not a player then continue
-                            return true;
-                        }
-                    })
-                    .forEach(e -> e.addEffect(slow_effect));
+                    .filter(e -> !(e instanceof Player ePlayer) || player.canHarmPlayer(ePlayer))
+                    .forEach(e -> e.addEffect(effect.get()));
         }
     }
 

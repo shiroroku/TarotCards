@@ -16,12 +16,14 @@ import shiroroku.tarotcards.Registry.ItemRegistry;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Supplier;
 
 public class TheStarTarot extends TarotItem {
-    private static final AttributeModifier reachBoost = new AttributeModifier(UUID.nameUUIDFromBytes("TarotStar".getBytes()).toString(), Configuration.the_star_reachboost.get(), AttributeModifier.Operation.MULTIPLY_BASE);
+
+    private static final Supplier<AttributeModifier> attribute = () -> new AttributeModifier(UUID.nameUUIDFromBytes("TarotStar".getBytes()), "Tarot Card", Configuration.the_star_reachboost.get(), AttributeModifier.Operation.MULTIPLY_BASE);
 
     public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
-        handleAttribute(event.player, ForgeMod.REACH_DISTANCE.get(), reachBoost, ItemRegistry.the_star.get());
+        handleAttribute(event.player, ForgeMod.REACH_DISTANCE.get(), attribute.get(), ItemRegistry.the_star.get());
     }
 
     @Override

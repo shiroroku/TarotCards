@@ -19,15 +19,14 @@ import java.util.UUID;
 
 public class TheSunTarot extends TarotItem {
 
-    private static final String uuid = UUID.nameUUIDFromBytes("TarotSun".getBytes()).toString();
-    private static AttributeModifier healthBoost = null;
+	private static AttributeModifier healthBoost = null;
 
-    public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
-        if (healthBoost == null) {
-            healthBoost = new AttributeModifier(uuid, Configuration.the_sun_healthboost.get(), AttributeModifier.Operation.MULTIPLY_BASE);
-        }
-        handleAttribute(event.player, Attributes.MAX_HEALTH, healthBoost, ItemRegistry.the_sun.get());
-    }
+	public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
+		if (healthBoost == null) {
+			healthBoost = new AttributeModifier(UUID.nameUUIDFromBytes("TarotSun".getBytes()).toString(), Configuration.the_sun_healthboost.get(), AttributeModifier.Operation.MULTIPLY_BASE);
+		}
+		handleAttribute(event.player, Attributes.MAX_HEALTH, healthBoost, ItemRegistry.the_sun.get());
+	}
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {

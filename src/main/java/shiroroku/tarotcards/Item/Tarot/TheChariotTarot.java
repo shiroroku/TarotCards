@@ -16,17 +16,14 @@ import shiroroku.tarotcards.Registry.ItemRegistry;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Supplier;
 
 public class TheChariotTarot extends TarotItem {
 
-    private static final String uuid = UUID.nameUUIDFromBytes("TarotChariot".getBytes()).toString();
-    private static AttributeModifier speedBoost = null;
+    private static final Supplier<AttributeModifier> attribute = () -> new AttributeModifier(UUID.nameUUIDFromBytes("TarotChariot".getBytes()), "Tarot Card", Configuration.the_chariot_speedboost.get(), AttributeModifier.Operation.MULTIPLY_BASE);
 
     public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
-        if (speedBoost == null) {
-            speedBoost = new AttributeModifier(uuid, Configuration.the_chariot_speedboost.get(), AttributeModifier.Operation.MULTIPLY_BASE);
-        }
-        handleAttribute(event.player, Attributes.MOVEMENT_SPEED, speedBoost, ItemRegistry.the_chariot.get());
+        handleAttribute(event.player, Attributes.MOVEMENT_SPEED, attribute.get(), ItemRegistry.the_chariot.get());
     }
 
     @Override

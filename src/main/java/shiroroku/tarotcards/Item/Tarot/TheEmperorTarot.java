@@ -15,12 +15,15 @@ import shiroroku.tarotcards.Registry.ItemRegistry;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.function.Supplier;
 
 public class TheEmperorTarot extends TarotItem {
 
+    private static final Supplier<MobEffectInstance> effect = () -> new MobEffectInstance(MobEffects.HERO_OF_THE_VILLAGE, Configuration.tick_rate.get() + 20, Configuration.the_emperpor_heroofvillagebonus.get(), true, false);
+
     public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
         if (hasTarot(event.player, ItemRegistry.the_emperor.get())) {
-            event.player.addEffect(new MobEffectInstance(MobEffects.HERO_OF_THE_VILLAGE, 20, Configuration.the_emperpor_heroofvillagebonus.get(), true, false));
+            event.player.addEffect(effect.get());
         }
     }
 
