@@ -1,6 +1,5 @@
 package shiroroku.tarotcards;
 
-import net.minecraftforge.common.ForgeConfigSpec;
 
 public class Configuration {
 

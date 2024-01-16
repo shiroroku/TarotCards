@@ -1,16 +1,18 @@
 package shiroroku.tarotcards;
 
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import shiroroku.tarotcards.Item.TarotDeckItem;
+import shiroroku.tarotcards.Registry.ItemRegistry;
 
 @Mod.EventBusSubscriber(modid = TarotCards.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class SetupCommon {
 
-	@SubscribeEvent
-	public static void commonSetup(final FMLCommonSetupEvent event) {
-		MinecraftForge.EVENT_BUS.register(Events.class);
-	}
+    @SubscribeEvent
+    private static void registerCapability(RegisterCapabilitiesEvent pEvent) {
+        pEvent.registerItem(Capabilities.ItemHandler.ITEM, (stack, ctx) -> new TarotDeckItem.ItemHandler(stack), ItemRegistry.tarot_deck.get());
+    }
 
 }

@@ -1,8 +1,9 @@
 package shiroroku.tarotcards.Item;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -19,98 +20,102 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.common.capabilities.ICapabilitySerializable;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.network.NetworkHooks;
+import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 import shiroroku.tarotcards.Container.TarotDeckContainer;
 import shiroroku.tarotcards.TarotCards;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 
 public class TarotDeckItem extends Item implements MenuProvider {
 
-	private static final TagKey<Item> tarot = ItemTags.create(new ResourceLocation(TarotCards.MODID, "tarot_cards"));
+    private static final TagKey<Item> tarot = ItemTags.create(new ResourceLocation(TarotCards.MODID, "tarot_cards"));
 
-	public TarotDeckItem() {
-		super(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON).fireResistant());
-	}
+    public TarotDeckItem() {
+        super(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON).fireResistant());
+    }
 
-	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
-		if (player instanceof ServerPlayer serverPlayer) {
-			NetworkHooks.openScreen(serverPlayer, this);
+    public static class ItemHandler extends ItemStackHandler {
 
-		}
-		return super.use(world, player, hand);
-	}
+        private final ItemStack parent;
 
-	@Override
-	public Component getDisplayName() {
-		return this.getDescription();
-	}
+        public ItemHandler(ItemStack parent) {
+            super(22);
+            this.parent = parent;
+        }
 
-	public ICapabilityProvider initCapabilities(ItemStack stack, @javax.annotation.Nullable CompoundTag nbt) {
-		return new ICapabilitySerializable<CompoundTag>() {
-			private final ItemStackHandler itemHandler = createHandler();
-			private final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
+        private boolean canPut(ItemStack stack) {
+            return stack.getTags().anyMatch(t -> (t == tarot)) && this.stacks.stream().noneMatch(s -> (s.is(stack.getItem())));
+        }
 
-			@Nonnull
-			@Override
-			public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-				return ForgeCapabilities.ITEM_HANDLER.orEmpty(cap, handler);
-			}
+        @Override
+        public boolean isItemValid(int slot, ItemStack stack) {
+            return canPut(stack);
+        }
 
-			@Override
-			public CompoundTag serializeNBT() {
-				return itemHandler.serializeNBT();
-			}
+        @Override
+        public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+            if (!canPut(stack)) {
+                return stack;
+            }
+            return super.insertItem(slot, stack, simulate);
+        }
 
-			@Override
-			public void deserializeNBT(CompoundTag nbt) {
+        @Override
+        public CompoundTag serializeNBT() {
+            ListTag nbtTagList = new ListTag();
+            for (int i = 0; i < stacks.size(); i++) {
+                if (!stacks.get(i).isEmpty()) {
+                    CompoundTag itemTag = new CompoundTag();
+                    itemTag.putInt("Slot", i);
+                    stacks.get(i).save(itemTag);
+                    nbtTagList.add(itemTag);
+                }
+            }
+            CompoundTag nbt = new CompoundTag();
+            nbt.put("Items", nbtTagList);
+            nbt.putInt("Size", stacks.size());
+            return nbt;
+        }
 
-				this.itemHandler.deserializeNBT(nbt);
-			}
-		};
-	}
+        @Override
+        public void deserializeNBT(CompoundTag nbt) {
+            setSize(nbt.contains("Size", Tag.TAG_INT) ? nbt.getInt("Size") : stacks.size());
+            ListTag tagList = nbt.getList("Items", Tag.TAG_COMPOUND);
+            for (int i = 0; i < tagList.size(); i++) {
+                CompoundTag itemTags = tagList.getCompound(i);
+                int slot = itemTags.getInt("Slot");
 
-	private ItemStackHandler createHandler() {
-		return new ItemStackHandler(22) {
+                if (slot >= 0 && slot < stacks.size()) {
+                    stacks.set(slot, ItemStack.of(itemTags));
+                }
+            }
+            onLoad();
+        }
+    }
 
-			@Override
-			public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
-				return canPut(stack);
-			}
+    @Override
+    public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
+        if (player instanceof ServerPlayer serverPlayer) {
+            NetworkHooks.openScreen(serverPlayer, this);
+        }
+        return super.use(world, player, hand);
+    }
 
-			private boolean canPut(ItemStack stack) {
-				return stack.getTags().anyMatch(t -> (t == tarot)) && this.stacks.stream().noneMatch(s -> (s.is(stack.getItem())));
-			}
+    @Override
+    public Component getDisplayName() {
+        return this.getDescription();
+    }
 
-			@Nonnull
-			@Override
-			public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-				if (!canPut(stack)) {
-					return stack;
-				}
-				return super.insertItem(slot, stack, simulate);
-			}
-		};
-	}
+    @Nullable
+    @Override
+    public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
+        return new TarotDeckContainer(id, playerInventory, player);
+    }
 
-	@Nullable
-	@Override
-	public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
-		return new TarotDeckContainer(id, playerInventory, player);
-	}
-
-	@Override
-	public void appendHoverText(ItemStack stack, @javax.annotation.Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-		tooltip.add(Component.translatable(this.getDescriptionId() + ".desc").withStyle(ChatFormatting.GRAY));
-	}
+    @Override
+    public void appendHoverText(ItemStack stack, @javax.annotation.Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
+        tooltip.add(Component.translatable(this.getDescriptionId() + ".desc").withStyle(ChatFormatting.GRAY));
+    }
 }

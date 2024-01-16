@@ -16,11 +16,16 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
+import net.neoforged.neoforge.registries.DeferredRegister;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import shiroroku.tarotcards.Container.TarotDeckContainer;
 import shiroroku.tarotcards.Registry.ItemRegistry;
 import shiroroku.tarotcards.World.TarotLootAdditions;
+
+import java.util.function.Supplier;
 
 @Mod(TarotCards.MODID)
 public class TarotCards {
@@ -28,10 +33,10 @@ public class TarotCards {
 	public static final String MODID = "tarotcards";
 	public static final Logger LOGGER = LogManager.getLogger();
 
-	private static final DeferredRegister<Codec<? extends IGlobalLootModifier>> MODIFIERS = DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, TarotCards.MODID);
-	private static final RegistryObject<Codec<TarotLootAdditions>> loot_additions = MODIFIERS.register("loot_additions", TarotLootAdditions.CODEC);
+	private static final DeferredRegister<Codec<? extends IGlobalLootModifier>> MODIFIERS = DeferredRegister.create(Registries.loot, TarotCards.MODID);
+	private static final Supplier<Codec<TarotLootAdditions>> loot_additions = MODIFIERS.register("loot_additions", TarotLootAdditions.CODEC);
 
-	private static final DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.MENU_TYPES, TarotCards.MODID);
+	private static final DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(Registries.MENU, TarotCards.MODID);
 	public static final RegistryObject<MenuType<TarotDeckContainer>> tarot_deck = CONTAINERS.register("tarot_deck", () -> IForgeMenuType.create((windowId, inv, data) -> new TarotDeckContainer(windowId, inv, inv.player)));
 
 	public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, TarotCards.MODID);
@@ -42,7 +47,6 @@ public class TarotCards {
 			.build());
 
 	public TarotCards() {
-		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Configuration.config);
 		ItemRegistry.ITEMS.register(bus);
 		CONTAINERS.register(bus);
