@@ -24,7 +24,6 @@ import shiroroku.tarotcards.TarotCards;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Supplier;
 
 public abstract class TarotItem extends Item {
@@ -68,8 +67,7 @@ public abstract class TarotItem extends Item {
 
         //Check curios for tarot deck
         if (ModList.get().isLoaded("curios")) {
-            //todo curios compat
-            //deck = CuriosCompat.getTarotDeckCurio(player);
+            deck = CuriosCompat.getTarotDeckCurio(player);
         }
 
         //Check player for card and deck
