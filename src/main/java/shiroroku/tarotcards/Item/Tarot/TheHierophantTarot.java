@@ -5,7 +5,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.event.entity.player.PlayerXpEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerXpEvent;
 import shiroroku.tarotcards.Configuration;
 import shiroroku.tarotcards.Item.TarotItem;
 import shiroroku.tarotcards.Registry.ItemRegistry;

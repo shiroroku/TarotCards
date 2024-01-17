@@ -6,8 +6,8 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.ForgeMod;
-import net.minecraftforge.event.TickEvent;
+import net.neoforged.neoforge.common.NeoForgeMod;
+import net.neoforged.neoforge.event.TickEvent;
 import shiroroku.tarotcards.Configuration;
 import shiroroku.tarotcards.Item.TarotItem;
 import shiroroku.tarotcards.Registry.ItemRegistry;
@@ -18,19 +18,19 @@ import java.util.UUID;
 
 public class TheStarTarot extends TarotItem {
 
-	private static final String uuid = UUID.nameUUIDFromBytes("TarotStar".getBytes()).toString();
-	private static AttributeModifier reachBoost = null;
+    private static final String uuid = UUID.nameUUIDFromBytes("TarotStar".getBytes()).toString();
+    private static AttributeModifier reachBoost = null;
 
-	public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
-		if (reachBoost == null) {
-			reachBoost = new AttributeModifier(uuid, Configuration.the_star_reachboost.get(), AttributeModifier.Operation.MULTIPLY_BASE);
-		}
-		handleAttribute(event.player, ForgeMod.BLOCK_REACH.get(), reachBoost, ItemRegistry.the_star.get());
-	}
+    public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
+        if (reachBoost == null) {
+            reachBoost = new AttributeModifier(uuid, Configuration.the_star_reachboost.get(), AttributeModifier.Operation.MULTIPLY_BASE);
+        }
+        handleAttribute(event.player, NeoForgeMod.BLOCK_REACH.value(), reachBoost, ItemRegistry.the_star.get());
+    }
 
-	@Override
-	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-		tooltip.add(Component.translatable(this.getDescriptionId() + ".desc", Configuration.the_star_reachboost.get() * 100).withStyle(ChatFormatting.BLUE));
-	}
+    @Override
+    public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
+        tooltip.add(Component.translatable(this.getDescriptionId() + ".desc", Configuration.the_star_reachboost.get() * 100).withStyle(ChatFormatting.BLUE));
+    }
 
 }

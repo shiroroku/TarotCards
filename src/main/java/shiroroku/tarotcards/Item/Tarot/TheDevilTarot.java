@@ -3,7 +3,7 @@ package shiroroku.tarotcards.Item.Tarot;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.neoforged.neoforge.event.entity.living.LivingHurtEvent;
 import shiroroku.tarotcards.Configuration;
 import shiroroku.tarotcards.Item.TarotItem;
 import shiroroku.tarotcards.Registry.ItemRegistry;

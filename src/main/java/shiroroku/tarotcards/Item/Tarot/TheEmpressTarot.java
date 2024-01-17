@@ -4,7 +4,7 @@ import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.event.TickEvent;
+import net.neoforged.neoforge.event.TickEvent;
 import shiroroku.tarotcards.Configuration;
 import shiroroku.tarotcards.Item.TarotItem;
 import shiroroku.tarotcards.Registry.ItemRegistry;

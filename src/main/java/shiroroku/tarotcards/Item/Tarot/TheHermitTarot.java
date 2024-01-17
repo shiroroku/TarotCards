@@ -12,7 +12,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.event.TickEvent;
+import net.neoforged.neoforge.event.TickEvent;
 import shiroroku.tarotcards.Configuration;
 import shiroroku.tarotcards.Item.TarotItem;
 import shiroroku.tarotcards.Registry.ItemRegistry;
@@ -24,39 +24,39 @@ import java.util.UUID;
 
 public class TheHermitTarot extends TarotItem {
 
-	private static AttributeModifier armorBoost = null;
+    private static AttributeModifier armorBoost = null;
 
-	public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
-		if (armorBoost == null) {
-			armorBoost = new AttributeModifier(UUID.nameUUIDFromBytes("TarotHermit".getBytes()).toString(), Configuration.the_hermit_armorbonus.get(), AttributeModifier.Operation.ADDITION);
-		}
-		handleAttribute(event.player, Attributes.ARMOR, armorBoost, ItemRegistry.the_hermit.get());
-	}
+    public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
+        if (armorBoost == null) {
+            armorBoost = new AttributeModifier(UUID.nameUUIDFromBytes("TarotHermit".getBytes()).toString(), Configuration.the_hermit_armorbonus.get(), AttributeModifier.Operation.ADDITION);
+        }
+        handleAttribute(event.player, Attributes.ARMOR, armorBoost, ItemRegistry.the_hermit.get());
+    }
 
-	public static void handleAttribute(Player player, Attribute a, AttributeModifier mod, Item tarot) {
-		boolean hasCard = hasTarot(player, tarot) && !hasNearbyAllies(player);
-		if (player.getAttribute(a).hasModifier(mod)) {
-			if (!hasCard) {
-				TarotCards.LOGGER.debug("Removing Tarot Modifier : {}", mod);
-				player.getAttribute(a).removeModifier(mod);
-			}
-		} else {
-			if (hasCard) {
-				TarotCards.LOGGER.debug("Adding Tarot Modifier : {}", mod);
-				player.getAttribute(a).addTransientModifier(mod);
-			}
-		}
-	}
+    public static void handleAttribute(Player player, Attribute a, AttributeModifier mod, Item tarot) {
+        boolean hasCard = hasTarot(player, tarot) && !hasNearbyAllies(player);
+        if (player.getAttribute(a).hasModifier(mod)) {
+            if (!hasCard) {
+                TarotCards.LOGGER.debug("Removing Tarot Modifier : {}", mod);
+                player.getAttribute(a).removeModifier(mod.getId());
+            }
+        } else {
+            if (hasCard) {
+                TarotCards.LOGGER.debug("Adding Tarot Modifier : {}", mod);
+                player.getAttribute(a).addTransientModifier(mod);
+            }
+        }
+    }
 
-	private static boolean hasNearbyAllies(Player player) {
-		return player.level()
-				.getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, player, player.getBoundingBox().inflate(Configuration.the_hermit_allyrange.get())).stream()
-				.anyMatch(e -> e.isAlliedTo(player));
-	}
+    private static boolean hasNearbyAllies(Player player) {
+        return player.level()
+                .getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, player, player.getBoundingBox().inflate(Configuration.the_hermit_allyrange.get())).stream()
+                .anyMatch(e -> e.isAlliedTo(player));
+    }
 
-	@Override
-	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-		tooltip.add(Component.translatable(this.getDescriptionId() + ".desc", Configuration.the_hermit_armorbonus.get()).withStyle(ChatFormatting.BLUE));
-	}
+    @Override
+    public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
+        tooltip.add(Component.translatable(this.getDescriptionId() + ".desc", Configuration.the_hermit_armorbonus.get()).withStyle(ChatFormatting.BLUE));
+    }
 
 }

@@ -66,7 +66,8 @@ public abstract class TarotItem extends Item {
 
         //Check curios for tarot deck
         if (ModList.get().isLoaded("curios")) {
-            deck = CuriosCompat.getTarotDeckCurio(player);
+            //todo curios compat
+            //deck = CuriosCompat.getTarotDeckCurio(player);
         }
 
         //Check player for card and deck

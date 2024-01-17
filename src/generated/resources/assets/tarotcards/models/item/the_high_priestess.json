@@ -1,6 +1,6 @@
 {
-	"parent": "tarotcards:item/tarot",
-	"textures": {
-		"layer0": "tarotcards:item/card/the_high_priestess"
-	}
+  "parent": "tarotcards:item/tarot",
+  "textures": {
+    "layer0": "tarotcards:item/card/the_high_priestess"
+  }
 }

@@ -11,7 +11,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.neoforged.neoforge.event.entity.living.LivingHurtEvent;
 import shiroroku.tarotcards.Configuration;
 import shiroroku.tarotcards.Item.TarotItem;
 import shiroroku.tarotcards.Registry.ItemRegistry;
@@ -35,7 +35,8 @@ public class JusticeTarot extends TarotItem {
 
 			if (hasTarot(player, ItemRegistry.justice.get())) {
 				float amount = (float) (event.getAmount() * Configuration.justice_damagemultiplier.get());
-				attacker.hurt(event.getEntity().damageSources().source(JUSTICE), amount);
+				//todo justice damage source
+				//attacker.hurt(event.getEntity().damageSources().source(JUSTICE), amount);
 
 				TarotCards.LOGGER.debug("TAROT PASSIVE: {} - Returning damage", ItemRegistry.justice.get());
 				TarotCards.LOGGER.debug("From : {}", player);

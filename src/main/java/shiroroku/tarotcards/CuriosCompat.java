@@ -1,7 +1,7 @@
 package shiroroku.tarotcards;
 
 import net.neoforged.fml.common.Mod;
-@Mod.EventBusSubscriber(modid = TarotCards.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+
 public class CuriosCompat {
 
 //	@SubscribeEvent

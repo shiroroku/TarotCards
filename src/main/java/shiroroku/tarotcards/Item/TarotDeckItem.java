@@ -62,6 +62,8 @@ public class TarotDeckItem extends Item implements MenuProvider {
             return super.insertItem(slot, stack, simulate);
         }
 
+        //Todo test deck item handler
+
         @Override
         public CompoundTag serializeNBT() {
             ListTag nbtTagList = new ListTag();
