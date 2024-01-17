@@ -17,19 +17,22 @@ import shiroroku.tarotcards.Registry.ItemRegistry;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.function.Supplier;
 
 public class TheLoversTarot extends TarotItem {
 
-	public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
-		Player player = event.player;
-		if (hasTarot(player, ItemRegistry.the_lovers.get())) {
-			MobEffectInstance regen_effect = new MobEffectInstance(MobEffects.REGENERATION, Configuration.tick_rate.get(), Configuration.the_lovers_regenamplifier.get(), true, false);
-			player.addEffect(regen_effect);
-			player.level().getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, player, player.getBoundingBox().inflate(Configuration.the_lovers_range.get())).stream()
-					.filter(e -> e.isAlliedTo(player))
-					.forEach(e -> e.addEffect(regen_effect));
-		}
-	}
+    private static final TargetingConditions targeting = TargetingConditions.forNonCombat().ignoreLineOfSight().ignoreInvisibilityTesting();
+    private static final Supplier<MobEffectInstance> effect = () -> new MobEffectInstance(MobEffects.REGENERATION, Configuration.tick_rate.get() + 20, Configuration.the_lovers_regenamplifier.get(), true, false, false);
+
+    public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
+        Player player = event.player;
+        if (hasTarot(player, ItemRegistry.the_lovers.get())) {
+            player.addEffect(effect.get());
+            player.level().getNearbyEntities(LivingEntity.class, targeting, player, player.getBoundingBox().inflate(Configuration.the_lovers_range.get())).stream()
+                    .filter(e -> e.isAlliedTo(player))
+                    .forEach(e -> e.addEffect(effect.get()));
+        }
+    }
 
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {

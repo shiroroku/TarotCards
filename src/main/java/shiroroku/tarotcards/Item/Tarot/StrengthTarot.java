@@ -14,14 +14,17 @@ import shiroroku.tarotcards.Registry.ItemRegistry;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.function.Supplier;
 
 public class StrengthTarot extends TarotItem {
 
-	public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
-		if (hasTarot(event.player, ItemRegistry.strength.get())) {
-			event.player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, Configuration.tick_rate.get(), Configuration.strength_amplifier.get(), true, false));
-		}
-	}
+    private static final Supplier<MobEffectInstance> effect = () -> new MobEffectInstance(MobEffects.DAMAGE_BOOST, Configuration.tick_rate.get() + 20, Configuration.strength_amplifier.get(), true, false);
+
+    public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
+        if (hasTarot(event.player, ItemRegistry.strength.get())) {
+            event.player.addEffect(effect.get());
+        }
+    }
 
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {

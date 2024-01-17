@@ -15,17 +15,14 @@ import shiroroku.tarotcards.Registry.ItemRegistry;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Supplier;
 
 public class TheStarTarot extends TarotItem {
 
-    private static final String uuid = UUID.nameUUIDFromBytes("TarotStar".getBytes()).toString();
-    private static AttributeModifier reachBoost = null;
+    private static final Supplier<AttributeModifier> attribute = () -> new AttributeModifier(UUID.nameUUIDFromBytes("TarotStar".getBytes()), "Tarot Card", Configuration.the_star_reachboost.get(), AttributeModifier.Operation.MULTIPLY_BASE);
 
     public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
-        if (reachBoost == null) {
-            reachBoost = new AttributeModifier(uuid, Configuration.the_star_reachboost.get(), AttributeModifier.Operation.MULTIPLY_BASE);
-        }
-        handleAttribute(event.player, NeoForgeMod.BLOCK_REACH.value(), reachBoost, ItemRegistry.the_star.get());
+        handleAttribute(event.player, NeoForgeMod.BLOCK_REACH.value(), attribute.get(), ItemRegistry.the_star.get());
     }
 
     @Override
