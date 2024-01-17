@@ -16,7 +16,7 @@ public class SetupClient {
 
 	@SubscribeEvent
 	public static void clientSetup(FMLClientSetupEvent event) {
-		event.enqueueWork(() -> MenuScreens.register(TarotCards.tarot_deck.get(), TarotDeckScreen::new));
+		event.enqueueWork(() -> MenuScreens.register(TarotCards.tarot_deck_menu.get(), TarotDeckScreen::new));
 	}
 
 	@SubscribeEvent

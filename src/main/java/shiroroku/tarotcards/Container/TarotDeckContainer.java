@@ -18,7 +18,7 @@ public class TarotDeckContainer extends AbstractContainerMenu {
     ItemStack deck;
 
     public TarotDeckContainer(int id, Inventory playerInventory, Player player) {
-        super(TarotCards.tarot_deck.get(), id);
+        super(TarotCards.tarot_deck_menu.get(), id);
         IItemHandler playerSlots = new InvWrapper(playerInventory);
         deck = player.getMainHandItem().is(ItemRegistry.tarot_deck.get()) ? player.getMainHandItem() : player.getOffhandItem();
 
