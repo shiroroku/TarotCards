@@ -12,7 +12,7 @@ public class SetupCommon {
 
     @SubscribeEvent
     private static void registerCapability(RegisterCapabilitiesEvent pEvent) {
-        pEvent.registerItem(Capabilities.ItemHandler.ITEM, (stack, ctx) -> new TarotDeckItem.ItemHandler(stack), ItemRegistry.tarot_deck.get());
+        pEvent.registerItem(Capabilities.ItemHandler.ITEM, (stack, ctx) -> new TarotDeckItem.TarotDeckInventory(stack), ItemRegistry.tarot_deck.get());
     }
 
 }
