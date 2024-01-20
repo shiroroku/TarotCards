@@ -1,4 +1,4 @@
-package shiroroku.tarotcards.Item;
+package shiroroku.tarotcards.Item.TarotDeck;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Direction;
@@ -28,7 +28,6 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
-import shiroroku.tarotcards.Container.TarotDeckContainer;
 import shiroroku.tarotcards.TarotCards;
 
 import javax.annotation.Nonnull;

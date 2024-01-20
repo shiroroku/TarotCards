@@ -1,13 +1,6 @@
 {
-	"replace": false,
-	"entries": [
-		"tarotcards:tarot_in_desert_pyramid",
-		"tarotcards:tarot_in_dungeons",
-		"tarotcards:tarot_in_end_city",
-		"tarotcards:tarot_in_fortress",
-		"tarotcards:tarot_in_mineshaft",
-		"tarotcards:tarot_in_shipwreck",
-		"tarotcards:tarot_in_stronghold_library",
-		"tarotcards:tarot_in_village"
-	]
+  "replace": false,
+  "entries": [
+    "tarotcards:tarot_loot_modifier"
+  ]
 }

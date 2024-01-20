@@ -1,14 +1,18 @@
 package shiroroku.tarotcards;
 
+
+
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerXpEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.common.Mod;
 import shiroroku.tarotcards.Item.Tarot.*;
 
-public class Events {
+@Mod.EventBusSubscriber(modid = TarotCards.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+public class EventsForge {
 
 	@SubscribeEvent
 	public static void onLivingHurt(LivingHurtEvent event) {

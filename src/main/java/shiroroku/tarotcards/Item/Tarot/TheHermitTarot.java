@@ -25,7 +25,7 @@ public class TheHermitTarot extends TarotItem {
     private static final Supplier<AttributeModifier> attribute = () -> new AttributeModifier(UUID.nameUUIDFromBytes("TarotHermit".getBytes()), "Tarot Card", Configuration.the_hermit_armorbonus.get(), AttributeModifier.Operation.ADDITION);
 
     public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
-        handleAttribute(event.player, Attributes.ARMOR, attribute.get(), ItemRegistry.the_hermit.get(), () -> !hasNearbyAllies(event.player));
+        handleAttributeTick(event.player, Attributes.ARMOR, attribute.get(), ItemRegistry.the_hermit.get(), () -> !hasNearbyAllies(event.player));
     }
 
     private static boolean hasNearbyAllies(Player player) {

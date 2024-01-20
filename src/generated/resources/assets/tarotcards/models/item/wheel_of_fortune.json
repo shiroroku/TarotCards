@@ -1,6 +1,6 @@
 {
-	"parent": "tarotcards:item/tarot",
-	"textures": {
-		"layer0": "tarotcards:item/card/wheel_of_fortune"
-	}
+  "parent": "tarotcards:item/tarot",
+  "textures": {
+    "layer0": "tarotcards:item/card/wheel_of_fortune"
+  }
 }

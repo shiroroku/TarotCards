@@ -18,32 +18,32 @@ import java.util.Map;
 
 public class TheHighPriestessTarot extends TarotItem {
 
-	private static final TagKey<Item> upgradable_enchantment = ItemTags.create(new ResourceLocation(TarotCards.MODID, "upgradable_enchantment"));
+    private static final TagKey<Item> upgradable_enchantment = ItemTags.create(new ResourceLocation(TarotCards.MODID, "upgradable_enchantment"));
 
-	public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
-		Player p = event.player;
-		if (hasTarot(p, ItemRegistry.the_high_priestess.get())) {
+    public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
+        Player p = event.player;
+        if (hasTarot(p, ItemRegistry.the_high_priestess.get())) {
 
-			//Get the held item to upgrade
-			ItemStack upgradable_item = p.getMainHandItem().is(upgradable_enchantment) ? p.getMainHandItem() : (p.getOffhandItem().is(upgradable_enchantment) ? p.getOffhandItem() : null);
-			if (upgradable_item == null) {
-				return;
-			}
+            //Get the held item to upgrade
+            ItemStack upgradable_item = p.getMainHandItem().is(upgradable_enchantment) ? p.getMainHandItem() : (p.getOffhandItem().is(upgradable_enchantment) ? p.getOffhandItem() : null);
+            if (upgradable_item == null) {
+                return;
+            }
 
-			//Get the first valid enchantment to level up
-			Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(upgradable_item);
-			enchantments.entrySet().stream()
-					.filter(ench -> ench.getValue() < ench.getKey().getMaxLevel() || !Configuration.the_highpriestess_capenchants.get())
-					.filter(ench -> p.experienceLevel > Configuration.the_highpriestess_upgradecost.get() * ench.getValue())
-					.findFirst().ifPresent(ench -> {
-						int cost = Configuration.the_highpriestess_upgradecost.get() * ench.getValue();
-						TarotCards.LOGGER.debug("TAROT PASSIVE: {} - Enchantment upgrade", ItemRegistry.the_high_priestess.get());
-						TarotCards.LOGGER.debug("From: {} To: {} Cost: {}", ench, ench.getValue() + 1, cost);
-						p.giveExperienceLevels(-cost);
-						enchantments.put(ench.getKey(), ench.getValue() + 1);
-						EnchantmentHelper.setEnchantments(enchantments, upgradable_item);
-					});
-		}
-	}
+            //Get the first valid enchantment to level up
+            Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(upgradable_item);
+            enchantments.entrySet().stream()
+                    .filter(ench -> ench.getValue() < ench.getKey().getMaxLevel() || !Configuration.the_highpriestess_capenchants.get())
+                    .filter(ench -> p.experienceLevel > Configuration.the_highpriestess_upgradecost.get() * ench.getValue())
+                    .findFirst().ifPresent(ench -> {
+                        int cost = Configuration.the_highpriestess_upgradecost.get() * ench.getValue();
+                        TarotCards.LOGGER.debug("{} - Enchantment upgrade", ItemRegistry.the_high_priestess.get());
+                        TarotCards.LOGGER.debug("From: {}, To: {}, Cost: {}", ench, ench.getValue() + 1, cost);
+                        p.giveExperienceLevels(-cost);
+                        enchantments.put(ench.getKey(), ench.getValue() + 1);
+                        EnchantmentHelper.setEnchantments(enchantments, upgradable_item);
+                    });
+        }
+    }
 
 }

@@ -22,7 +22,7 @@ import java.util.List;
 
 public class JusticeTarot extends TarotItem {
 
-	public static ResourceKey<DamageType> JUSTICE = ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(TarotCards.MODID, "justice"));
+    private static final ResourceKey<DamageType> JUSTICE = ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(TarotCards.MODID, "justice"));
 
 	public static void handleOnHurt(LivingHurtEvent event) {
 		//Make sure it is a living entity hurting a player
@@ -37,13 +37,12 @@ public class JusticeTarot extends TarotItem {
 				float amount = (float) (event.getAmount() * Configuration.justice_damagemultiplier.get());
 				attacker.hurt(event.getEntity().damageSources().source(JUSTICE), amount);
 
-				TarotCards.LOGGER.debug("TAROT PASSIVE: {} - Returning damage", ItemRegistry.justice.get());
-				TarotCards.LOGGER.debug("From : {}", player);
-				TarotCards.LOGGER.debug("To : {} [{}]", attacker, attacker.getHealth());
-				TarotCards.LOGGER.debug("Amount : {}", amount);
-			}
-		}
-	}
+                TarotCards.LOGGER.debug("{} - Returning damage", ItemRegistry.justice.get());
+                TarotCards.LOGGER.debug("From: {}, To: {} [{}]", player, attacker, attacker.getHealth());
+                TarotCards.LOGGER.debug("Amount: {}", amount);
+            }
+        }
+    }
 
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {

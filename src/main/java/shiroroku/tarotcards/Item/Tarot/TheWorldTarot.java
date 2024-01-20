@@ -14,6 +14,7 @@ import net.minecraftforge.event.TickEvent;
 import shiroroku.tarotcards.Configuration;
 import shiroroku.tarotcards.Item.TarotItem;
 import shiroroku.tarotcards.Registry.ItemRegistry;
+import shiroroku.tarotcards.TarotCards;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -29,7 +30,11 @@ public class TheWorldTarot extends TarotItem {
             player.level().getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, player, player.getBoundingBox().inflate(Configuration.the_world_range.get())).stream()
                     .filter(e -> !e.isAlliedTo(player))
                     .filter(e -> !(e instanceof Player ePlayer) || player.canHarmPlayer(ePlayer))
-                    .forEach(e -> e.addEffect(effect.get()));
+                    .forEach(e -> {
+                        TarotCards.LOGGER.debug("{} - Slow nearby", ItemRegistry.the_world.get());
+                        TarotCards.LOGGER.debug("Entity: {}", e);
+                        e.addEffect(effect.get());
+                    });
         }
     }
 

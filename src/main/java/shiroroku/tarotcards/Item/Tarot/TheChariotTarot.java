@@ -22,7 +22,7 @@ public class TheChariotTarot extends TarotItem {
     private static final Supplier<AttributeModifier> attribute = () -> new AttributeModifier(UUID.nameUUIDFromBytes("TarotChariot".getBytes()), "Tarot Card", Configuration.the_chariot_speedboost.get(), AttributeModifier.Operation.MULTIPLY_BASE);
 
     public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
-        handleAttribute(event.player, Attributes.MOVEMENT_SPEED, attribute.get(), ItemRegistry.the_chariot.get());
+        handleAttributeTick(event.player, Attributes.MOVEMENT_SPEED, attribute.get(), ItemRegistry.the_chariot.get());
     }
 
 	@Override

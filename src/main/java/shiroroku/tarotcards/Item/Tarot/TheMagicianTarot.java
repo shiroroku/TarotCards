@@ -17,8 +17,8 @@ public class TheMagicianTarot extends TarotItem {
     public static boolean handleItemDamage(ItemStack item, Player player) {
         if (hasTarot(player, ItemRegistry.the_magician.get())) {
             if (item.isDamageableItem() && item.getTags().anyMatch(t -> (t.equals(goldenItem)))) {
-                TarotCards.LOGGER.debug("TAROT PASSIVE: {} - Gold items wont take damage", ItemRegistry.the_magician.get());
-                TarotCards.LOGGER.debug("To : {}", player);
+                TarotCards.LOGGER.debug("{} - Unbreakable gold items", ItemRegistry.the_magician.get());
+                TarotCards.LOGGER.debug("For: {}", player);
                 return true;
             }
         }

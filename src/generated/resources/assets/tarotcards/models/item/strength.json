@@ -1,6 +1,6 @@
 {
-	"parent": "tarotcards:item/tarot",
-	"textures": {
-		"layer0": "tarotcards:item/card/strength"
-	}
+  "parent": "tarotcards:item/tarot",
+  "textures": {
+    "layer0": "tarotcards:item/card/strength"
+  }
 }
