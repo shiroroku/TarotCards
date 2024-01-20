@@ -38,13 +38,17 @@ public class TarotCards {
     public TarotCards(IEventBus bus) {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Configuration.config);
         ItemRegistry.ITEMS.register(bus);
+        ItemRegistry.ITEMS_CARDS.register(bus);
         MENUS.register(bus);
         LOOT_MODIFIERS.register("loot_additions", TarotLootAdditions.CODEC);
         LOOT_MODIFIERS.register(bus);
         TABS.register("tarot_cards", () -> CreativeModeTab.builder()
                 .title(Component.translatable("itemGroup.tarotcards"))
                 .icon(() -> new ItemStack(ItemRegistry.tarot_deck.get()))
-                .displayItems((enabledFeatures, entries) -> ItemRegistry.ITEMS.getEntries().stream().map(Supplier::get).forEach(entries::accept))
+                .displayItems((enabledFeatures, entries) -> {
+                    ItemRegistry.ITEMS.getEntries().stream().map(Supplier::get).forEach(entries::accept);
+                    ItemRegistry.ITEMS_CARDS.getEntries().stream().map(Supplier::get).forEach(entries::accept);
+                })
                 .build());
         TABS.register(bus);
     }
