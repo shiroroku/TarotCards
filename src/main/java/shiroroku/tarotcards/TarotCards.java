@@ -16,7 +16,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import shiroroku.tarotcards.Container.TarotDeckContainer;
+import shiroroku.tarotcards.Item.TarotDeck.TarotDeckContainer;
 import shiroroku.tarotcards.Registry.ItemRegistry;
 import shiroroku.tarotcards.World.TarotLootAdditions;
 

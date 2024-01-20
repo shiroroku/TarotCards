@@ -1,4 +1,4 @@
-package shiroroku.tarotcards.Container;
+package shiroroku.tarotcards.Item.TarotDeck;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;

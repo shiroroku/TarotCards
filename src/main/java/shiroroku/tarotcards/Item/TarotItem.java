@@ -44,10 +44,12 @@ public abstract class TarotItem extends Item {
         return !tarot.getOrCreateTag().getBoolean("deactivated");
     }
 
+    /**
+     * Toggles Tarot Card on use.
+     */
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         ItemStack tarot = pPlayer.getItemInHand(pUsedHand);
-        //Toggles activation
         tarot.getOrCreateTag().putBoolean("deactivated", !tarot.getOrCreateTag().getBoolean("deactivated"));
         return super.use(pLevel, pPlayer, pUsedHand);
     }
@@ -78,7 +80,7 @@ public abstract class TarotItem extends Item {
                 if (stack.is(tarot)) {
                     return isActivated(stack);
                 }
-                if (stack.getItem() == ItemRegistry.tarot_deck.get()) {
+                if (stack.getItem() == ItemRegistry.tarot_deck.get()) { // This will choose player inventory decks over curios?
                     deck = stack;
                 }
             }
@@ -106,11 +108,11 @@ public abstract class TarotItem extends Item {
     /**
      * Will add or remove attribute modifiers if the player has the tarot.
      */
-    public static void handleAttribute(Player player, Attribute a, AttributeModifier mod, Item tarot) {
-        handleAttribute(player, a, mod, tarot, () -> true);
+    public static void handleAttributeTick(Player player, Attribute a, AttributeModifier mod, Item tarot) {
+        handleAttributeTick(player, a, mod, tarot, () -> true);
     }
 
-    public static void handleAttribute(Player player, Attribute a, AttributeModifier mod, Item tarot, Supplier<Boolean> additionalRequirements) {
+    public static void handleAttributeTick(Player player, Attribute a, AttributeModifier mod, Item tarot, Supplier<Boolean> additionalRequirements) {
         boolean hasCard = hasTarot(player, tarot) && additionalRequirements.get();
         if (player.getAttribute(a).hasModifier(mod)) {
             if (!hasCard) {

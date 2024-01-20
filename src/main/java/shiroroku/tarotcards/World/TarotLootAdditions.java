@@ -11,12 +11,16 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
 import net.neoforged.neoforge.common.loot.LootModifier;
-import org.jetbrains.annotations.NotNull;
 import shiroroku.tarotcards.Configuration;
 
 import java.util.List;
 import java.util.function.Supplier;
 
+/**
+ * Custom loot modifier that has a chance to choose 1 item from a list.
+ * Chance is set by {@link Configuration#default_loot_chance}
+ * Is completely disabled when {@link  Configuration#do_loot_generation} is false
+ */
 public class TarotLootAdditions extends LootModifier {
 
     public static final Supplier<Codec<TarotLootAdditions>> CODEC = Suppliers.memoize(() -> RecordCodecBuilder.create(inst -> codecStart(inst)
@@ -34,7 +38,7 @@ public class TarotLootAdditions extends LootModifier {
     }
 
     @Override
-    protected @NotNull ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
+    protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
         if (Configuration.do_loot_generation.get() && context.getRandom().nextFloat() < Configuration.default_loot_chance.get()) {
             generatedLoot.add(new ItemStack(items.get(context.getRandom().nextInt(items.size()))));
         }

@@ -12,7 +12,7 @@ public class DataGenerators {
     @SubscribeEvent
     public static void onGatherData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
-        generator.addProvider(event.includeClient(), new ItemModelGen(generator.getPackOutput(), event.getExistingFileHelper()));
+        generator.addProvider(event.includeClient(), new DataGenItemModels(generator.getPackOutput(), event.getExistingFileHelper()));
     }
 
 }

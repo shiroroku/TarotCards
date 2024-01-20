@@ -7,17 +7,17 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
-import shiroroku.tarotcards.Container.TarotDeckScreen;
+import shiroroku.tarotcards.Item.TarotDeck.TarotDeckScreen;
 import shiroroku.tarotcards.Registry.ItemRegistry;
 
 import java.awt.*;
 import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(modid = TarotCards.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class SetupClient {
+public class EventsClient {
 
     @SubscribeEvent
-    public static void clientSetup(FMLClientSetupEvent event) {
+    public static void onClientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(() -> MenuScreens.register(TarotCards.tarot_deck_menu.get(), TarotDeckScreen::new));
     }
 

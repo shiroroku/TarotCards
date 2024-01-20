@@ -24,7 +24,7 @@ import java.util.List;
 
 public class JusticeTarot extends TarotItem {
 
-    private static ResourceKey<DamageType> JUSTICE = ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(TarotCards.MODID, "justice"));
+    private static final ResourceKey<DamageType> JUSTICE = ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(TarotCards.MODID, "justice"));
 
     public static void handleOnHurt(LivingHurtEvent event) {
         //Make sure it is a living entity hurting a player

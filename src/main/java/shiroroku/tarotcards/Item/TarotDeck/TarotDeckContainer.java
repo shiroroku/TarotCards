@@ -1,4 +1,4 @@
-package shiroroku.tarotcards.Container;
+package shiroroku.tarotcards.Item.TarotDeck;
 
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;

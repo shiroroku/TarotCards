@@ -4,7 +4,7 @@ import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import shiroroku.tarotcards.Item.Tarot.*;
-import shiroroku.tarotcards.Item.TarotDeckItem;
+import shiroroku.tarotcards.Item.TarotDeck.TarotDeckItem;
 import shiroroku.tarotcards.TarotCards;
 
 public class ItemRegistry {

@@ -1,4 +1,4 @@
-package shiroroku.tarotcards.Item;
+package shiroroku.tarotcards.Item.TarotDeck;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -20,7 +20,7 @@ import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
-import shiroroku.tarotcards.Container.TarotDeckContainer;
+import shiroroku.tarotcards.Item.TarotDeck.TarotDeckContainer;
 import shiroroku.tarotcards.TarotCards;
 
 import java.util.List;
