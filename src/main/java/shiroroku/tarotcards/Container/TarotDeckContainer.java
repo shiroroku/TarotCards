@@ -30,7 +30,7 @@ public class TarotDeckContainer extends AbstractContainerMenu {
                 int invY = 25;
                 for (int y = 0; y < 2; y++) {
                     for (int x = 0; x < 11; x++) {
-                        addSlot(new SlotItemHandler(handler, slotIndex, invX + 14 * x, invY + 18 * y));
+                        addSlot(new DeckSlot(handler, slotIndex, invX + 14 * x, invY + 18 * y));
                         slotIndex++;
                     }
                 }
@@ -52,6 +52,17 @@ public class TarotDeckContainer extends AbstractContainerMenu {
                 slotIndex++;
             }
 
+        }
+    }
+
+    public static class DeckSlot extends SlotItemHandler {
+        public DeckSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
+            super(itemHandler, index, xPosition, yPosition);
+        }
+
+        @Override
+        public boolean isHighlightable() {
+            return false;
         }
     }
 
