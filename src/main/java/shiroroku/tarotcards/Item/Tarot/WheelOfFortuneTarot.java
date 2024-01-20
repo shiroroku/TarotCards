@@ -23,7 +23,7 @@ public class WheelOfFortuneTarot extends TarotItem {
     private static final Supplier<AttributeModifier> attribute = () -> new AttributeModifier(UUID.nameUUIDFromBytes("TarotWheelOfFortune".getBytes()), "Tarot Card", Configuration.wheel_of_fortune_luckbonus.get(), AttributeModifier.Operation.ADDITION);
 
     public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
-        handleAttribute(event.player, Attributes.LUCK, attribute.get(), ItemRegistry.wheel_of_fortune.get());
+        handleAttributeTick(event.player, Attributes.LUCK, attribute.get(), ItemRegistry.wheel_of_fortune.get());
     }
 
     @Override

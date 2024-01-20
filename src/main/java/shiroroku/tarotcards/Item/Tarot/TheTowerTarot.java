@@ -3,7 +3,6 @@ package shiroroku.tarotcards.Item.Tarot;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -20,17 +19,15 @@ import java.util.List;
 public class TheTowerTarot extends TarotItem {
 
     public static void handleOnHurt(LivingHurtEvent event) {
-        if (event.getSource() == DamageSource.FALL && event.getEntityLiving() instanceof Player player) {
+        if (event.getSource().isFall() && event.getEntity() instanceof Player player) {
             if (hasTarot(player, ItemRegistry.the_tower.get())) {
                 float negation = (float) (event.getAmount() * (1 - Configuration.the_tower_damagenegation.get()));
-                TarotCards.LOGGER.debug("TAROT PASSIVE: {} - Fall negation", ItemRegistry.the_tower.get());
-                TarotCards.LOGGER.debug("Amount : {}", negation);
-                TarotCards.LOGGER.debug("To : {}", player);
+                TarotCards.LOGGER.debug("{} - Fall negation", ItemRegistry.the_tower.get());
+                TarotCards.LOGGER.debug("Negation: {}, For: {}", negation, player);
                 event.setAmount(negation);
             }
         }
     }
-
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {

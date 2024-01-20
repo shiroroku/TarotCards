@@ -22,15 +22,22 @@ public class JusticeTarot extends TarotItem {
 
     private static final DamageSource justice = new DamageSource("justice").bypassArmor();
 
-    public static void handleOnHurt(LivingHurtEvent event) {
-        if (event.getSource().getEntity() != null && event.getSource().getEntity() instanceof LivingEntity attacker && event.getEntityLiving() instanceof Player player) {
-            if (!event.getSource().getMsgId().equals(justice.getMsgId()) && hasTarot(player, ItemRegistry.justice.get())) {
-                float amount = (float) (event.getAmount() * Configuration.justice_damagemultiplier.get());
-                attacker.hurt(justice, amount);
-                TarotCards.LOGGER.debug("TAROT PASSIVE: {} - Returning damage", ItemRegistry.justice.get());
-                TarotCards.LOGGER.debug("From : {} [{}]", attacker, attacker.getHealth());
-                TarotCards.LOGGER.debug("To : {}", player);
-                TarotCards.LOGGER.debug("Amount : {}", amount);
+	public static void handleOnHurt(LivingHurtEvent event) {
+		//Make sure it is a living entity hurting a player
+		if (event.getSource().getEntity() instanceof LivingEntity attacker && event.getEntity() instanceof Player player) {
+
+			//Damage taken from justice shouldnt be returned
+			if (event.getSource().getMsgId().equals(justice.getMsgId())) {
+				return;
+			}
+
+			if (hasTarot(player, ItemRegistry.justice.get())) {
+				float amount = (float) (event.getAmount() * Configuration.justice_damagemultiplier.get());
+				attacker.hurt(justice, amount);
+
+                TarotCards.LOGGER.debug("{} - Returning damage", ItemRegistry.justice.get());
+                TarotCards.LOGGER.debug("From: {}, To: {} [{}]", player, attacker, attacker.getHealth());
+                TarotCards.LOGGER.debug("Amount: {}", amount);
             }
         }
     }

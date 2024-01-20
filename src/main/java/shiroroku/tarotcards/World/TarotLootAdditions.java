@@ -1,0 +1,62 @@
+package shiroroku.tarotcards.World;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
+import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.NotNull;
+import shiroroku.tarotcards.Configuration;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class TarotLootAdditions extends net.minecraftforge.common.loot.LootModifier {
+
+	private final List<Item> items;
+
+	public TarotLootAdditions(LootItemCondition[] conditionsIn, List<Item> items) {
+		super(conditionsIn);
+		this.items = items;
+	}
+
+	@NotNull
+	@Override
+	public List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
+		if (Configuration.do_loot_generation.get() && context.getRandom().nextFloat() < Configuration.default_loot_chance.get()) {
+			generatedLoot.add(new ItemStack(items.get(context.getRandom().nextInt(items.size()))));
+		}
+		return generatedLoot;
+	}
+
+	public static class Serializer extends GlobalLootModifierSerializer<TarotLootAdditions> {
+
+		@Override
+		public TarotLootAdditions read(ResourceLocation location, JsonObject object, LootItemCondition[] ailootcondition) {
+			List<Item> output = new ArrayList<>();
+			JsonArray items = GsonHelper.getAsJsonArray(object, "items");
+			for (JsonElement jo : items) {
+				output.add(ForgeRegistries.ITEMS.getValue(ResourceLocation.tryParse(jo.getAsString())));
+			}
+
+			return new TarotLootAdditions(ailootcondition, output);
+		}
+
+		@Override
+		public JsonObject write(TarotLootAdditions instance) {
+			JsonObject json = makeConditions(instance.conditions);
+			JsonArray items = new JsonArray();
+			for (Item tarot : instance.items) {
+				items.add(ForgeRegistries.ITEMS.getKey(tarot).toString());
+			}
+			json.add("items", items);
+			return null;
+		}
+	}
+}

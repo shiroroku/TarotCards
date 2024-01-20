@@ -20,20 +20,23 @@ import java.util.List;
 
 public class JudgementTarot extends TarotItem {
 
-	public static void handleOnDamage(LivingDamageEvent event) {
-		if (event.getSource().getEntity() != null && event.getSource().getEntity() instanceof Player player) {
-			if (hasTarot(player, ItemRegistry.judgement.get())) {
-				if (player.getRandom().nextDouble() < Configuration.judgement_damagechance.get()) {
-					TarotCards.LOGGER.debug("TAROT PASSIVE: {} - 50% to do double damage", ItemRegistry.judgement.get());
-					TarotCards.LOGGER.debug("From : {}", player);
-					TarotCards.LOGGER.debug("To : {}", event.getEntityLiving());
-					TarotCards.LOGGER.debug("Amount : {} to {}", event.getAmount(), event.getAmount() * 2);
-					player.level.playSound(null, player.blockPosition(), SoundEvents.SMALL_AMETHYST_BUD_BREAK, SoundSource.PLAYERS, 1f, (player.getRandom().nextFloat() * 0.2f) + 0.5f);
-					event.setAmount(event.getAmount() * 2);
-				}
-			}
-		}
-	}
+    public static void handleOnDamage(LivingDamageEvent event) {
+        if (event.getSource().getEntity() instanceof Player player) {
+            if (hasTarot(player, ItemRegistry.judgement.get())) {
+                if (player.getRandom().nextDouble() < Configuration.judgement_damagechance.get()) {
+
+                    float new_damage = event.getAmount() * 2;
+
+                    TarotCards.LOGGER.debug("{} - Chance to double damage", ItemRegistry.judgement.get());
+                    TarotCards.LOGGER.debug("From: {}, To: {}", player, event.getEntity());
+                    TarotCards.LOGGER.debug("Amount: {} to {}", event.getAmount(), new_damage);
+
+                    player.level.playSound(null, player.blockPosition(), SoundEvents.SMALL_AMETHYST_BUD_BREAK, SoundSource.PLAYERS, 1f, player.getRandom().nextFloat() * 0.2f + 0.5f);
+                    event.setAmount(new_damage);
+                }
+            }
+        }
+    }
 
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
