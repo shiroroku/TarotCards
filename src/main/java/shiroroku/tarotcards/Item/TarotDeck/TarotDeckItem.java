@@ -20,7 +20,6 @@ import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
-import shiroroku.tarotcards.Item.TarotDeck.TarotDeckContainer;
 import shiroroku.tarotcards.TarotCards;
 
 import java.util.List;

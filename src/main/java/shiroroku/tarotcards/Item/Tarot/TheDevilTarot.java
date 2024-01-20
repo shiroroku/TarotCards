@@ -11,15 +11,14 @@ import shiroroku.tarotcards.TarotCards;
 
 public class TheDevilTarot extends TarotItem {
 
-	public static void handleOnHurt(LivingHurtEvent event) {
-		if (event.getSource().getEntity() instanceof Player player) {
-			if (hasTarot(player, ItemRegistry.the_devil.get())) {
-				TarotCards.LOGGER.debug("TAROT PASSIVE: {} - Inflict weakness", ItemRegistry.the_devil.get());
-				TarotCards.LOGGER.debug("From : {}", player);
-				TarotCards.LOGGER.debug("To : {}", event.getEntity());
-				event.getEntity().addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 60, Configuration.the_devil_weaknessamplifier.get()));
-			}
-		}
-	}
+    public static void handleOnHurt(LivingHurtEvent event) {
+        if (event.getSource().getEntity() instanceof Player player) {
+            if (hasTarot(player, ItemRegistry.the_devil.get())) {
+                TarotCards.LOGGER.debug("{} - Inflict weakness", ItemRegistry.the_devil.get());
+                TarotCards.LOGGER.debug("From: {}, To: {}", player, event.getEntity());
+                event.getEntity().addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 60, Configuration.the_devil_weaknessamplifier.get()));
+            }
+        }
+    }
 
 }

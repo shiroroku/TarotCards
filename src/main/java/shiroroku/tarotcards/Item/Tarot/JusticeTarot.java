@@ -40,10 +40,9 @@ public class JusticeTarot extends TarotItem {
 
                 attacker.hurt(justice_damage(player), amount);
 
-                TarotCards.LOGGER.debug("TAROT PASSIVE: {} - Returning damage", ItemRegistry.justice.get());
-                TarotCards.LOGGER.debug("From : {}", player);
-                TarotCards.LOGGER.debug("To : {} [{}]", attacker, attacker.getHealth());
-                TarotCards.LOGGER.debug("Amount : {}", amount);
+                TarotCards.LOGGER.debug("{} - Returning damage", ItemRegistry.justice.get());
+                TarotCards.LOGGER.debug("From: {}, To: {} [{}]", player, attacker, attacker.getHealth());
+                TarotCards.LOGGER.debug("Amount: {}", amount);
             }
         }
     }

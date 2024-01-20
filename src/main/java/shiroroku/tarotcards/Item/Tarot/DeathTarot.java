@@ -29,10 +29,9 @@ public class DeathTarot extends TarotItem {
 
 				float new_damage = (float) (event.getAmount() * (1 + Configuration.death_damagebonus.get()));
 
-				TarotCards.LOGGER.debug("TAROT PASSIVE: {} - 50% more damage to non-undead", ItemRegistry.death.get());
-				TarotCards.LOGGER.debug("From : {}", player);
-				TarotCards.LOGGER.debug("To : {}", event.getEntity());
-				TarotCards.LOGGER.debug("Amount : {} to {}", event.getAmount(), new_damage);
+				TarotCards.LOGGER.debug("{} - Damage to non-undead", ItemRegistry.death.get());
+				TarotCards.LOGGER.debug("From: {}, To: {}", player, event.getEntity());
+				TarotCards.LOGGER.debug("Amount: {} to {}", event.getAmount(), new_damage);
 
 				event.setAmount(new_damage);
 			}

@@ -116,12 +116,12 @@ public abstract class TarotItem extends Item {
         boolean hasCard = hasTarot(player, tarot) && additionalRequirements.get();
         if (player.getAttribute(a).hasModifier(mod)) {
             if (!hasCard) {
-                TarotCards.LOGGER.debug("Removing Tarot Modifier : {} - {}", tarot, mod);
+                TarotCards.LOGGER.debug("Removing Tarot Modifier: {} - {}", tarot, mod);
                 player.getAttribute(a).removeModifier(mod.getId());
             }
         } else {
             if (hasCard) {
-                TarotCards.LOGGER.debug("Adding Tarot Modifier : {} - {}", tarot, mod);
+                TarotCards.LOGGER.debug("Adding Tarot Modifier: {} - {}", tarot, mod);
                 player.getAttribute(a).addTransientModifier(mod);
             }
         }
