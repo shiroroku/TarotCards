@@ -27,10 +27,12 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Supplier;
 
 public abstract class TarotItem extends Item {
+
     public TarotItem() {
         super(new Properties().tab(TarotCards.CREATIVETAB).rarity(Rarity.UNCOMMON).stacksTo(1));
     }
 
+    @Override
     public boolean isFoil(ItemStack stack) {
         return isActivated(stack);
     }
@@ -42,13 +44,13 @@ public abstract class TarotItem extends Item {
         return !tarot.getOrCreateTag().getBoolean("deactivated");
     }
 
+    /**
+     * Toggles Tarot Card on use.
+     */
+    @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
-        if (pPlayer.getItemInHand(pUsedHand).getItem() instanceof TarotItem) {
-            ItemStack tarot = pPlayer.getItemInHand(pUsedHand);
-            boolean deactivated = tarot.getOrCreateTag().getBoolean("deactivated");
-            tarot.getOrCreateTag().putBoolean("deactivated", !deactivated);
-        }
-
+        ItemStack tarot = pPlayer.getItemInHand(pUsedHand);
+        tarot.getOrCreateTag().putBoolean("deactivated", !tarot.getOrCreateTag().getBoolean("deactivated"));
         return super.use(pLevel, pPlayer, pUsedHand);
     }
 
@@ -70,63 +72,56 @@ public abstract class TarotItem extends Item {
             deck = CuriosCompat.getTarotDeckCurio(player);
         }
 
-        //Check player for card
+        //Check player for card and deck
         for (List<ItemStack> compartment : fullInv) {
             for (ItemStack stack : compartment) {
+                //If we find the card, return it
+                //if we find the deck, remember it
                 if (stack.is(tarot)) {
                     return isActivated(stack);
                 }
-            }
-        }
-
-        //Check player for tarot deck
-        if (deck == null && pInv.contains(new ItemStack(ItemRegistry.tarot_deck.get()))) {
-            foundDeck:
-            for (List<ItemStack> compartment : fullInv) {
-                for (ItemStack stack : compartment) {
-                    if (stack.getItem() == ItemRegistry.tarot_deck.get()) {
-                        deck = stack;
-                        break foundDeck;
-                    }
+                if (stack.getItem() == ItemRegistry.tarot_deck.get()) { // This will choose player inventory decks over curios?
+                    deck = stack;
                 }
             }
         }
 
-        //Check deck for card
-        if (deck != null) {
-            AtomicReference<ItemStack> finalCard = new AtomicReference<>(null);
-            deck.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
-                for (int i = 0; i < handler.getSlots(); i++) {
-                    if (handler.getStackInSlot(i).is(tarot)) {
-                        finalCard.set(handler.getStackInSlot(i).copy());
-                        break;
-                    }
-                }
-            });
-
-            return finalCard.get() != null && isActivated(finalCard.get());
+        //If we didnt find the deck either, return false
+        if (deck == null) {
+            return false;
         }
 
-        return false;
-    }
+		//Check deck for card
+		AtomicReference<ItemStack> finalCard = new AtomicReference<>(null);
+		deck.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
+			for (int i = 0; i < handler.getSlots(); i++) {
+				if (handler.getStackInSlot(i).is(tarot)) {
+					finalCard.set(handler.getStackInSlot(i).copy());
+					break;
+				}
+			}
+		});
+
+		return finalCard.get() != null && isActivated(finalCard.get());
+	}
 
     /**
      * Will add or remove attribute modifiers if the player has the tarot.
      */
-    public static void handleAttribute(Player player, Attribute a, AttributeModifier mod, Item tarot) {
-        handleAttribute(player, a, mod, tarot, () -> true);
+    public static void handleAttributeTick(Player player, Attribute a, AttributeModifier mod, Item tarot) {
+        handleAttributeTick(player, a, mod, tarot, () -> true);
     }
 
-    public static void handleAttribute(Player player, Attribute a, AttributeModifier mod, Item tarot, Supplier<Boolean> additionalRequirements) {
+    public static void handleAttributeTick(Player player, Attribute a, AttributeModifier mod, Item tarot, Supplier<Boolean> additionalRequirements) {
         boolean hasCard = hasTarot(player, tarot) && additionalRequirements.get();
         if (player.getAttribute(a).hasModifier(mod)) {
             if (!hasCard) {
-                TarotCards.LOGGER.debug("Removing Tarot Modifier : {} - {}", tarot, mod);
-                player.getAttribute(a).removeModifier(mod);
+                TarotCards.LOGGER.debug("Removing Tarot Modifier: {} - {}", tarot, mod);
+                player.getAttribute(a).removeModifier(mod.getId());
             }
         } else {
             if (hasCard) {
-                TarotCards.LOGGER.debug("Adding Tarot Modifier : {} - {}", tarot, mod);
+                TarotCards.LOGGER.debug("Adding Tarot Modifier: {} - {}", tarot, mod);
                 player.getAttribute(a).addTransientModifier(mod);
             }
         }

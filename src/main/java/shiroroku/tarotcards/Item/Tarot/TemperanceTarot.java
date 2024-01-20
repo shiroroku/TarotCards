@@ -19,9 +19,8 @@ public class TemperanceTarot extends TarotItem {
 
 	public static float handleExhaustionAmount(float amount, Player player) {
 		if (hasTarot(player, ItemRegistry.temperance.get()) && amount != 0) {
-			TarotCards.LOGGER.debug("TAROT PASSIVE: {} - Reducing hunger", ItemRegistry.temperance.get());
-			TarotCards.LOGGER.debug("From : {} for [{}]", amount, player);
-			TarotCards.LOGGER.debug("To : {}", (float) (amount * (1f - Configuration.temperance_reduction.get())));
+			TarotCards.LOGGER.debug("{} - Reducing hunger", ItemRegistry.temperance.get());
+			TarotCards.LOGGER.debug("From: {}, To: {}, For: {}", amount, (float) (amount * (1f - Configuration.temperance_reduction.get())), player);
 			return (float) (amount * (1f - Configuration.temperance_reduction.get()));
 		}
 		return amount;

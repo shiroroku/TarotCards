@@ -18,22 +18,21 @@ import java.util.List;
 
 public class TheHangedManTarot extends TarotItem {
 
-	public static void handleOnHurt(LivingHurtEvent event) {
-		if (event.getEntity() instanceof Player player) {
-			if (hasTarot(player, ItemRegistry.the_hanged_man.get())) {
-				int xpamount = (int) (event.getAmount() * Configuration.the_hanged_man_xpratio.get());
-				TarotCards.LOGGER.debug("TAROT PASSIVE: {} - Damage to xp orb", ItemRegistry.the_hanged_man.get());
-				TarotCards.LOGGER.debug("To : {}", player);
-				TarotCards.LOGGER.debug("Amount : {}", xpamount);
-				ExperienceOrb orb = new ExperienceOrb(player.level, player.getX(), player.getY(), player.getZ(), xpamount);
-				player.level.addFreshEntity(orb);
-			}
-		}
-	}
+    public static void handleOnHurt(LivingHurtEvent event) {
+        if (event.getEntity() instanceof Player player) {
+            if (hasTarot(player, ItemRegistry.the_hanged_man.get())) {
+                int xpamount = (int) (event.getAmount() * Configuration.the_hanged_man_xpratio.get());
+                TarotCards.LOGGER.debug("{} - Damage to xp orb", ItemRegistry.the_hanged_man.get());
+                TarotCards.LOGGER.debug("Amount: {}, For: {}", xpamount, player);
+                ExperienceOrb orb = new ExperienceOrb(player.level, player.getX(), player.getY(), player.getZ(), xpamount);
+                player.level.addFreshEntity(orb);
+            }
+        }
+    }
 
-	@Override
-	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-		tooltip.add(Component.translatable(this.getDescriptionId() + ".desc", Configuration.the_hanged_man_xpratio.get() * 100 + "").withStyle(ChatFormatting.BLUE));
-	}
+    @Override
+    public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
+        tooltip.add(Component.translatable(this.getDescriptionId() + ".desc", String.valueOf(Configuration.the_hanged_man_xpratio.get() * 100)).withStyle(ChatFormatting.BLUE));
+    }
 
 }

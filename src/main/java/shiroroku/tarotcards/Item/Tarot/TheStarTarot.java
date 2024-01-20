@@ -22,12 +22,12 @@ public class TheStarTarot extends TarotItem {
     private static final Supplier<AttributeModifier> attribute = () -> new AttributeModifier(UUID.nameUUIDFromBytes("TarotStar".getBytes()), "Tarot Card", Configuration.the_star_reachboost.get(), AttributeModifier.Operation.MULTIPLY_BASE);
 
     public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
-        handleAttribute(event.player, ForgeMod.REACH_DISTANCE.get(), attribute.get(), ItemRegistry.the_star.get());
+        handleAttributeTick(event.player, ForgeMod.REACH_DISTANCE.get(), attribute.get(), ItemRegistry.the_star.get());
     }
 
-    @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable(this.getDescriptionId() + ".desc", Configuration.the_star_reachboost.get() * 100).withStyle(ChatFormatting.BLUE));
-    }
+	@Override
+	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
+		tooltip.add(Component.translatable(this.getDescriptionId() + ".desc", Configuration.the_star_reachboost.get() * 100).withStyle(ChatFormatting.BLUE));
+	}
 
 }

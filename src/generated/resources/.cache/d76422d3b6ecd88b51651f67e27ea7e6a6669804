@@ -1,0 +1,24 @@
+// 1.19.2	2024-01-21T00:14:24.409111706	Item Models: tarotcards
+6d45874722483a9b39e2f32f7bf7019dc945d603 assets/tarotcards/models/item/death.json
+209a620526607d5c9357f0dbe67ff4dab65bbbc9 assets/tarotcards/models/item/judgement.json
+3776279964f41a8de0de7ca103fa9a2fb0a8cdff assets/tarotcards/models/item/justice.json
+3664ee17e04a9c07efd514945cd95428b12f009e assets/tarotcards/models/item/strength.json
+f0c1c24bf2c9c662eb781a658ca876d791e314b3 assets/tarotcards/models/item/tarot_deck.json
+a624158f6fa003161f17918122267b83aa33615b assets/tarotcards/models/item/temperance.json
+8ce0277ca9f1bce779c6e85e24a5044d57b72f11 assets/tarotcards/models/item/the_chariot.json
+7ad9084765dd3f0c391d7ab56b2735e76c234580 assets/tarotcards/models/item/the_devil.json
+24534a014b5e7551bc52a9815899a2287cdee510 assets/tarotcards/models/item/the_emperor.json
+523366c35bcfdc1d3c953ce61ef48b560859b3f8 assets/tarotcards/models/item/the_empress.json
+af2b76c19dcc6a8e35c13508f1856e5cab493aaf assets/tarotcards/models/item/the_fool.json
+444b2ebffc78e0d7be1831c17f8714cd011fd5c3 assets/tarotcards/models/item/the_hanged_man.json
+7dee12f43234c4a72ac8182e9794114824e1350d assets/tarotcards/models/item/the_hermit.json
+24a5bdce341a5923162599cf0664ff717eba4ffb assets/tarotcards/models/item/the_hierophant.json
+5c79ee8ec402a059e20614c38c61f2a8e286fe45 assets/tarotcards/models/item/the_high_priestess.json
+c27319ca7b2af166d364dd7965ccd5da1b9b7080 assets/tarotcards/models/item/the_lovers.json
+fd3dac8ad9093ac06a2a5664a281e254b48287b4 assets/tarotcards/models/item/the_magician.json
+71ef76ac750d48ee9966d6f15bb9ba537ab0fa03 assets/tarotcards/models/item/the_moon.json
+fd7645b51c28b98e7280372b01a064e91843df2b assets/tarotcards/models/item/the_star.json
+949eadca64590e48fb7f30d4d4889c1625e97543 assets/tarotcards/models/item/the_sun.json
+f5fa4b24375086f2d44526b2a29d54310836f043 assets/tarotcards/models/item/the_tower.json
+78ecb733ec2c4087a2f658fdc1031a128ef85758 assets/tarotcards/models/item/the_world.json
+adbae5fbbae2e55ea618fc9cc245fd1d076b750d assets/tarotcards/models/item/wheel_of_fortune.json

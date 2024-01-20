@@ -16,7 +16,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import shiroroku.tarotcards.Container.TarotDeckContainer;
+import shiroroku.tarotcards.Item.TarotDeck.TarotDeckContainer;
 import shiroroku.tarotcards.Registry.ItemRegistry;
 import shiroroku.tarotcards.World.TarotLootAdditions;
 
@@ -26,11 +26,10 @@ public class TarotCards {
 	public static final String MODID = "tarotcards";
 	public static final Logger LOGGER = LogManager.getLogger();
 
-	private static final DeferredRegister<Codec<? extends IGlobalLootModifier>> MODIFIERS = DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, TarotCards.MODID);
-	private static final RegistryObject<Codec<TarotLootAdditions>> loot_additions = MODIFIERS.register("loot_additions", TarotLootAdditions.CODEC);
+    private static final DeferredRegister<Codec<? extends IGlobalLootModifier>> LOOT_MODIFIERS = DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, TarotCards.MODID);
 
-	private static final DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.MENU_TYPES, TarotCards.MODID);
-	public static final RegistryObject<MenuType<TarotDeckContainer>> tarot_deck = CONTAINERS.register("tarot_deck", () -> IForgeMenuType.create((windowId, inv, data) -> new TarotDeckContainer(windowId, inv, inv.player)));
+	private static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(ForgeRegistries.MENU_TYPES, TarotCards.MODID);
+	public static final RegistryObject<MenuType<TarotDeckContainer>> tarot_deck_menu = MENUS.register("tarot_deck", () -> IForgeMenuType.create((windowId, inv, data) -> new TarotDeckContainer(windowId, inv, inv.player)));
 
 	public static final CreativeModeTab CREATIVETAB = new CreativeModeTab(MODID) {
 		@Override
@@ -43,7 +42,9 @@ public class TarotCards {
 		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Configuration.config);
 		ItemRegistry.ITEMS.register(bus);
-		CONTAINERS.register(bus);
-		MODIFIERS.register(bus);
+        ItemRegistry.ITEMS_CARDS.register(bus);
+		MENUS.register(bus);
+        LOOT_MODIFIERS.register("loot_additions", TarotLootAdditions.CODEC);
+		LOOT_MODIFIERS.register(bus);
 	}
 }

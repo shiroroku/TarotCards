@@ -22,7 +22,7 @@ public class TheSunTarot extends TarotItem {
 	private static final Supplier<AttributeModifier> healthBoost = ()-> new AttributeModifier(UUID.nameUUIDFromBytes("TarotSun".getBytes()), "Tarot Card", Configuration.the_sun_healthboost.get(), AttributeModifier.Operation.MULTIPLY_BASE);
 
 	public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
-		handleAttribute(event.player, Attributes.MAX_HEALTH, healthBoost.get(), ItemRegistry.the_sun.get());
+		handleAttributeTick(event.player, Attributes.MAX_HEALTH, healthBoost.get(), ItemRegistry.the_sun.get());
 	}
 
 	@Override
