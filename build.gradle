@@ -22,17 +22,18 @@ minecraft {
 			workingDirectory project.file('run')
 			property 'forge.logging.markers', 'REGISTRIES'
 			property 'forge.logging.console.level', 'debug'
-
+			arg "-mixin.config=" + "${mod_id}".toString() + ".mixins.json"
 			mods {
 				"${mod_id}" {
 					source sourceSets.main
+					source sourceSets.test
 				}
 			}
 		}
 
 		client {
-			workingDirectory project.file('run')
-			arg "-mixin.config=" + "${mod_id}".toString() + ".mixins.json"
+			property 'forge.enableGameTest', 'true'
+			property 'forge.enabledGameTestNamespaces', mod_id
 		}
 
 		server {
@@ -40,8 +41,11 @@ minecraft {
 		}
 
 		data {
-			workingDirectory project.file('run')
 			args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+		}
+
+		gameTestServer {
+			property 'forge.enabledGameTestNamespaces', mod_id
 		}
 	}
 }
