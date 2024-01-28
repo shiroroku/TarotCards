@@ -7,6 +7,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import shiroroku.tarotcards.Item.TarotDeck.TarotDeckScreen;
 import shiroroku.tarotcards.Registry.ItemRegistry;
 
@@ -17,8 +18,8 @@ import java.util.function.Supplier;
 public class EventsClient {
 
     @SubscribeEvent
-    public static void onClientSetup(FMLClientSetupEvent event) {
-        event.enqueueWork(() -> MenuScreens.register(TarotCards.tarot_deck_menu.get(), TarotDeckScreen::new));
+    public static void onRegisterMenuScreens(RegisterMenuScreensEvent event) {
+        event.register(TarotCards.tarot_deck_menu.get(), TarotDeckScreen::new);
     }
 
     @SubscribeEvent

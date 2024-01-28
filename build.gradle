@@ -9,18 +9,6 @@ plugins {
 version = mod_version
 group = mod_group_id
 
-repositories {
-    mavenLocal()
-    maven {
-        // Curios
-        url = "https://maven.theillusivec4.top/"
-    }
-    maven {
-        // JEI
-        url = "https://maven.blamejared.com/"
-    }
-}
-
 base {
     archivesName = mod_id
 }
@@ -54,6 +42,18 @@ runs {
 }
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+repositories {
+    mavenLocal()
+    maven {
+        // Curios
+        url = "https://maven.theillusivec4.top/"
+    }
+    maven {
+        // JEI
+        url = "https://maven.blamejared.com/"
+    }
+}
 
 dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
