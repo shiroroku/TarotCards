@@ -18,7 +18,6 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.items.ItemStackHandler;
-import net.neoforged.neoforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 import shiroroku.tarotcards.TarotCards;
 
@@ -57,7 +56,7 @@ public class TarotDeckItem extends Item implements MenuProvider {
     @Override
     public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
         if (player instanceof ServerPlayer serverPlayer) {
-            NetworkHooks.openScreen(serverPlayer, this);
+            serverPlayer.openMenu(this);
         }
         return super.use(world, player, hand);
     }

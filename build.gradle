@@ -12,7 +12,12 @@ group = mod_group_id
 repositories {
     mavenLocal()
     maven {
+        // Curios
         url = "https://maven.theillusivec4.top/"
+    }
+    maven {
+        // JEI
+        url = "https://maven.blamejared.com/"
     }
 }
 
@@ -53,6 +58,9 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
     implementation "top.theillusivec4.curios:curios-neoforge:${curios_version}"
+    compileOnly("mezz.jei:jei-1.20.4-common-api:${jei_version}")
+    compileOnly("mezz.jei:jei-1.20.4-neoforge-api:${jei_version}")
+    runtimeOnly("mezz.jei:jei-1.20.4-neoforge:${jei_version}")
 }
 
 tasks.withType(ProcessResources).configureEach {
