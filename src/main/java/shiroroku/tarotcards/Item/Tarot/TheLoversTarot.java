@@ -28,7 +28,6 @@ public class TheLoversTarot extends TarotItem {
     public static void handleOnPlayerTick(TickEvent.PlayerTickEvent event) {
         Player player = event.player;
         if (hasTarot(player, ItemRegistry.the_lovers.get())) {
-            player.addEffect(effect.get());
             player.level().getNearbyEntities(LivingEntity.class, targeting, player, player.getBoundingBox().inflate(Configuration.the_lovers_range.get())).stream()
                     .filter(e -> e.isAlliedTo(player))
                     .forEach(e -> {
