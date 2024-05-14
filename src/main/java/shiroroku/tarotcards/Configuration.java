@@ -16,6 +16,7 @@ public class Configuration {
     public static ModConfigSpec.DoubleValue the_chariot_speedboost;
     public static ModConfigSpec.DoubleValue the_empress_range;
     public static ModConfigSpec.DoubleValue the_hanged_man_xpratio;
+    public static ModConfigSpec.IntValue the_hanged_man_xpcap;
     public static ModConfigSpec.DoubleValue the_hermit_allyrange;
     public static ModConfigSpec.DoubleValue the_hermit_armorbonus;
     public static ModConfigSpec.DoubleValue the_hierophant_xpboost;
@@ -55,6 +56,7 @@ public class Configuration {
         the_empress_range = builder.comment("How close animals need to be to set lovemode").defineInRange("the_empress_range", 3D, 0.0D, 256D);
         the_fool_jumpboost = builder.comment("Amplifier for effect (2 = III)").defineInRange("the_fool_jumpboost", 2, 0, 100);
         the_hanged_man_xpratio = builder.comment("How much of the damage is converted to experience").defineInRange("the_hanged_man_xpratio", 0.5D, 0.0D, 1D);
+        the_hanged_man_xpcap = builder.comment("Max amount of experience that can be obtained from an instance of damage").defineInRange("the_hanged_man_xpcap", 25, 0, Integer.MAX_VALUE);
         the_hermit_allyrange = builder.comment("How far away the player must be from allies to activate").defineInRange("the_hermit_allyrange", 10D, 0.0D, 256D);
         the_hermit_armorbonus = builder.comment("How much armor is added when away from allies").defineInRange("the_hermit_armorbonus", 10D, 0.0D, 100D);
         the_hierophant_xpboost = builder.comment("Percentage increase of experience (2 = +200%)").defineInRange("the_hierophant_xpboost", 1.5D, 1D, 100D);
