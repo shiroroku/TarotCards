@@ -6,6 +6,8 @@ public class Configuration {
 
     public static ModConfigSpec config = build();
 
+    public static ModConfigSpec.BooleanValue require_card_in_curio;
+    public static ModConfigSpec.BooleanValue tarot_deck_applies_effects;
     public static ModConfigSpec.BooleanValue do_loot_generation;
     public static ModConfigSpec.BooleanValue the_highpriestess_capenchants;
     public static ModConfigSpec.DoubleValue death_damagebonus;
@@ -39,6 +41,8 @@ public class Configuration {
         ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
         builder.push("Tarot Cards");
         tick_rate = builder.comment("How many ticks it takes to check if a player has a tarot or not, more = more performace but longer time to activate/deactivate effects").defineInRange("tick_rate", 20, 0, 1200);
+        require_card_in_curio = builder.comment("Requires the card to be in your curio slot, or in the tarot deck (also in the curio slot) to function").define("require_card_in_curio", false);
+        tarot_deck_applies_effects  = builder.comment("If cards in the tarot deck apply their effects to the player holding it").define("tarot_deck_applies_effects", true);
         builder.push("Loot");
         default_loot_chance = builder.comment("Chance a tarot card appears in default loot (0.75 = 75%)(1.0 = there will always be a single tarot card in chests)").defineInRange("default_loot_chance", 0.2D, 0D, 1D);
         do_loot_generation = builder.comment("If Tarot Cards should be added to the default loot tables specified in data").define("do_loot_generation", true);
