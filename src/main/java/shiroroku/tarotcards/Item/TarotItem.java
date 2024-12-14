@@ -10,10 +10,7 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fml.ModList;
@@ -67,8 +64,14 @@ public abstract class TarotItem extends Item {
         Inventory pInv = player.getInventory();
         final List<NonNullList<ItemStack>> fullInv = ImmutableList.of(pInv.items, pInv.armor, pInv.offhand);
 
-        //Check curios for tarot deck
+        //Check curios
         if (ModList.get().isLoaded("curios")) {
+            // If they have the card in curio slot
+            ItemStack singlecard = CuriosCompat.getTarotCardCurio(player, tarot);
+            if (singlecard != null && isActivated(singlecard)) {
+                return true;
+            }
+            // If they have the deck in a curio slot, save it for checking later
             deck = CuriosCompat.getTarotDeckCurio(player);
         }
 
@@ -91,19 +94,19 @@ public abstract class TarotItem extends Item {
             return false;
         }
 
-		//Check deck for card
-		AtomicReference<ItemStack> finalCard = new AtomicReference<>(null);
-		deck.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
-			for (int i = 0; i < handler.getSlots(); i++) {
-				if (handler.getStackInSlot(i).is(tarot)) {
-					finalCard.set(handler.getStackInSlot(i).copy());
-					break;
-				}
-			}
-		});
+        //Check deck for card
+        AtomicReference<ItemStack> finalCard = new AtomicReference<>(null);
+        deck.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
+            for (int i = 0; i < handler.getSlots(); i++) {
+                if (handler.getStackInSlot(i).is(tarot)) {
+                    finalCard.set(handler.getStackInSlot(i).copy());
+                    break;
+                }
+            }
+        });
 
-		return finalCard.get() != null && isActivated(finalCard.get());
-	}
+        return finalCard.get() != null && isActivated(finalCard.get());
+    }
 
     /**
      * Will add or remove attribute modifiers if the player has the tarot.
