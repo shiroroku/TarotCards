@@ -14,6 +14,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fml.ModList;
+import shiroroku.tarotcards.Configuration;
 import shiroroku.tarotcards.CuriosCompat;
 import shiroroku.tarotcards.Registry.ItemRegistry;
 import shiroroku.tarotcards.TarotCards;
@@ -64,7 +65,7 @@ public abstract class TarotItem extends Item {
         Inventory pInv = player.getInventory();
         final List<NonNullList<ItemStack>> fullInv = ImmutableList.of(pInv.items, pInv.armor, pInv.offhand);
 
-        //Check curios
+        // Check curios
         if (ModList.get().isLoaded("curios")) {
             // If they have the card in curio slot
             ItemStack singlecard = CuriosCompat.getTarotCardCurio(player, tarot);
@@ -75,16 +76,19 @@ public abstract class TarotItem extends Item {
             deck = CuriosCompat.getTarotDeckCurio(player);
         }
 
-        //Check player for card and deck
-        for (List<ItemStack> compartment : fullInv) {
-            for (ItemStack stack : compartment) {
-                //If we find the card, return it
-                //if we find the deck, remember it
-                if (stack.is(tarot)) {
-                    return isActivated(stack);
-                }
-                if (stack.getItem() == ItemRegistry.tarot_deck.get()) { // This will choose player inventory decks over curios?
-                    deck = stack;
+        // Only search the inventory if config allows it
+        if (!Configuration.require_card_in_curio.get()) {
+            // Check player for card and deck
+            for (List<ItemStack> compartment : fullInv) {
+                for (ItemStack stack : compartment) {
+                    // If we find the card, return it
+                    // if we find the deck, remember it
+                    if (stack.is(tarot)) {
+                        return isActivated(stack);
+                    }
+                    if (stack.getItem() == ItemRegistry.tarot_deck.get()) { // This will choose player inventory decks over curios?
+                        deck = stack;
+                    }
                 }
             }
         }
@@ -94,16 +98,18 @@ public abstract class TarotItem extends Item {
             return false;
         }
 
-        //Check deck for card
+        //Check tarot deck for card if config allows it
         AtomicReference<ItemStack> finalCard = new AtomicReference<>(null);
-        deck.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
-            for (int i = 0; i < handler.getSlots(); i++) {
-                if (handler.getStackInSlot(i).is(tarot)) {
-                    finalCard.set(handler.getStackInSlot(i).copy());
-                    break;
+        if (Configuration.tarot_deck_applies_effects.get()) {
+            deck.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
+                for (int i = 0; i < handler.getSlots(); i++) {
+                    if (handler.getStackInSlot(i).is(tarot)) {
+                        finalCard.set(handler.getStackInSlot(i).copy());
+                        break;
+                    }
                 }
-            }
-        });
+            });
+        }
 
         return finalCard.get() != null && isActivated(finalCard.get());
     }
