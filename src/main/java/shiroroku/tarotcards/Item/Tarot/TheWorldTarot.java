@@ -5,6 +5,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.OwnableEntity;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -29,6 +30,7 @@ public class TheWorldTarot extends TarotItem {
         if (hasTarot(player, ItemRegistry.the_world.get())) {
             player.level().getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, player, player.getBoundingBox().inflate(Configuration.the_world_range.get())).stream()
                     .filter(e -> !e.isAlliedTo(player))
+                    .filter(e -> !(e instanceof OwnableEntity eOwnedEntity) || eOwnedEntity.getOwner() == null)
                     .filter(e -> !(e instanceof Player ePlayer) || player.canHarmPlayer(ePlayer))
                     .forEach(e -> {
                         TarotCards.LOGGER.debug("{} - Slow nearby", ItemRegistry.the_world.get());
