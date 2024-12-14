@@ -67,8 +67,14 @@ public abstract class TarotItem extends Item {
         Inventory pInv = player.getInventory();
         final List<NonNullList<ItemStack>> fullInv = ImmutableList.of(pInv.items, pInv.armor, pInv.offhand);
 
-        //Check curios for tarot deck
+        //Check curios
         if (ModList.get().isLoaded("curios")) {
+            // If they have the card in curio slot
+            ItemStack singlecard = CuriosCompat.getTarotCardCurio(player, tarot);
+            if (singlecard != null && isActivated(singlecard)) {
+                return true;
+            }
+            // If they have the deck in a curio slot, save it for checking later
             deck = CuriosCompat.getTarotDeckCurio(player);
         }
 
